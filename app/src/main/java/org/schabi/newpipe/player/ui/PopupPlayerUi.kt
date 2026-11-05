@@ -100,7 +100,6 @@ class PopupPlayerUi(player: Player, views: YpPlayerViews) : VideoPlayerUi(player
             backgroundTintList = android.content.res.ColorStateList.valueOf(
                 androidx.core.content.ContextCompat.getColor(context, R.color.yp_rubi)
             )
-            borderWidth = 0
             visibility = android.view.View.GONE
         }
         val overlay = FrameLayout(context).apply {

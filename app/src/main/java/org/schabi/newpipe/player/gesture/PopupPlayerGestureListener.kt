@@ -175,14 +175,14 @@ class PopupPlayerGestureListener(
             val absVelocityX = abs(velocityX)
             val absVelocityY = abs(velocityY)
             if (absVelocityX.coerceAtLeast(absVelocityY) > TOSS_FLING_VELOCITY) {
-                if (absVelocityX > TOSS_FLING_VELOCITY) {
-                    playerUi.popupLayoutParams.x = velocityX.toInt()
-                }
-                if (absVelocityY > TOSS_FLING_VELOCITY) {
-                    playerUi.popupLayoutParams.y = velocityY.toInt()
-                }
-                playerUi.checkPopupPositionBounds()
                 playerUi.popupLayoutParams?.let { params ->
+                    if (absVelocityX > TOSS_FLING_VELOCITY) {
+                        params.x = velocityX.toInt()
+                    }
+                    if (absVelocityY > TOSS_FLING_VELOCITY) {
+                        params.y = velocityY.toInt()
+                    }
+                    playerUi.checkPopupPositionBounds()
                     playerUi.windowManager?.updateViewLayout(views.root, params)
                 }
                 return true

@@ -423,11 +423,11 @@ class MainPlayerUi(player: Player, views: YpPlayerViews) :
 
     private fun showHideKodiButton() {
         // show the kodi button if it supports the current service and is enabled in settings
-        val playQueue = player.playQueue
+        val queueItem = player.playQueue?.item
         chromeState.update {
             it.copy(
-                showKodi = playQueue?.item != null &&
-                    KoreUtils.shouldShowPlayWithKodi(context, playQueue.item.serviceId)
+                showKodi = queueItem != null &&
+                    KoreUtils.shouldShowPlayWithKodi(context, queueItem.serviceId)
             )
         }
     }
@@ -663,7 +663,7 @@ class MainPlayerUi(player: Player, views: YpPlayerViews) :
                     item.serviceId,
                     item.url
                 ) { info ->
-                    org.schabi.newpipe.util.DownloadDialog(it, info)
+                    org.schabi.newpipe.download.DownloadDialog(it, info)
                         .show(it.supportFragmentManager, "downloadDialog")
                 }
             }

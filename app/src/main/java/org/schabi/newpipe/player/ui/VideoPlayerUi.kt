@@ -17,7 +17,6 @@ import com.google.android.exoplayer2.Tracks
 import com.google.android.exoplayer2.text.Cue
 import com.google.android.exoplayer2.video.VideoSize
 import io.github.yewplay.core.designsystem.YpTheme
-import io.github.yewplay.core.designsystem.YpThemePrefs
 import java.util.Collections
 import java.util.Optional
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -32,6 +31,7 @@ import org.schabi.newpipe.extractor.stream.StreamSegment
 import org.schabi.newpipe.extractor.stream.VideoStream
 import org.schabi.newpipe.fragments.detail.YpVideoDetailFragment
 import org.schabi.newpipe.ktx.animate
+import org.schabi.newpipe.local.yewplay.YpThemePrefs
 import org.schabi.newpipe.player.Player
 import org.schabi.newpipe.player.gesture.BasePlayerGestureListener
 import org.schabi.newpipe.player.gesture.DisplayPortion
@@ -44,7 +44,7 @@ import org.schabi.newpipe.util.Localization
 import org.schabi.newpipe.util.NavigationHelper
 import org.schabi.newpipe.util.external_communication.KoreUtils
 import org.schabi.newpipe.util.external_communication.ShareUtils
-import org.schabi.newpipe.views.player.PlayerFastSeekOverlay.FastSeekDirection
+import org.schabi.newpipe.views.player.PlayerFastSeekOverlay.PerformListener.FastSeekDirection
 
 /**
  * Base class for the video player UIs (main and popup). The video surface, the subtitle view,
@@ -81,8 +81,9 @@ abstract class VideoPlayerUi(
 
     init {
         setupSubtitleView()
-        playerGestureListener = buildGestureListener()
-        gestureDetector = GestureDetector(context, playerGestureListener)
+        val listener = buildGestureListener()
+        playerGestureListener = listener
+        gestureDetector = GestureDetector(context, listener)
         views.root.setOnTouchListener(playerGestureListener)
         setupPlayerSeekOverlay()
         views.controlsView.setContent {
@@ -131,7 +132,6 @@ abstract class VideoPlayerUi(
 
     @androidx.compose.runtime.Composable
     private fun buildIcons(): YpChromeIcons {
-        val exoUi = com.google.android.exoplayer2.ui.R.drawable
         return YpChromeIcons(
             close = painterResource(R.drawable.ic_close),
             play = painterResource(R.drawable.ic_play_arrow),
@@ -139,9 +139,9 @@ abstract class VideoPlayerUi(
             replay = painterResource(R.drawable.ic_replay),
             previous = painterResource(R.drawable.ic_previous),
             next = painterResource(R.drawable.ic_next),
-            repeatOff = painterResource(exoUi.exo_controls_repeat_off),
-            repeatOne = painterResource(exoUi.exo_controls_repeat_one),
-            repeatAll = painterResource(exoUi.exo_controls_repeat_all),
+            repeatOff = painterResource(com.google.android.exoplayer2.ui.R.drawable.exo_controls_repeat_off),
+            repeatOne = painterResource(com.google.android.exoplayer2.ui.R.drawable.exo_controls_repeat_one),
+            repeatAll = painterResource(com.google.android.exoplayer2.ui.R.drawable.exo_controls_repeat_all),
             shuffle = painterResource(R.drawable.ic_shuffle),
             moreOptions = painterResource(R.drawable.ic_expand_more),
             fullScreen = painterResource(R.drawable.ic_fullscreen),
@@ -575,7 +575,7 @@ abstract class VideoPlayerUi(
         chromeState.update {
             it.copy(
                 durationMillis = (player.exoPlayer?.duration ?: 0L).toInt(),
-                speedText = PlayerHelper.formatSpeed(player.playbackSpeed)
+                speedText = PlayerHelper.formatSpeed(player.playbackSpeed.toDouble())
             )
         }
     }
@@ -673,7 +673,7 @@ abstract class VideoPlayerUi(
 
     override fun onPlaybackParametersChanged(playbackParameters: PlaybackParameters) {
         super.onPlaybackParametersChanged(playbackParameters)
-        chromeState.update { it.copy(speedText = PlayerHelper.formatSpeed(playbackParameters.speed)) }
+        chromeState.update { it.copy(speedText = PlayerHelper.formatSpeed(playbackParameters.speed.toDouble())) }
     }
 
     override fun onRenderedFirstFrame() {
@@ -737,10 +737,8 @@ abstract class VideoPlayerUi(
 
                 org.schabi.newpipe.extractor.stream.StreamType.VIDEO_STREAM,
                 org.schabi.newpipe.extractor.stream.StreamType.POST_LIVE_STREAM -> {
-                    if (!(
-                            player.currentMetadata != null &&
-                                player.currentMetadata.maybeQuality.isEmpty
-                            ) &&
+                    val noQuality = player.currentMetadata?.maybeQuality?.isEmpty ?: false
+                    if (!noQuality &&
                         !(info.videoStreams.isEmpty() && info.videoOnlyStreams.isEmpty())
                     ) {
                         buildQualityMenu()
@@ -812,8 +810,8 @@ abstract class VideoPlayerUi(
     private fun buildPlaybackSpeedMenu() {
         chromeState.update {
             it.copy(
-                speedOptions = PLAYBACK_SPEEDS.map(PlayerHelper::formatSpeed),
-                speedText = PlayerHelper.formatSpeed(player.playbackSpeed)
+                speedOptions = PLAYBACK_SPEEDS.map { PlayerHelper.formatSpeed(it.toDouble()) },
+                speedText = PlayerHelper.formatSpeed(player.playbackSpeed.toDouble())
             )
         }
     }
@@ -853,7 +851,7 @@ abstract class VideoPlayerUi(
     private fun onSpeedSelected(index: Int) {
         val speed = PLAYBACK_SPEEDS[index]
         player.setPlaybackSpeed(speed)
-        chromeState.update { it.copy(speedText = PlayerHelper.formatSpeed(speed)) }
+        chromeState.update { it.copy(speedText = PlayerHelper.formatSpeed(speed.toDouble())) }
     }
 
     protected abstract fun onPlaybackSpeedClicked()
@@ -1006,7 +1004,7 @@ abstract class VideoPlayerUi(
     open fun onKeyDown(keyCode: Int): Boolean {
         when (keyCode) {
             KeyEvent.KEYCODE_BACK -> {
-                if (DeviceUtils.isTv(context) && isControlsVisible()) {
+                if (DeviceUtils.isTv(context) && isControlsVisible) {
                     hideControls(0, 0)
                     return true
                 }
@@ -1022,7 +1020,7 @@ abstract class VideoPlayerUi(
                 if (player.currentState == Player.STATE_BLOCKED) {
                     return true
                 }
-                if (isControlsVisible()) {
+                if (isControlsVisible) {
                     hideControls(DEFAULT_CONTROLS_DURATION, DPAD_CONTROLS_HIDE_TIME)
                 } else {
                     showControlsThenHide()
@@ -1144,7 +1142,7 @@ abstract class VideoPlayerUi(
         const val DEFAULT_CONTROLS_DURATION = 300L // 300 millis
         const val DEFAULT_CONTROLS_HIDE_TIME = 2000L // 2 seconds
         const val DPAD_CONTROLS_HIDE_TIME = 7000L // 7 seconds
-        const val SEEK_OVERLAY_DURATION = 450 // 450 millis
+        const val SEEK_OVERLAY_DURATION = 450L // 450 millis
 
         @JvmField
         val PLAYBACK_SPEEDS = floatArrayOf(0.5f, 0.75f, 1.0f, 1.25f, 1.5f, 1.75f, 2.0f)

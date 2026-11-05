@@ -387,11 +387,11 @@ private fun YpChromeButton(
     painter: Painter,
     contentDescription: String?,
     size: androidx.compose.ui.unit.Dp,
-    onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    onLongClick: (() -> Unit)? = null,
     alpha: Float = 1f,
-    rotation: Float = 0f
+    rotation: Float = 0f,
+    onLongClick: (() -> Unit)? = null,
+    onClick: () -> Unit
 ) {
     if (alpha <= 0f) {
         // mirrors View.INVISIBLE: reserves the space but does not draw or receive clicks
