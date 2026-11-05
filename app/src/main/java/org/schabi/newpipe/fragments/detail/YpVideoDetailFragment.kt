@@ -710,7 +710,7 @@ class YpVideoDetailFragment :
                 fm,
                 currentInfo!!.serviceId,
                 subChannelUrl,
-                subChannelName
+                subChannelName.orEmpty()
             )
         } catch (e: Exception) {
             ErrorUtil.showUiErrorSnackbar(this, "Opening channel fragment", e)
@@ -745,7 +745,7 @@ class YpVideoDetailFragment :
             it.copy(
                 showKodi = KoreUtils.shouldShowPlayWithKodi(requireContext(), serviceId),
                 showCrashThePlayer = DEBUG && PreferenceManager
-                    .getDefaultSharedPreferences(context)
+                    .getDefaultSharedPreferences(requireContext())
                     .getBoolean(getString(R.string.show_crash_the_player_key), false)
             )
         }
@@ -1472,7 +1472,7 @@ class YpVideoDetailFragment :
         b.playerPlaceholder.requestLayout()
     }
 
-    private val preDrawListener = ViewTreeObserver.OnPreDrawListener {
+    private val preDrawListener: ViewTreeObserver.OnPreDrawListener = ViewTreeObserver.OnPreDrawListener {
         val metrics = resources.displayMetrics
 
         if (view != null) {
@@ -1662,7 +1662,7 @@ class YpVideoDetailFragment :
         val b = binding ?: return
 
         // if data is already cached, transition from VISIBLE -> INVISIBLE -> VISIBLE isn't required
-        if (!ExtractorHelper.isCached(serviceId, url, InfoCache.Type.STREAM)) {
+        if (!ExtractorHelper.isCached(serviceId, url.orEmpty(), InfoCache.Type.STREAM)) {
             b.detailContentRootHiding.visibility = View.INVISIBLE
         }
 
@@ -1954,7 +1954,7 @@ class YpVideoDetailFragment :
                 val b = binding ?: return
                 if (b.positionView.alpha != 1.0f &&
                     player?.playQueue?.item != null &&
-                    player!!.playQueue.item!!.url == url
+                    player!!.playQueue?.item!!.url == url
                 ) {
                     b.positionView.animate(true, 100)
                     b.detailPositionView.animate(true, 100)
@@ -2223,7 +2223,7 @@ class YpVideoDetailFragment :
         val b = binding ?: return
         // the Compose action buttons have no background to tint; on TV the focus
         // highlight comes from the Compose clickable itself
-        if (DeviceUtils.isDesktopMode(context)) {
+        if (DeviceUtils.isDesktopMode(requireContext())) {
             b.detailThumbnailRootLayout.foreground = null
         }
     }
@@ -2487,7 +2487,7 @@ class YpVideoDetailFragment :
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                     { entries ->
-                        val liked = findLikedPlaylist(entries, likedName)
+                        val liked = entries.firstOrNull { it.orderingName == likedName }
                         if (liked != null && liked.timesStreamIsContained > 0) {
                             Toast.makeText(
                                 context,
@@ -2640,7 +2640,7 @@ class YpVideoDetailFragment :
         val isPlayQueueEmpty =
             player == null || // no player => no play queue :)
                 player!!.playQueue == null ||
-                player!!.playQueue.isEmpty
+                player!!.playQueue?.isEmpty ?: true
         binding?.overlayPlayQueueButton?.visibility =
             if (isPlayQueueEmpty) View.GONE else View.VISIBLE
     }

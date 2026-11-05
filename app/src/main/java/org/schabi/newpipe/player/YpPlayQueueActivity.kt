@@ -117,7 +117,7 @@ class YpPlayQueueActivity : AppCompatActivity(), PlayerEventListener, PlaybackPa
                         sleepTimerTitle = stringResource(R.string.yp_sleep_timer_title),
                         sleepTimerOff = stringResource(R.string.yp_sleep_timer_off),
                         sleepTimerMinutes = { minutes ->
-                            stringResource(R.string.yp_sleep_timer_minutes, minutes)
+                            getString(R.string.yp_sleep_timer_minutes, minutes)
                         },
                         share = stringResource(R.string.share),
                         queue = stringResource(R.string.title_activity_play_queue),
@@ -187,23 +187,23 @@ class YpPlayQueueActivity : AppCompatActivity(), PlayerEventListener, PlaybackPa
                             startActivity(Intent(Settings.ACTION_SOUND_SETTINGS))
                         },
                         onSwitchToMain = {
-                            player?.let { p ->
-                                p.setRecovery()
-                                NavigationHelper.playOnMainPlayer(this, p.playQueue, true)
+                            player?.playQueue?.let { queue ->
+                                player?.setRecovery()
+                                NavigationHelper.playOnMainPlayer(this, queue, true)
                             }
                         },
                         onSwitchToPopup = {
-                            player?.let { p ->
+                            player?.playQueue?.let { queue ->
                                 if (PermissionHelper.isPopupEnabledElseAsk(this)) {
-                                    p.setRecovery()
-                                    NavigationHelper.playOnPopupPlayer(this, p.playQueue, true)
+                                    player?.setRecovery()
+                                    NavigationHelper.playOnPopupPlayer(this, queue, true)
                                 }
                             }
                         },
                         onSwitchToBackground = {
-                            player?.let { p ->
-                                p.setRecovery()
-                                NavigationHelper.playOnBackgroundPlayer(this, p.playQueue, true)
+                            player?.playQueue?.let { queue ->
+                                player?.setRecovery()
+                                NavigationHelper.playOnBackgroundPlayer(this, queue, true)
                             }
                         },
                         onRepeat = { player?.cycleNextRepeatMode() },
@@ -214,7 +214,7 @@ class YpPlayQueueActivity : AppCompatActivity(), PlayerEventListener, PlaybackPa
                         onNext = { player?.playNext() },
                         onShuffle = { player?.toggleShuffleModeEnabled() },
                         onSeek = { fraction ->
-                            player?.seekTo((fraction * uiState.value.durationMillis).toInt())
+                            player?.seekTo((fraction * uiState.value.durationMillis).toLong())
                         },
                         onLiveSync = { player?.seekToDefault() },
                         onSleepTimer = { minutes -> onSleepTimer(minutes) },
@@ -563,12 +563,12 @@ class YpPlayQueueActivity : AppCompatActivity(), PlayerEventListener, PlaybackPa
     private fun rebuildAudioTrackState() {
         val p = player
         val availableStreams = Optional.ofNullable(p)
-            .map(Player::getCurrentMetadata)
-            .flatMap(MediaItemTag::getMaybeAudioTrack)
-            .map(MediaItemTag.AudioTrack::getAudioStreams)
+            .map { player -> player.currentMetadata }
+            .flatMap { tag -> tag.maybeAudioTrack }
+            .map { track -> track.audioStreams }
             .orElse(null)
         val selectedStream = Optional.ofNullable(p)
-            .flatMap(Player::getSelectedAudioStream)
+            .flatMap { player -> player.selectedAudioStream }
 
         if (availableStreams == null || availableStreams.size < 2 || selectedStream.isEmpty) {
             uiState.update {
