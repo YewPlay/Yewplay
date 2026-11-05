@@ -83,7 +83,7 @@
         </service>
 
         <activity
-            android:name=".player.PlayQueueActivity"
+            android:name=".player.YpPlayQueueActivity"
             android:exported="false"
             android:label="@string/title_activity_play_queue"
             android:launchMode="singleTask" />

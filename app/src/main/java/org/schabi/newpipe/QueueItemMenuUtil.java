@@ -68,7 +68,7 @@ public final class QueueItemMenuUtil {
                         item.getUrl(), item.getUploaderUrl(),
                         // An intent must be used here.
                         // Opening with FragmentManager transactions is not working,
-                        // as PlayQueueActivity doesn't use fragments.
+                        // as YpPlayQueueActivity doesn't use fragments.
                         uploaderUrl -> NavigationHelper.openChannelFragmentUsingIntent(
                                 context, item.getServiceId(), uploaderUrl, item.getUploader()
                         ));

@@ -59,7 +59,7 @@ import org.schabi.newpipe.local.history.YpHistoryFragment;
 import org.schabi.newpipe.local.playlist.YpLocalPlaylistFragment;
 import org.schabi.newpipe.local.subscription.SubscriptionFragment;
 import org.schabi.newpipe.local.subscription.SubscriptionsImportFragment;
-import org.schabi.newpipe.player.PlayQueueActivity;
+import org.schabi.newpipe.player.YpPlayQueueActivity;
 import org.schabi.newpipe.player.Player;
 import org.schabi.newpipe.player.PlayerIntentType;
 import org.schabi.newpipe.player.PlayerService;
@@ -721,7 +721,7 @@ public final class NavigationHelper {
     }
 
     public static Intent getPlayQueueActivityIntent(final Context context) {
-        final Intent intent = new Intent(context, PlayQueueActivity.class);
+        final Intent intent = new Intent(context, YpPlayQueueActivity.class);
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         }
@@ -729,7 +729,7 @@ public final class NavigationHelper {
     }
 
     public static void openPlayQueue(final Context context) {
-        final Intent intent = new Intent(context, PlayQueueActivity.class);
+        final Intent intent = new Intent(context, YpPlayQueueActivity.class);
         context.startActivity(intent);
     }
 
