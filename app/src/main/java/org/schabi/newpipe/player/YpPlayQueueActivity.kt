@@ -28,7 +28,6 @@ import io.reactivex.rxjava3.core.Maybe
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
-import java.util.Optional
 import java.util.WeakHashMap
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
@@ -562,22 +561,15 @@ class YpPlayQueueActivity : AppCompatActivity(), PlayerEventListener, PlaybackPa
 
     private fun rebuildAudioTrackState() {
         val p = player
-        val availableStreams = Optional.ofNullable(p)
-            .map { player -> player.currentMetadata }
-            .flatMap { tag -> tag.maybeAudioTrack }
-            .map { track -> track.audioStreams }
-            .orElse(null)
-        val selectedStream = Optional.ofNullable(p)
-            .flatMap { player -> player.selectedAudioStream }
+        val availableStreams = p?.currentMetadata?.maybeAudioTrack?.orElse(null)?.audioStreams
+        val selected = p?.selectedAudioStream?.orElse(null)
 
-        if (availableStreams == null || availableStreams.size < 2 || selectedStream.isEmpty) {
+        if (availableStreams == null || availableStreams.size < 2 || selected == null) {
             uiState.update {
                 it.copy(audioTracks = emptyList(), selectedAudioTrack = -1, audioTrackCondensed = "")
             }
             return
         }
-
-        val selected = selectedStream.get()
         val trackName = Localization.audioTrackName(this, selected)
         val shortName = selected.audioLocale?.language ?: trackName
         uiState.update {
