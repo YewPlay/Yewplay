@@ -1,0 +1,11 @@
+branch: yewplay/dev
+sha: 7e22b2697c831116aa40c7b74f72343f43218c8f
+outcome: failure
+run: https://github.com/YewPlay/Yewplay/actions/runs/42102748527
+
+== errors ==
+
+== warnings ==
+
+== tail ==
+/home/runner/work/_temp/e169825b-efa5-44a0-a941-316acbd94272.sh: line 2: ./gradlew: Permission denied
