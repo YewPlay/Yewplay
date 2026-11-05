@@ -116,7 +116,6 @@ import org.schabi.newpipe.player.playqueue.PlayQueue
 import org.schabi.newpipe.player.playqueue.SinglePlayQueue
 import org.schabi.newpipe.player.ui.MainPlayerUi
 import org.schabi.newpipe.player.ui.VideoPlayerUi
-import org.schabi.newpipe.util.Constants
 import org.schabi.newpipe.util.DependentPreferenceHelper.getResumePlaybackEnabled
 import org.schabi.newpipe.util.DeviceUtils
 import org.schabi.newpipe.util.ExtractorHelper
@@ -125,6 +124,7 @@ import org.schabi.newpipe.util.InfoCache
 import org.schabi.newpipe.util.ListHelper
 import org.schabi.newpipe.util.ListHelper.getUrlAndNonTorrentStreams
 import org.schabi.newpipe.util.Localization
+import org.schabi.newpipe.util.NO_SERVICE_ID
 import org.schabi.newpipe.util.NavigationHelper
 import org.schabi.newpipe.util.NavigationHelper.openPlayQueue
 import org.schabi.newpipe.util.PermissionHelper
@@ -176,7 +176,7 @@ class YpVideoDetailFragment :
 
     @State
     @JvmField
-    var serviceId = Constants.NO_SERVICE_ID
+    var serviceId = NO_SERVICE_ID
 
     @State
     @JvmField
