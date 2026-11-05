@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- YewPlay: tela de abertura (proposta, p. 5): fundo grafite, o ícone centralizado e o nome
+     embaixo, sem animação longa. -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:drawable="@color/yewplay_splash_background" />
+
+    <item
+        android:width="112dp"
+        android:height="112dp"
+        android:drawable="@drawable/ic_yewplay_logo"
+        android:gravity="center" />
+
+    <item
+        android:width="200dp"
+        android:height="80dp"
+        android:bottom="28dp"
+        android:drawable="@drawable/yp_splash_wordmark"
+        android:gravity="bottom|center_horizontal" />
+</layer-list>

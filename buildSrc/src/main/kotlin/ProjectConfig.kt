@@ -1,0 +1,21 @@
+/*
+ * SPDX-FileCopyrightText: 2026 NewPipe e.V. <https://newpipe-ev.de>
+ * SPDX-License-Identifier: GPL-3.0-or-later
+ */
+
+const val NEWPIPE_VERSION_SDK_COMPILE_MAJOR = 37
+const val NEWPIPE_VERSION_SDK_COMPILE_MINOR = 0
+const val NEWPIPE_VERSION_SDK_MIN = 23
+const val NEWPIPE_VERSION_SDK_TARGET = 35
+
+const val NEWPIPE_VERSION_CODE = 1015
+const val NEWPIPE_VERSION_NAME = "0.29.1"
+
+const val NEWPIPE_APPLICATION_ID_OLD = "org.schabi.newpipe"
+const val NEWPIPE_APPLICATION_ID_NEW = "net.newpipe.app"
+
+// YewPlay: identidade própria do fork (o namespace do código continua o do NewPipe
+// para facilitar merges com o upstream).
+const val YEWPLAY_APPLICATION_ID = "io.github.yewplay"
+const val YEWPLAY_APP_NAME = "YewPlay"
+const val YEWPLAY_VERSION_NAME = "1.0.0"

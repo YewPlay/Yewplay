@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- YewPlay: message of the empty state of the list screens that are still views
+         (BaseStateFragment); declared here since the layouts that had it are now Compose -->
+    <item name="empty_state_message" type="id" />
+</resources>
