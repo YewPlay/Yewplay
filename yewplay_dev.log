@@ -1,17 +1,66 @@
 branch: yewplay/dev
-sha: 5dc16202a1fa1beb2bccbff62f25216f1e23ec5b
+sha: c3ca27823a72869be67178808be98d3a63cac4dc
 outcome: failure
-run: https://github.com/YewPlay/Yewplay/actions/runs/42126856004
+run: https://github.com/YewPlay/Yewplay/actions/runs/42131000298
 
 == errors ==
-/home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/util/NavigationHelper.java:443: error: cannot find symbol
-> Task :app:compileDebugJavaWithJavac FAILED
+e: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/gesture/BasePlayerGestureListener.kt:28:33 Only safe (?.) or non-null asserted (!!.) calls are allowed on a nullable receiver of type 'GestureDetector?'.
+e: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/gesture/PopupPlayerGestureListener.kt:179:47 Only safe (?.) or non-null asserted (!!.) calls are allowed on a nullable receiver of type 'WindowManager.LayoutParams?'.
+e: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/gesture/PopupPlayerGestureListener.kt:182:47 Only safe (?.) or non-null asserted (!!.) calls are allowed on a nullable receiver of type 'WindowManager.LayoutParams?'.
+e: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/MainPlayerUi.kt:430:77 Only safe (?.) or non-null asserted (!!.) calls are allowed on a nullable receiver of type 'PlayQueueItem?'.
+e: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/MainPlayerUi.kt:666:45 Unresolved reference 'DownloadDialog'.
+e: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/PopupPlayerUi.kt:103:13 Cannot access 'field borderWidth: Int': it is private in 'com.google.android.material.floatingactionbutton.FloatingActionButton'.
+e: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:20:44 Unresolved reference 'YpThemePrefs'.
+e: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:47:62 Unresolved reference 'FastSeekDirection'.
+e: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:85:52 Argument type mismatch: actual type is 'BasePlayerGestureListener?', but 'GestureDetector.OnGestureListener' was expected.
+e: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:90:28 Unresolved reference 'YpThemePrefs'.
+e: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:91:33 Unresolved reference 'YpThemePrefs'.
+e: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:134:56 Classifier 'class drawable : Any' does not have a companion object, so it cannot be used as an expression.
+e: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:142:47 Unresolved reference 'exo_controls_repeat_off' on receiver of type 'Unit'.
+e: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:143:47 Unresolved reference 'exo_controls_repeat_one' on receiver of type 'Unit'.
+e: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:144:47 Unresolved reference 'exo_controls_repeat_all' on receiver of type 'Unit'.
+e: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:274:57 Argument type mismatch: actual type is 'Int', but 'Long' was expected.
+e: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:278:58 Argument type mismatch: actual type is 'Int', but 'Long' was expected.
+e: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:281:77 Unresolved reference 'FastSeekDirection'.
+e: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:285:32 Unresolved reference 'FastSeekDirection'.
+e: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:291:36 Unresolved reference 'FastSeekDirection'.
+e: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:293:32 Unresolved reference 'FastSeekDirection'.
+e: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:299:36 Unresolved reference 'FastSeekDirection'.
+e: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:301:32 Unresolved reference 'FastSeekDirection'.
+e: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:304:28 Unresolved reference 'FastSeekDirection'.
+e: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:578:54 Argument type mismatch: actual type is 'Float', but 'Double' was expected.
+e: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:676:75 Argument type mismatch: actual type is 'Float', but 'Double' was expected.
+e: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:742:55 Only safe (?.) or non-null asserted (!!.) calls are allowed on a nullable receiver of type 'MediaItemTag?'.
+e: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:815:66 Inapplicable candidate(s): static fun formatSpeed(speed: Double): String
+e: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:816:54 Argument type mismatch: actual type is 'Float', but 'Double' was expected.
+e: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:856:75 Argument type mismatch: actual type is 'Float', but 'Double' was expected.
+e: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:1009:50 Unresolved reference 'isControlsVisible'.
+e: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:1025:21 Unresolved reference 'isControlsVisible'.
+e: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/YpPlayerControls.kt:441:17 No value passed for parameter 'onClick'.
+e: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/YpPlayerControls.kt:441:66 Argument type mismatch: actual type is '() -> Unit', but 'Float' was expected.
+e: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/YpPlayerControls.kt:502:17 No value passed for parameter 'onClick'.
+e: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/YpPlayerControls.kt:502:66 Argument type mismatch: actual type is '() -> Unit', but 'Float' was expected.
+e: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/YpPlayerControls.kt:508:17 No value passed for parameter 'onClick'.
+e: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/YpPlayerControls.kt:508:72 Argument type mismatch: actual type is '() -> Unit', but 'Float' was expected.
+e: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/YpPlayerControls.kt:551:21 No value passed for parameter 'onClick'.
+e: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/YpPlayerControls.kt:551:86 Argument type mismatch: actual type is '() -> Unit', but 'Float' was expected.
+e: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/YpPlayerControls.kt:557:21 No value passed for parameter 'onClick'.
+e: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/YpPlayerControls.kt:557:68 Argument type mismatch: actual type is '() -> Unit', but 'Float' was expected.
+e: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/YpPlayerControls.kt:563:21 No value passed for parameter 'onClick'.
+e: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/YpPlayerControls.kt:563:80 Argument type mismatch: actual type is '() -> Unit', but 'Float' was expected.
+e: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/YpPlayerControls.kt:581:21 No value passed for parameter 'onClick'.
+e: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/YpPlayerControls.kt:585:23 Argument type mismatch: actual type is '() -> Unit', but 'Float' was expected.
+e: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/YpPlayerControls.kt:764:13 No value passed for parameter 'onClick'.
+e: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/YpPlayerControls.kt:768:15 Argument type mismatch: actual type is '() -> Unit', but 'Float' was expected.
+e: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/YpPlayerControls.kt:984:17 No value passed for parameter 'onClick'.
+e: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/YpPlayerControls.kt:984:80 Argument type mismatch: actual type is '() -> Unit', but 'Float' was expected.
+e: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/YpPlayerControls.kt:988:13 No value passed for parameter 'onClick'.
+e: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/YpPlayerControls.kt:988:62 Argument type mismatch: actual type is '() -> Unit', but 'Float' was expected.
+> Task :app:compileDebugKotlin FAILED
 * What went wrong:
-Execution failed for task ':app:compileDebugJavaWithJavac' (registered by plugin 'com.android.internal.application').
-  /home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/util/NavigationHelper.java:443: error: cannot find symbol
-org.gradle.api.tasks.TaskExecutionException: Execution failed for task ':app:compileDebugJavaWithJavac' (registered by plugin 'com.android.internal.application').
-/home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/util/NavigationHelper.java:443: error: cannot find symbol
-BUILD FAILED in 2m 16s
+Execution failed for task ':app:compileDebugKotlin' (registered by plugin 'com.android.internal.application').
+org.gradle.api.tasks.TaskExecutionException: Execution failed for task ':app:compileDebugKotlin' (registered by plugin 'com.android.internal.application').
+BUILD FAILED in 2m 20s
 
 == warnings ==
 w: ⚠️ Unused Kotlin Source Sets
@@ -29,83 +78,20 @@ w: file:///home/runner/work/Yewplay/Yewplay/feature/channel/src/commonMain/kotli
 w: [ksp] /home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/database/feed/dao/FeedDAO.kt:178: The DAO function return type (kotlin.collections.List<java.time.OffsetDateTime?>) with the nullable type argument is meaningless because for now Room will never put a null value in a result.
 w: [ksp] /home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/database/feed/dao/FeedDAO.kt:181: The DAO function return type (kotlin.collections.List<java.time.OffsetDateTime?>) with the nullable type argument is meaningless because for now Room will never put a null value in a result.
 warning: The following options were not recognized by any processor: '[room.internal.schemaInput, room.internal.schemaOutput, kapt.kotlin.generated]'
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/App.kt:210:21 Only safe (?.) or non-null asserted (!!.) calls are allowed on a nullable receiver of type 'Thread.UncaughtExceptionHandler?'.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/download/DownloadDialog.kt:324:24 'field isVideoOnly: Boolean' is deprecated. Deprecated in Java.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/download/DownloadDialog.kt:384:34 Condition is always 'true'.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/download/DownloadDialog.kt:385:36 'constructor(p0: String!): Locale' is deprecated. Deprecated in Java.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/download/DownloadDialog.kt:444:34 'field isVideoOnly: Boolean' is deprecated. Deprecated in Java.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/download/DownloadDialog.kt:445:34 'field resolution: String!' is deprecated. Deprecated in Java.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/download/DownloadDialog.kt:499:96 'field isVideoOnly: Boolean' is deprecated. Deprecated in Java.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/download/DownloadDialog.kt:533:27 Unnecessary non-null assertion (!!) on a non-null receiver of type 'AudioTrackAdapter.AudioTracksWrapper'.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/error/ErrorInfo.kt:184:30 'class ExoPlaybackException : PlaybackException' is deprecated. Deprecated in Java.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/error/ErrorInfo.kt:202:43 'class ExoPlaybackException : PlaybackException' is deprecated. Deprecated in Java.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/error/ErrorInfo.kt:205:43 'class ExoPlaybackException : PlaybackException' is deprecated. Deprecated in Java.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/error/ErrorPanelHelper.kt:75:26 'fun startActivityForResult(p0: Intent, p1: Int): Unit' is deprecated. Deprecated in Java.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/error/ReCaptchaActivity.kt:146:18 'static fun navigateUpTo(p0: Activity, p1: Intent): Unit' is deprecated. Deprecated in Java.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/LibraryFragment.kt:38:9 'fun setHasOptionsMenu(p0: Boolean): Unit' is deprecated. Deprecated in Java.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/LibraryFragment.kt:125:15 'fun onCreateOptionsMenu(p0: Menu, p1: MenuInflater): Unit' is deprecated. Deprecated in Java.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/LibraryFragment.kt:138:22 'fun onOptionsItemSelected(p0: MenuItem): Boolean' is deprecated. Deprecated in Java.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/MainFragment.kt:205:13 'constructor(p0: String!, p1: String!): Locale' is deprecated. Deprecated in Java.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/MainFragment.kt:249:9 'class FragmentStatePagerAdapterMenuWorkaround : PagerAdapter' is deprecated. Deprecated in Java.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/MainFragment.kt:251:9 'class FragmentStatePagerAdapterMenuWorkaround : PagerAdapter' is deprecated. Deprecated in Java.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/detail/DescriptionFragment.kt:73:21 'fun bundleOf(vararg pairs: Pair<String, Any?>): Bundle' is deprecated. This method does not provide type safety at compile time. Use the platform `Bundle` class directly instead.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/detail/YpVideoDetailFragment.kt:364:60 'constructor(): Handler' is deprecated. Deprecated in Java.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/detail/YpVideoDetailFragment.kt:846:30 Java type mismatch: inferred type is 'StackItem?', but 'StackItem' was expected.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/detail/YpVideoDetailFragment.kt:985:30 Only safe (?.) or non-null asserted (!!.) calls are allowed on a nullable receiver of type 'StackItem?'.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/detail/YpVideoDetailFragment.kt:1948:21 'class PlaybackParameters : Any, Bundleable' is deprecated. Deprecated in Java.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/detail/YpVideoDetailFragment.kt:2012:39 'class PlaybackException : Exception, Bundleable' is deprecated. Deprecated in Java.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/detail/YpVideoDetailFragment.kt:2121:35 'var systemUiVisibility: Int' is deprecated. Deprecated in Java.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/detail/YpVideoDetailFragment.kt:2122:63 'static field FLAG_FULLSCREEN: Int' is deprecated. Deprecated in Java.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/detail/YpVideoDetailFragment.kt:2123:25 'var statusBarColor: Int' is deprecated. Deprecated in Java.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/detail/YpVideoDetailFragment.kt:2144:18 'static field SYSTEM_UI_FLAG_LAYOUT_STABLE: Int' is deprecated. Deprecated in Java.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/detail/YpVideoDetailFragment.kt:2145:25 'static field SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN: Int' is deprecated. Deprecated in Java.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/detail/YpVideoDetailFragment.kt:2146:25 'static field SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION: Int' is deprecated. Deprecated in Java.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/detail/YpVideoDetailFragment.kt:2147:25 'static field SYSTEM_UI_FLAG_HIDE_NAVIGATION: Int' is deprecated. Deprecated in Java.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/detail/YpVideoDetailFragment.kt:2148:25 'static field SYSTEM_UI_FLAG_IMMERSIVE_STICKY: Int' is deprecated. Deprecated in Java.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/detail/YpVideoDetailFragment.kt:2155:45 'static field SYSTEM_UI_FLAG_FULLSCREEN: Int' is deprecated. Deprecated in Java.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/detail/YpVideoDetailFragment.kt:2157:35 'var systemUiVisibility: Int' is deprecated. Deprecated in Java.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/detail/YpVideoDetailFragment.kt:2160:29 'var statusBarColor: Int' is deprecated. Deprecated in Java.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/detail/YpVideoDetailFragment.kt:2161:29 'var navigationBarColor: Int' is deprecated. Deprecated in Java.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/detail/YpVideoDetailFragment.kt:2163:63 'static field FLAG_FULLSCREEN: Int' is deprecated. Deprecated in Java.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/list/comments/CommentRepliesFragment.kt:60:21 'fun bundleOf(vararg pairs: Pair<String, Any?>): Bundle' is deprecated. This method does not provide type safety at compile time. Use the platform `Bundle` class directly instead.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/list/comments/CommentsFragment.kt:110:25 'fun bundleOf(vararg pairs: Pair<String, Any?>): Bundle' is deprecated. This method does not provide type safety at compile time. Use the platform `Bundle` class directly instead.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/list/search/YpSearchViewModel.kt:522:35 Unnecessary safe call on a non-null receiver of type 'String'.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/list/videos/RelatedItemsFragment.kt:185:25 'fun bundleOf(vararg pairs: Pair<String, Any?>): Bundle' is deprecated. This method does not provide type safety at compile time. Use the platform `Bundle` class directly instead.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/local/feed/service/FeedLoadManager.kt:243:33 Unnecessary non-null assertion (!!) on a non-null receiver of type 'Info'.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/local/subscription/dialog/FeedGroupDialog.kt:434:25 'fun bundleOf(vararg pairs: Pair<String, Any?>): Bundle' is deprecated. This method does not provide type safety at compile time. Use the platform `Bundle` class directly instead.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/local/yewplay/YpDialogs.kt:75:44 'static field SOFT_INPUT_ADJUST_RESIZE: Int' is deprecated. Deprecated in Java.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/YpPlayQueueActivity.kt:352:21 'class PlaybackParameters : Any, Bundleable' is deprecated. Deprecated in Java.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/YpPlayQueueActivity.kt:363:51 'interface Player : Any' is deprecated. Deprecated in Java.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/YpPlayQueueActivity.kt:364:51 'interface Player : Any' is deprecated. Deprecated in Java.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/mediabrowser/MediaBrowserPlaybackPreparer.kt:12:8 'class MediaSessionConnector : Any' is deprecated. Deprecated in Java.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/mediabrowser/MediaBrowserPlaybackPreparer.kt:102:17 'interface Player : Any' is deprecated. Deprecated in Java.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/settings/BackupRestoreSettingsFragment.kt:146:41 'fun exportHasSerializedPrefs(zipFile: StoredFileHelper): Boolean' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/settings/BackupRestoreSettingsFragment.kt:169:37 'fun loadSerializedPrefs(zipFile: StoredFileHelper, preferences: SharedPreferences): Unit' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/settings/export/ImportExportManager.kt:39:35 'val FILE_NAME_SERIALIZED_PREFS: String' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/settings/export/ImportExportManager.kt:93:69 'val FILE_NAME_SERIALIZED_PREFS: String' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/settings/export/ImportExportManager.kt:109:65 'val FILE_NAME_SERIALIZED_PREFS: String' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/settings/export/ImportExportManager.kt:143:63 'val FILE_NAME_SERIALIZED_PREFS: String' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/us/shandian/giga/ui/fragment/YpDownloadsFragment.kt:877:49 'static field ACTION_MEDIA_SCANNER_SCAN_FILE: String' is deprecated. Deprecated in Java.
 
 == tail ==
-> Compilation failed; see the compiler output below.
-  /home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/util/NavigationHelper.java:443: error: cannot find symbol
-              if (switchingPlayers && TextUtils.equals(detailFragment.getUrl(), url)) {
-                                                                     ^
-    symbol:   method getUrl()
-    location: variable detailFragment of type YpVideoDetailFragment
-  Note: Some input files use or override a deprecated API.
-  Note: Recompile with -Xlint:deprecation for details.
-  Note: Some input files use unchecked or unsafe operations.
-  Note: Recompile with -Xlint:unchecked for details.
-  1 error
+   > Kotlin compiler: UNSAFE_CALL
+       Kotlin compiler error
+         Only safe (?.) or non-null asserted (!!.) calls are allowed on a nullable receiver of type 'GestureDetector?'.
+         Location: /home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/gesture/BasePlayerGestureListener.kt:28
 
 * Try:
-> Check your code and dependencies to fix the compilation error(s)
+> Run with --info or --debug option to get more log output.
 > Run with --scan to get full insights from a Build Scan (powered by Develocity).
+> Get more help at https://help.gradle.org.
 
 * Exception is:
-org.gradle.api.tasks.TaskExecutionException: Execution failed for task ':app:compileDebugJavaWithJavac' (registered by plugin 'com.android.internal.application').
+org.gradle.api.tasks.TaskExecutionException: Execution failed for task ':app:compileDebugKotlin' (registered by plugin 'com.android.internal.application').
 	at org.gradle.api.internal.tasks.execution.DefaultTaskNodeExecutor.lambda$doExecute$1(DefaultTaskNodeExecutor.java:367)
 	at org.gradle.internal.Try$Failure.ifSuccessfulOrElse(Try.java:288)
 	at org.gradle.api.internal.tasks.execution.DefaultTaskNodeExecutor.doExecute(DefaultTaskNodeExecutor.java:365)
@@ -134,53 +120,24 @@ org.gradle.api.tasks.TaskExecutionException: Execution failed for task ':app:com
 	at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.run(DefaultPlanExecutor.java:392)
 	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:65)
 	at org.gradle.internal.concurrent.AbstractManagedExecutor$1.run(AbstractManagedExecutor.java:47)
-Caused by: org.gradle.api.internal.tasks.compile.CompilationFailedException: Compilation failed; see the compiler output below.
-/home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/util/NavigationHelper.java:443: error: cannot find symbol
-            if (switchingPlayers && TextUtils.equals(detailFragment.getUrl(), url)) {
-                                                                   ^
-  symbol:   method getUrl()
-  location: variable detailFragment of type YpVideoDetailFragment
-Note: Some input files use or override a deprecated API.
-Note: Recompile with -Xlint:deprecation for details.
-Note: Some input files use unchecked or unsafe operations.
-Note: Recompile with -Xlint:unchecked for details.
-1 error
-	at org.gradle.api.internal.tasks.compile.JdkJavaCompiler.execute(JdkJavaCompiler.java:88)
-	at org.gradle.api.internal.tasks.compile.JdkJavaCompiler.execute(JdkJavaCompiler.java:49)
-	at org.gradle.api.internal.tasks.compile.NormalizingJavaCompiler.delegateAndHandleErrors(NormalizingJavaCompiler.java:98)
-	at org.gradle.api.internal.tasks.compile.NormalizingJavaCompiler.execute(NormalizingJavaCompiler.java:52)
-	at org.gradle.api.internal.tasks.compile.NormalizingJavaCompiler.execute(NormalizingJavaCompiler.java:38)
-	at org.gradle.api.internal.tasks.compile.AnnotationProcessorDiscoveringCompiler.execute(AnnotationProcessorDiscoveringCompiler.java:52)
-	at org.gradle.api.internal.tasks.compile.AnnotationProcessorDiscoveringCompiler.execute(AnnotationProcessorDiscoveringCompiler.java:38)
-	at org.gradle.api.internal.tasks.compile.ModuleApplicationNameWritingCompiler.execute(ModuleApplicationNameWritingCompiler.java:46)
-	at org.gradle.api.internal.tasks.compile.ModuleApplicationNameWritingCompiler.execute(ModuleApplicationNameWritingCompiler.java:36)
-	at org.gradle.jvm.toolchain.internal.DefaultToolchainJavaCompiler.execute(DefaultToolchainJavaCompiler.java:57)
-	at org.gradle.api.tasks.compile.JavaCompile.lambda$createToolchainCompiler$0(JavaCompile.java:213)
-	at org.gradle.api.internal.tasks.compile.CleaningJavaCompiler.execute(CleaningJavaCompiler.java:53)
-	at org.gradle.api.internal.tasks.compile.incremental.IncrementalCompilerFactory.lambda$createRebuildAllCompiler$0(IncrementalCompilerFactory.java:55)
-	at org.gradle.api.internal.tasks.compile.incremental.SelectiveCompiler.execute(SelectiveCompiler.java:70)
-	at org.gradle.api.internal.tasks.compile.incremental.SelectiveCompiler.execute(SelectiveCompiler.java:44)
-	at org.gradle.api.internal.tasks.compile.incremental.IncrementalResultStoringCompiler.execute(IncrementalResultStoringCompiler.java:66)
-	at org.gradle.api.internal.tasks.compile.incremental.IncrementalResultStoringCompiler.execute(IncrementalResultStoringCompiler.java:52)
-	at org.gradle.api.internal.tasks.compile.CompileJavaBuildOperationReportingCompiler$CompileOperation.call(CompileJavaBuildOperationReportingCompiler.java:78)
-	at org.gradle.api.internal.tasks.compile.CompileJavaBuildOperationReportingCompiler$CompileOperation.call(CompileJavaBuildOperationReportingCompiler.java:52)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:210)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:205)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:67)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:60)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:167)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:60)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.call(DefaultBuildOperationRunner.java:54)
-	at org.gradle.api.internal.tasks.compile.CompileJavaBuildOperationReportingCompiler.execute(CompileJavaBuildOperationReportingCompiler.java:49)
-	at org.gradle.api.tasks.compile.JavaCompile.performCompilation(JavaCompile.java:231)
-	at org.gradle.api.tasks.compile.JavaCompile.performIncrementalCompilation(JavaCompile.java:172)
-	at org.gradle.api.tasks.compile.JavaCompile.compile(JavaCompile.java:157)
-	at org.gradle.internal.reflect.JavaMethod.invoke(JavaMethod.java:125)
-	at org.gradle.api.internal.project.taskfactory.IncrementalTaskAction.doExecute(IncrementalTaskAction.java:45)
-	at org.gradle.api.internal.project.taskfactory.StandardTaskAction.execute(StandardTaskAction.java:51)
-	at org.gradle.api.internal.project.taskfactory.IncrementalTaskAction.execute(IncrementalTaskAction.java:26)
-	at org.gradle.api.internal.project.taskfactory.StandardTaskAction.execute(StandardTaskAction.java:29)
-	at org.gradle.api.internal.tasks.execution.TaskExecution$3.run(TaskExecution.java:268)
+Caused by: org.gradle.workers.internal.DefaultWorkerExecutor$WorkExecutionException: A failure occurred while executing org.jetbrains.kotlin.compilerRunner.btapi.BuildToolsApiCompilationWork
+	at org.gradle.workers.internal.DefaultWorkerExecutor$WorkItemExecution.waitForCompletion(DefaultWorkerExecutor.java:273)
+	at org.gradle.internal.work.DefaultAsyncWorkTracker.lambda$waitForItemsAndGatherFailures$2(DefaultAsyncWorkTracker.java:132)
+	at org.gradle.internal.Factories$1.create(Factories.java:30)
+	at org.gradle.internal.work.DefaultWorkerLeaseService.lambda$withoutLocksBlocking$0(DefaultWorkerLeaseService.java:406)
+	at org.gradle.internal.work.ResourceLockStatistics$1.measure(ResourceLockStatistics.java:43)
+	at org.gradle.internal.work.DefaultWorkerLeaseService.withoutLocksBlocking(DefaultWorkerLeaseService.java:401)
+	at org.gradle.internal.work.DefaultWorkerLeaseService.blocking(DefaultWorkerLeaseService.java:261)
+	at org.gradle.internal.work.DefaultWorkerLeaseService.blocking(DefaultWorkerLeaseService.java:243)
+	at org.gradle.internal.work.DefaultAsyncWorkTracker.lambda$waitForItemsAndGatherFailures$1(DefaultAsyncWorkTracker.java:128)
+	at org.gradle.internal.Factories$1.create(Factories.java:30)
+	at org.gradle.internal.resources.AbstractResourceLockRegistry.whileDisallowingLockChanges(AbstractResourceLockRegistry.java:51)
+	at org.gradle.internal.work.DefaultWorkerLeaseService.whileDisallowingProjectLockChanges(DefaultWorkerLeaseService.java:266)
+	at org.gradle.internal.work.DefaultAsyncWorkTracker.waitForItemsAndGatherFailures(DefaultAsyncWorkTracker.java:127)
+	at org.gradle.internal.work.DefaultAsyncWorkTracker.waitForItemsAndGatherFailures(DefaultAsyncWorkTracker.java:93)
+	at org.gradle.internal.work.DefaultAsyncWorkTracker.waitForAll(DefaultAsyncWorkTracker.java:79)
+	at org.gradle.internal.work.DefaultAsyncWorkTracker.waitForCompletion(DefaultAsyncWorkTracker.java:67)
+	at org.gradle.api.internal.tasks.execution.TaskExecution$3.run(TaskExecution.java:276)
 	at org.gradle.internal.operations.DefaultBuildOperationRunner$1.execute(DefaultBuildOperationRunner.java:30)
 	at org.gradle.internal.operations.DefaultBuildOperationRunner$1.execute(DefaultBuildOperationRunner.java:27)
 	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:67)
@@ -277,6 +234,41 @@ Note: Recompile with -Xlint:unchecked for details.
 	at org.gradle.internal.execution.impl.DefaultExecutionEngine$1.execute(DefaultExecutionEngine.java:68)
 	at org.gradle.api.internal.tasks.execution.DefaultTaskNodeExecutor.doExecute(DefaultTaskNodeExecutor.java:364)
 	... 25 more
+Caused by: org.jetbrains.kotlin.gradle.tasks.CompilationErrorException: Only safe (?.) or non-null asserted (!!.) calls are allowed on a nullable receiver of type 'GestureDetector?'.
+	at org.jetbrains.kotlin.gradle.plugin.diagnostics.DefaultCompilerDiagnosticsProblemsReporter.reportCompilerMessage(CompilerDiagnosticsProblemsReporter.kt:63)
+	at org.jetbrains.kotlin.compilerRunner.btapi.ProblemsApiCompilerMessageRenderer.replayTo(ProblemsApiCompilerMessageRenderer.kt:88)
+	at org.jetbrains.kotlin.compilerRunner.btapi.BuildToolsApiCompilationWork.execute(BuildToolsApiCompilationWork.kt:251)
+	at org.gradle.workers.internal.DefaultWorkerServer.execute(DefaultWorkerServer.java:68)
+	at org.gradle.workers.internal.NoIsolationWorkerFactory$1$1.create(NoIsolationWorkerFactory.java:64)
+	at org.gradle.workers.internal.NoIsolationWorkerFactory$1$1.create(NoIsolationWorkerFactory.java:61)
+	at org.gradle.internal.classloader.ClassLoaderUtils.executeInClassloader(ClassLoaderUtils.java:103)
+	at org.gradle.workers.internal.NoIsolationWorkerFactory$1.lambda$execute$0(NoIsolationWorkerFactory.java:61)
+	at org.gradle.workers.internal.AbstractWorker$1.call(AbstractWorker.java:44)
+	at org.gradle.workers.internal.AbstractWorker$1.call(AbstractWorker.java:41)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:210)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$CallableBuildOperationWorker.execute(DefaultBuildOperationRunner.java:205)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:67)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:60)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:167)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:60)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.call(DefaultBuildOperationRunner.java:54)
+	at org.gradle.workers.internal.AbstractWorker.executeWrappedInBuildOperation(AbstractWorker.java:41)
+	at org.gradle.workers.internal.NoIsolationWorkerFactory$1.execute(NoIsolationWorkerFactory.java:58)
+	at org.gradle.workers.internal.DefaultWorkerExecutor.lambda$submitWork$1(DefaultWorkerExecutor.java:169)
+	at org.gradle.internal.work.DefaultConditionalExecutionQueue$ExecutionRunner.runExecution(DefaultConditionalExecutionQueue.java:191)
+	at org.gradle.internal.work.DefaultConditionalExecutionQueue$ExecutionRunner.access$600(DefaultConditionalExecutionQueue.java:112)
+	at org.gradle.internal.work.DefaultConditionalExecutionQueue$ExecutionRunner$1.run(DefaultConditionalExecutionQueue.java:168)
+	at org.gradle.internal.Factories$1.create(Factories.java:30)
+	at org.gradle.internal.work.DefaultWorkerLeaseService.lambda$runAndReleaseLocks$0(DefaultWorkerLeaseService.java:296)
+	at org.gradle.internal.work.ResourceLockStatistics$1.measure(ResourceLockStatistics.java:43)
+	at org.gradle.internal.work.DefaultWorkerLeaseService.runAndReleaseLocks(DefaultWorkerLeaseService.java:294)
+	at org.gradle.internal.work.DefaultWorkerLeaseService.withLocksAcquired(DefaultWorkerLeaseService.java:290)
+	at org.gradle.internal.work.DefaultWorkerLeaseService.withLocks(DefaultWorkerLeaseService.java:282)
+	at org.gradle.internal.work.DefaultWorkerLeaseService.runAsWorkerThread(DefaultWorkerLeaseService.java:132)
+	at org.gradle.internal.work.DefaultWorkerLeaseService.runAsWorkerThread(DefaultWorkerLeaseService.java:138)
+	at org.gradle.internal.work.DefaultConditionalExecutionQueue$ExecutionRunner.runBatch(DefaultConditionalExecutionQueue.java:163)
+	at org.gradle.internal.work.DefaultConditionalExecutionQueue$ExecutionRunner.run(DefaultConditionalExecutionQueue.java:125)
+	... 2 more
 
 
 Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
@@ -285,6 +277,6 @@ You can use '--warning-mode all' to show the individual deprecation warnings and
 
 For more on this, please refer to https://docs.gradle.org/9.8.2/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
 
-BUILD FAILED in 2m 16s
-242 actionable tasks: 242 executed
+BUILD FAILED in 2m 20s
+241 actionable tasks: 241 executed
 Configuration cache entry stored.
