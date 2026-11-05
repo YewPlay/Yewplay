@@ -50,6 +50,7 @@ import androidx.compose.ui.zIndex
 import coil3.compose.AsyncImage
 import io.github.yewplay.core.designsystem.YpMessageState
 import io.github.yewplay.core.designsystem.YpScreenMargin
+import io.github.yewplay.core.designsystem.ypMoveDragged
 
 /** A playlist of the list; [key] stays the same while it is moved. */
 data class PlaylistsItem(
@@ -194,7 +195,7 @@ fun PlaylistsScreen(
                                         },
                                         onDrag = { change, amount ->
                                             change.consume()
-                                            dragOffset = moveDragged(
+                                            dragOffset = ypMoveDragged(
                                                 listState,
                                                 ITEM_KEY,
                                                 keys.value,
