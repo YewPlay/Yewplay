@@ -4,13 +4,11 @@ import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewConfiguration
-import androidx.core.view.isVisible
 import kotlin.math.abs
 import kotlin.math.hypot
 import kotlin.math.max
 import kotlin.math.min
 import org.schabi.newpipe.MainActivity
-import org.schabi.newpipe.ktx.AnimationType
 import org.schabi.newpipe.ktx.animate
 import org.schabi.newpipe.player.ui.PopupPlayerUi
 
@@ -100,8 +98,8 @@ class PopupPlayerGestureListener(
         if (playerUi.isInsideClosingRadius(event)) {
             playerUi.closePopup()
         } else if (!playerUi.isPopupClosing) {
-            playerUi.closeOverlayBinding.closeButton.animate(false, 200)
-            binding.closingOverlay.animate(false, 200)
+            playerUi.closeOverlayButton?.animate(false, 200)
+            playerUi.setClosingOverlayVisible(false)
         }
     }
 
@@ -132,11 +130,12 @@ class PopupPlayerGestureListener(
             event.getY(0) - event.getY(1).toDouble()
         )
 
-        val popupWidth = playerUi.popupLayoutParams.width.toDouble()
+        val params = playerUi.popupLayoutParams ?: return false
+        val popupWidth = params.width.toDouble()
         // change co-ordinates of popup so the center stays at the same position
         val newWidth = popupWidth * currentPointerDistance / initPointerDistance
         initPointerDistance = currentPointerDistance
-        playerUi.popupLayoutParams.x += ((popupWidth - newWidth) / 2.0).toInt()
+        params.x += ((popupWidth - newWidth) / 2.0).toInt()
 
         playerUi.checkPopupPositionBounds()
         playerUi.updateScreenSize()
@@ -148,10 +147,10 @@ class PopupPlayerGestureListener(
         if (DEBUG) {
             Log.d(TAG, "onPopupResizingStart called")
         }
-        binding.loadingPanel.visibility = View.GONE
+        playerUi.setLoadingVisible(false)
         playerUi.hideControls(0, 0)
-        binding.fastSeekOverlay.animate(false, 0)
-        binding.currentDisplaySeek.animate(false, 0, AnimationType.ALPHA, 0)
+        views.fastSeekOverlay.animate(false, 0)
+        playerUi.hideSeekDisplay()
     }
 
     private fun onPopupResizingEnd() {
@@ -183,7 +182,9 @@ class PopupPlayerGestureListener(
                     playerUi.popupLayoutParams.y = velocityY.toInt()
                 }
                 playerUi.checkPopupPositionBounds()
-                playerUi.windowManager.updateViewLayout(binding.root, playerUi.popupLayoutParams)
+                playerUi.popupLayoutParams?.let { params ->
+                    playerUi.windowManager?.updateViewLayout(views.root, params)
+                }
                 return true
             }
             return false
@@ -197,7 +198,7 @@ class PopupPlayerGestureListener(
         // because the soft input is visible (the draggable area is currently resized).
         playerUi.updateScreenSize()
         playerUi.checkPopupPositionBounds()
-        playerUi.popupLayoutParams.let {
+        playerUi.popupLayoutParams?.let {
             initialPopupX = it.x
             initialPopupY = it.y
         }
@@ -235,49 +236,48 @@ class PopupPlayerGestureListener(
         }
 
         if (!isMoving) {
-            playerUi.closeOverlayBinding.closeButton.animate(true, 200)
+            playerUi.closeOverlayButton?.animate(true, 200)
         }
 
         isMoving = true
 
+        val params = playerUi.popupLayoutParams ?: return false
         val diffX = (movingEvent.rawX - initialEvent.rawX)
         val posX = (initialPopupX + diffX).coerceIn(
             0f,
-            (playerUi.screenWidth - playerUi.popupLayoutParams.width).toFloat()
+            (playerUi.screenWidth - params.width).toFloat()
                 .coerceAtLeast(0f)
         )
         val diffY = (movingEvent.rawY - initialEvent.rawY)
         val posY = (initialPopupY + diffY).coerceIn(
             0f,
-            (playerUi.screenHeight - playerUi.popupLayoutParams.height).toFloat()
+            (playerUi.screenHeight - params.height).toFloat()
                 .coerceAtLeast(0f)
         )
 
-        playerUi.popupLayoutParams.x = posX.toInt()
-        playerUi.popupLayoutParams.y = posY.toInt()
+        params.x = posX.toInt()
+        params.y = posY.toInt()
 
         // -- Determine if the ClosingOverlayView (red X) has to be shown or hidden --
-        val showClosingOverlayView: Boolean = playerUi.isInsideClosingRadius(movingEvent)
-        // Check if a view is in expected state and if not animate it into the correct state
-        if (binding.closingOverlay.isVisible != showClosingOverlayView) {
-            binding.closingOverlay.animate(showClosingOverlayView, 200)
-        }
+        playerUi.setClosingOverlayVisible(playerUi.isInsideClosingRadius(movingEvent))
 
-        playerUi.windowManager.updateViewLayout(binding.root, playerUi.popupLayoutParams)
+        playerUi.windowManager?.updateViewLayout(views.root, params)
         return true
     }
 
     override fun getDisplayPortion(e: MotionEvent): DisplayPortion {
+        val width = playerUi.popupLayoutParams?.width ?: views.root.width
         return when {
-            e.x < playerUi.popupLayoutParams.width / 3.0 -> DisplayPortion.LEFT
-            e.x > playerUi.popupLayoutParams.width * 2.0 / 3.0 -> DisplayPortion.RIGHT
+            e.x < width / 3.0 -> DisplayPortion.LEFT
+            e.x > width * 2.0 / 3.0 -> DisplayPortion.RIGHT
             else -> DisplayPortion.MIDDLE
         }
     }
 
     override fun getDisplayHalfPortion(e: MotionEvent): DisplayPortion {
+        val width = playerUi.popupLayoutParams?.width ?: views.root.width
         return when {
-            e.x < playerUi.popupLayoutParams.width / 2.0 -> DisplayPortion.LEFT_HALF
+            e.x < width / 2.0 -> DisplayPortion.LEFT_HALF
             else -> DisplayPortion.RIGHT_HALF
         }
     }

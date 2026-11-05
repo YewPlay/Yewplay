@@ -57,7 +57,6 @@ import android.graphics.Bitmap;
 import android.media.AudioManager;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.util.Log;
-import android.view.LayoutInflater;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -84,7 +83,6 @@ import com.google.android.exoplayer2.video.VideoSize;
 
 import org.schabi.newpipe.MainActivity;
 import org.schabi.newpipe.R;
-import org.schabi.newpipe.databinding.PlayerBinding;
 import org.schabi.newpipe.error.ErrorInfo;
 import org.schabi.newpipe.error.ErrorUtil;
 import org.schabi.newpipe.error.UserAction;
@@ -119,6 +117,7 @@ import org.schabi.newpipe.player.ui.PlayerUi;
 import org.schabi.newpipe.player.ui.PlayerUiList;
 import org.schabi.newpipe.player.ui.PopupPlayerUi;
 import org.schabi.newpipe.player.ui.VideoPlayerUi;
+import org.schabi.newpipe.player.ui.YpPlayerViews;
 import org.schabi.newpipe.util.DependentPreferenceHelper;
 import org.schabi.newpipe.util.ExtractorHelper;
 import org.schabi.newpipe.util.ListHelper;
@@ -575,13 +574,13 @@ public final class Player implements PlaybackListener, Listener {
             return;
         }
 
-        // try to reuse binding if possible
-        final PlayerBinding binding = UIs.get(VideoPlayerUi.class).map(VideoPlayerUi::getBinding)
+        // try to reuse the surface views if possible
+        final YpPlayerViews views = UIs.get(VideoPlayerUi.class).map(ui -> ui.views)
                 .orElseGet(() -> {
                     if (playerType == PlayerType.AUDIO) {
                         return null;
                     } else {
-                        return PlayerBinding.inflate(LayoutInflater.from(context));
+                        return new YpPlayerViews(context);
                     }
                 });
 
@@ -589,12 +588,12 @@ public final class Player implements PlaybackListener, Listener {
             case MAIN:
                 UIs.destroyAll(PopupPlayerUi.class);
                 UIs.destroyAll(BackgroundPlayerUi.class);
-                UIs.addAndPrepare(new MainPlayerUi(this, binding));
+                UIs.addAndPrepare(new MainPlayerUi(this, views));
                 break;
             case POPUP:
                 UIs.destroyAll(MainPlayerUi.class);
                 UIs.destroyAll(BackgroundPlayerUi.class);
-                UIs.addAndPrepare(new PopupPlayerUi(this, binding));
+                UIs.addAndPrepare(new PopupPlayerUi(this, views));
                 break;
             case AUDIO:
                 UIs.destroyAll(VideoPlayerUi.class); // destroys both MainPlayerUi and PopupPlayerUi

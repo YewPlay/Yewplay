@@ -7,9 +7,9 @@ import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
 import androidx.core.os.postDelayed
-import org.schabi.newpipe.databinding.PlayerBinding
 import org.schabi.newpipe.player.Player
 import org.schabi.newpipe.player.ui.VideoPlayerUi
+import org.schabi.newpipe.player.ui.YpPlayerViews
 
 /**
  * Base gesture handling for [Player]
@@ -22,7 +22,7 @@ abstract class BasePlayerGestureListener(
 ) : GestureDetector.SimpleOnGestureListener(), View.OnTouchListener {
 
     protected val player: Player = playerUi.player
-    protected val binding: PlayerBinding = playerUi.binding
+    protected val views: YpPlayerViews = playerUi.views
 
     override fun onTouch(v: View, event: MotionEvent): Boolean {
         playerUi.gestureDetector.onTouchEvent(event)

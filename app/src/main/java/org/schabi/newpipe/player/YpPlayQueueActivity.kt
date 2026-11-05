@@ -416,26 +416,7 @@ class YpPlayQueueActivity : AppCompatActivity(), PlayerEventListener, PlaybackPa
     private fun keyFor(item: PlayQueueItem): String = queueItemKeys.getOrPut(item) { "q${nextQueueItemKey++}" }
 
     private fun refreshQueue(queue: PlayQueue) {
-        val items = queue.streams.map { item ->
-            YpQueueEntry(
-                key = keyFor(item),
-                serviceId = item.serviceId,
-                url = item.url,
-                title = item.title,
-                details = Localization.concatenateStrings(
-                    item.uploader,
-                    ServiceHelper.getNameOfServiceById(item.serviceId)
-                ),
-                thumbnailUrl = ImageStrategy.choosePreferredImage(item.thumbnails),
-                durationText = if (item.duration > 0) {
-                    Localization.getDurationString(item.duration)
-                } else {
-                    null
-                },
-                isLive = item.streamType == StreamType.LIVE_STREAM ||
-                    item.streamType == StreamType.AUDIO_LIVE_STREAM
-            )
-        }
+        val items = mapPlayQueueEntries(queue, ::keyFor)
         uiState.update {
             it.copy(
                 queueItems = items,
@@ -449,16 +430,7 @@ class YpPlayQueueActivity : AppCompatActivity(), PlayerEventListener, PlaybackPa
     /** "16:20 / 48:30": the queue progress over its total duration, like the legacy screen. */
     private fun queueTimeText(currentProgressMillis: Int): String? {
         val queue = player?.playQueue ?: return null
-        val streams = queue.streams
-        val currentIndex = queue.index
-        if (streams.isEmpty() || currentIndex < 0 || currentIndex >= streams.size) {
-            return null
-        }
-        val before = streams.subList(0, currentIndex).sumOf(PlayQueueItem::getDuration)
-        val total = streams.sumOf(PlayQueueItem::getDuration)
-        val queueProgress = before + currentProgressMillis / 1000L
-        return Localization.getDurationString(queueProgress) + " / " +
-            Localization.getDurationString(total)
+        return playQueueTimeText(queue, currentProgressMillis)
     }
 
     private fun onQueueItemAction(index: Int, action: YpQueueItemAction) {

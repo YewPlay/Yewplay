@@ -1446,9 +1446,9 @@ class YpVideoDetailFragment :
                 // Removing and re-adding a SurfaceView destroys its native surface,
                 // causing a black screen until the video decoder hits the next
                 // keyframe (2-5 seconds on typical DASH/HLS streams).
-                if (playerUi.binding.root.parent !== b.playerPlaceholder) {
+                if (playerUi.views.root.parent !== b.playerPlaceholder) {
                     playerUi.removeViewFromParent()
-                    b.playerPlaceholder.addView(playerUi.binding.root)
+                    b.playerPlaceholder.addView(playerUi.views.root)
                 }
                 playerUi.setupVideoSurfaceIfNeeded()
             }
@@ -1537,7 +1537,7 @@ class YpVideoDetailFragment :
         if (isPlayerAvailable()) {
             val maxHeight = (metrics.heightPixels * MAX_PLAYER_HEIGHT).toInt()
             player!!.UIs().get(VideoPlayerUi::class.java).ifPresent { ui ->
-                ui.binding.surfaceView.setHeights(
+                ui.views.surfaceView.setHeights(
                     newHeight,
                     if (ui.isFullscreen) newHeight else maxHeight
                 )
@@ -2712,7 +2712,7 @@ class YpVideoDetailFragment :
     fun getRoot(): Optional<View> {
         return Optional.ofNullable(player)
             .flatMap { p -> p.UIs().get(VideoPlayerUi::class.java) }
-            .map { playerUi -> playerUi.binding.root }
+            .map { playerUi -> playerUi.views.root }
     }
 
     private fun updateBottomSheetState(newState: Int) {
