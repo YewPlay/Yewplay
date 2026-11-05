@@ -77,7 +77,7 @@ import org.schabi.newpipe.fragments.BackPressable;
 import org.schabi.newpipe.fragments.LibraryFragment;
 import org.schabi.newpipe.fragments.MainFragment;
 import org.schabi.newpipe.fragments.YpWelcomeFragment;
-import org.schabi.newpipe.fragments.detail.VideoDetailFragment;
+import org.schabi.newpipe.fragments.detail.YpVideoDetailFragment;
 import org.schabi.newpipe.fragments.list.channel.YpChannelFragment;
 import org.schabi.newpipe.fragments.list.comments.CommentRepliesFragment;
 import org.schabi.newpipe.fragments.list.playlist.YpPlaylistFragment;
@@ -682,8 +682,8 @@ public class MainActivity extends AppCompatActivity {
             case PermissionHelper.DOWNLOAD_DIALOG_REQUEST_CODE:
                 final Fragment fragment = getSupportFragmentManager()
                         .findFragmentById(R.id.fragment_player_holder);
-                if (fragment instanceof VideoDetailFragment) {
-                    ((VideoDetailFragment) fragment).openDownloadDialog();
+                if (fragment instanceof YpVideoDetailFragment) {
+                    ((YpVideoDetailFragment) fragment).openDownloadDialog();
                 }
                 break;
             case PermissionHelper.POST_NOTIFICATIONS_REQUEST_CODE:
@@ -1036,7 +1036,7 @@ public class MainActivity extends AppCompatActivity {
                                 : null;
 
                         final boolean switchingPlayers = intent.getBooleanExtra(
-                                VideoDetailFragment.KEY_SWITCHING_PLAYERS, false);
+                                YpVideoDetailFragment.KEY_SWITCHING_PLAYERS, false);
                         NavigationHelper.openVideoDetailFragment(
                                 getApplicationContext(), getSupportFragmentManager(),
                                 serviceId, url, title, playQueue, switchingPlayers);
@@ -1097,7 +1097,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onReceive(final Context context, final Intent intent) {
                     if (Objects.equals(intent.getAction(),
-                            VideoDetailFragment.ACTION_PLAYER_STARTED)
+                            YpVideoDetailFragment.ACTION_PLAYER_STARTED)
                             && PlayerHolder.getInstance().isPlayerOpen()) {
                         openMiniPlayerIfMissing();
                         // At this point the player is added 100%, we can unregister. Other actions
@@ -1108,7 +1108,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             };
             final IntentFilter intentFilter = new IntentFilter();
-            intentFilter.addAction(VideoDetailFragment.ACTION_PLAYER_STARTED);
+            intentFilter.addAction(YpVideoDetailFragment.ACTION_PLAYER_STARTED);
             ContextCompat.registerReceiver(this, broadcastReceiver, intentFilter,
                     ContextCompat.RECEIVER_EXPORTED);
 
@@ -1163,9 +1163,9 @@ public class MainActivity extends AppCompatActivity {
                 if (newState == BottomSheetBehavior.STATE_EXPANDED) {
                     final Fragment detailFragment = fm.findFragmentById(
                             R.id.fragment_player_holder);
-                    if (detailFragment instanceof VideoDetailFragment && rootComment != null) {
+                    if (detailFragment instanceof YpVideoDetailFragment && rootComment != null) {
                         // should always be the case
-                        ((VideoDetailFragment) detailFragment).scrollToComment(rootComment);
+                        ((YpVideoDetailFragment) detailFragment).scrollToComment(rootComment);
                     }
                     behavior.removeBottomSheetCallback(this);
                 }

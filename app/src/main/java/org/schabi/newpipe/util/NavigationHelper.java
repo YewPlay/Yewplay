@@ -47,7 +47,7 @@ import org.schabi.newpipe.extractor.stream.StreamInfoItem;
 import org.schabi.newpipe.extractor.stream.VideoStream;
 import org.schabi.newpipe.fragments.LibraryFragment;
 import org.schabi.newpipe.fragments.MainFragment;
-import org.schabi.newpipe.fragments.detail.VideoDetailFragment;
+import org.schabi.newpipe.fragments.detail.YpVideoDetailFragment;
 import org.schabi.newpipe.fragments.list.channel.YpChannelFragment;
 import org.schabi.newpipe.fragments.list.comments.CommentRepliesFragment;
 import org.schabi.newpipe.fragments.list.kiosk.YpKioskFragment;
@@ -394,23 +394,23 @@ public final class NavigationHelper {
     }
 
     public static void expandMainPlayer(final Context context) {
-        context.sendBroadcast(new Intent(VideoDetailFragment.ACTION_SHOW_MAIN_PLAYER));
+        context.sendBroadcast(new Intent(YpVideoDetailFragment.ACTION_SHOW_MAIN_PLAYER));
     }
 
     public static void sendPlayerStartedEvent(final Context context) {
-        context.sendBroadcast(new Intent(VideoDetailFragment.ACTION_PLAYER_STARTED));
+        context.sendBroadcast(new Intent(YpVideoDetailFragment.ACTION_PLAYER_STARTED));
     }
 
     public static void showMiniPlayer(final FragmentManager fragmentManager) {
-        final VideoDetailFragment instance = VideoDetailFragment.getInstanceInCollapsedState();
+        final YpVideoDetailFragment instance = YpVideoDetailFragment.getInstanceInCollapsedState();
         defaultTransaction(fragmentManager)
                 .replace(R.id.fragment_player_holder, instance)
                 .runOnCommit(() -> sendPlayerStartedEvent(instance.requireActivity()))
                 .commitAllowingStateLoss();
     }
 
-    private interface RunnableWithVideoDetailFragment {
-        void run(VideoDetailFragment detailFragment);
+    private interface RunnableWithYpVideoDetailFragment {
+        void run(YpVideoDetailFragment detailFragment);
     }
 
     public static void openVideoDetailFragment(@NonNull final Context context,
@@ -437,7 +437,7 @@ public final class NavigationHelper {
             autoPlay = false;
         }
 
-        final RunnableWithVideoDetailFragment onVideoDetailFragmentReady = detailFragment -> {
+        final RunnableWithYpVideoDetailFragment onYpVideoDetailFragmentReady = detailFragment -> {
             expandMainPlayer(detailFragment.requireActivity());
             detailFragment.setAutoPlay(autoPlay);
             if (switchingPlayers && TextUtils.equals(detailFragment.getUrl(), url)) {
@@ -456,20 +456,20 @@ public final class NavigationHelper {
         };
 
         final Fragment fragment = fragmentManager.findFragmentById(R.id.fragment_player_holder);
-        if (fragment instanceof VideoDetailFragment && fragment.isVisible()) {
-            onVideoDetailFragmentReady.run((VideoDetailFragment) fragment);
+        if (fragment instanceof YpVideoDetailFragment && fragment.isVisible()) {
+            onYpVideoDetailFragmentReady.run((YpVideoDetailFragment) fragment);
         } else {
-            // Specify no url here, otherwise the VideoDetailFragment will start loading the
+            // Specify no url here, otherwise the YpVideoDetailFragment will start loading the
             // stream automatically if it's the first time it is being opened, but then
-            // onVideoDetailFragmentReady will kick in and start another loading process.
-            // See VideoDetailFragment.wasCleared() and its usage in doInitialLoadLogic().
-            final VideoDetailFragment instance = VideoDetailFragment
+            // onYpVideoDetailFragmentReady will kick in and start another loading process.
+            // See YpVideoDetailFragment.wasCleared() and its usage in doInitialLoadLogic().
+            final YpVideoDetailFragment instance = YpVideoDetailFragment
                     .getInstance(serviceId, null, title, playQueue);
             instance.setAutoPlay(autoPlay);
 
             defaultTransaction(fragmentManager)
                     .replace(R.id.fragment_player_holder, instance)
-                    .runOnCommit(() -> onVideoDetailFragmentReady.run(instance))
+                    .runOnCommit(() -> onYpVideoDetailFragmentReady.run(instance))
                     .commit();
         }
     }
@@ -657,7 +657,7 @@ public final class NavigationHelper {
                                        final boolean switchingPlayers) {
 
         final Intent intent = getStreamIntent(context, serviceId, url, title)
-                .putExtra(VideoDetailFragment.KEY_SWITCHING_PLAYERS, switchingPlayers);
+                .putExtra(YpVideoDetailFragment.KEY_SWITCHING_PLAYERS, switchingPlayers);
 
         if (playQueue != null) {
             final String cacheKey = SerializedCache.getInstance().put(playQueue, PlayQueue.class);

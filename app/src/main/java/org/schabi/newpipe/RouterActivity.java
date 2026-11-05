@@ -668,7 +668,7 @@ public class RouterActivity extends AppCompatActivity {
         if (!selectedChoiceKey.equals(getString(R.string.video_player_key))) {
             return false;
         }
-        // "video player" can be handled like "show info" (because VideoDetailFragment can load
+        // "video player" can be handled like "show info" (because YpVideoDetailFragment can load
         // the stream instead of FetcherService) when...
 
         // ...Autoplay is enabled

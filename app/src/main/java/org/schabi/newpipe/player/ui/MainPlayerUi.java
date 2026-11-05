@@ -50,7 +50,7 @@ import org.schabi.newpipe.databinding.PlayerBinding;
 import org.schabi.newpipe.extractor.stream.StreamInfo;
 import org.schabi.newpipe.extractor.stream.StreamSegment;
 import org.schabi.newpipe.fragments.OnScrollBelowItemsListener;
-import org.schabi.newpipe.fragments.detail.VideoDetailFragment;
+import org.schabi.newpipe.fragments.detail.YpVideoDetailFragment;
 import org.schabi.newpipe.info_list.StreamSegmentAdapter;
 import org.schabi.newpipe.info_list.StreamSegmentItem;
 import org.schabi.newpipe.ktx.AnimationType;
@@ -115,7 +115,7 @@ public final class MainPlayerUi extends VideoPlayerUi implements View.OnLayoutCh
     /**
      * Open fullscreen on tablets where the option to have the main player start automatically in
      * fullscreen mode is on. Rotating the device to landscape is already done in {@link
-     * VideoDetailFragment#openVideoPlayer(boolean)} when the thumbnail is clicked, and that's
+     * YpVideoDetailFragment#openVideoPlayer(boolean)} when the thumbnail is clicked, and that's
      * enough for phones, but not for tablets since the mini player can be also shown in landscape.
      */
     private void directlyOpenFullscreenIfNeeded() {
@@ -330,10 +330,10 @@ public final class MainPlayerUi extends VideoPlayerUi implements View.OnLayoutCh
             if (!fragmentIsVisible) {
                 onFragmentStopped();
             }
-        } else if (VideoDetailFragment.ACTION_VIDEO_FRAGMENT_STOPPED.equals(intent.getAction())) {
+        } else if (YpVideoDetailFragment.ACTION_VIDEO_FRAGMENT_STOPPED.equals(intent.getAction())) {
             fragmentIsVisible = false;
             onFragmentStopped();
-        } else if (VideoDetailFragment.ACTION_VIDEO_FRAGMENT_RESUMED.equals(intent.getAction())) {
+        } else if (YpVideoDetailFragment.ACTION_VIDEO_FRAGMENT_RESUMED.equals(intent.getAction())) {
             // Restore video source when user returns to the fragment
             fragmentIsVisible = true;
             player.useVideoAndSubtitles(true);

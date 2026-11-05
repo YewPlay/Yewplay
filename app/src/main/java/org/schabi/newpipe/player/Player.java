@@ -93,7 +93,7 @@ import org.schabi.newpipe.extractor.stream.AudioStream;
 import org.schabi.newpipe.extractor.stream.StreamInfo;
 import org.schabi.newpipe.extractor.stream.StreamType;
 import org.schabi.newpipe.extractor.stream.VideoStream;
-import org.schabi.newpipe.fragments.detail.VideoDetailFragment;
+import org.schabi.newpipe.fragments.detail.YpVideoDetailFragment;
 import org.schabi.newpipe.local.history.HistoryRecordManager;
 import org.schabi.newpipe.player.event.PlayerEventListener;
 import org.schabi.newpipe.player.event.PlayerServiceEventListener;
@@ -802,8 +802,8 @@ public final class Player implements PlaybackListener, Listener {
         intentFilter.addAction(ACTION_SHUFFLE);
         intentFilter.addAction(ACTION_RECREATE_NOTIFICATION);
 
-        intentFilter.addAction(VideoDetailFragment.ACTION_VIDEO_FRAGMENT_RESUMED);
-        intentFilter.addAction(VideoDetailFragment.ACTION_VIDEO_FRAGMENT_STOPPED);
+        intentFilter.addAction(YpVideoDetailFragment.ACTION_VIDEO_FRAGMENT_RESUMED);
+        intentFilter.addAction(YpVideoDetailFragment.ACTION_VIDEO_FRAGMENT_STOPPED);
 
         intentFilter.addAction(Intent.ACTION_CONFIGURATION_CHANGED);
         intentFilter.addAction(Intent.ACTION_SCREEN_ON);

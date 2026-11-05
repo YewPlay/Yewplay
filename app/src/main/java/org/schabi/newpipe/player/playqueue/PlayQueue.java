@@ -531,7 +531,7 @@ public abstract class PlayQueue implements Serializable {
      * Compares two PlayQueues. Useful when a user switches players but queue is the same so
      * we don't have to do anything with new queue.
      * This method also gives a chance to track history of items in a queue in
-     * VideoDetailFragment without duplicating items from two identical queues
+     * YpVideoDetailFragment without duplicating items from two identical queues
      */
     public boolean equalStreams(@Nullable final PlayQueue other) {
         if (other == null) {

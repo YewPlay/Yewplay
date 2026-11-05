@@ -69,7 +69,7 @@ import org.schabi.newpipe.extractor.stream.StreamInfo;
 import org.schabi.newpipe.extractor.stream.StreamSegment;
 import org.schabi.newpipe.extractor.stream.VideoStream;
 import org.schabi.newpipe.views.ChaptersSeekBar;
-import org.schabi.newpipe.fragments.detail.VideoDetailFragment;
+import org.schabi.newpipe.fragments.detail.YpVideoDetailFragment;
 import org.schabi.newpipe.ktx.AnimationType;
 import org.schabi.newpipe.player.Player;
 import org.schabi.newpipe.player.gesture.BasePlayerGestureListener;
@@ -250,7 +250,7 @@ public abstract class VideoPlayerUi extends PlayerUi implements SeekBar.OnSeekBa
         binding.openInBrowser.setOnClickListener(makeOnClickListener(this::onOpenInBrowserClicked));
         binding.playerCloseButton.setOnClickListener(makeOnClickListener(() ->
                 // set package to this app's package to prevent the intent from being seen outside
-                context.sendBroadcast(new Intent(VideoDetailFragment.ACTION_HIDE_MAIN_PLAYER)
+                context.sendBroadcast(new Intent(YpVideoDetailFragment.ACTION_HIDE_MAIN_PLAYER)
                         .setPackage(App.PACKAGE_NAME))
         ));
         binding.switchMute.setOnClickListener(makeOnClickListener(player::toggleMute));
