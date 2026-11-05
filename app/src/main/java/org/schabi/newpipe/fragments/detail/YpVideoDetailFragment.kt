@@ -129,11 +129,11 @@ import org.schabi.newpipe.util.NavigationHelper
 import org.schabi.newpipe.util.NavigationHelper.openPlayQueue
 import org.schabi.newpipe.util.PermissionHelper
 import org.schabi.newpipe.util.PlayButtonHelper
+import org.schabi.newpipe.util.ThemeHelper
 import org.schabi.newpipe.util.external_communication.KoreUtils
 import org.schabi.newpipe.util.external_communication.ShareUtils
 import org.schabi.newpipe.util.image.CoilHelper
 import org.schabi.newpipe.util.image.ImageStrategy
-import org.schabi.newpipe.util.ThemeHelper
 
 /**
  * YewPlay: the video page, in Kotlin. The header (title, channel, counts, actions) is drawn in
@@ -151,8 +151,10 @@ class YpVideoDetailFragment :
     private var showRelatedItems = false
     private var showDescription = false
     private var selectedTabTag: String? = null
+
     @AttrRes
     private val tabIcons: MutableList<Int> = ArrayList()
+
     @StringRes
     private val tabContentDescriptions: MutableList<Int> = ArrayList()
     private var tabSettingsChanged = false
@@ -213,7 +215,7 @@ class YpVideoDetailFragment :
 
     /*//////////////////////////////////////////////////////////////////////////
     // Views
-    //////////////////////////////////////////////////////////////////////////*/
+    ////////////////////////////////////////////////////////////////////////// */
 
     private var binding: FragmentVideoDetailBinding? = null
 
@@ -229,7 +231,7 @@ class YpVideoDetailFragment :
 
     /*//////////////////////////////////////////////////////////////////////////
     // Service management
-    //////////////////////////////////////////////////////////////////////////*/
+    ////////////////////////////////////////////////////////////////////////// */
 
     override fun onServiceConnected(connectedPlayerService: PlayerService) {
         playerService = connectedPlayerService
@@ -280,7 +282,7 @@ class YpVideoDetailFragment :
         playerService = null
     }
 
-    /*////////////////////////////////////////////////////////////////////////*/
+    /*//////////////////////////////////////////////////////////////////////// */
 
     companion object {
         const val KEY_SWITCHING_PLAYERS = "switching_players"
@@ -342,7 +344,7 @@ class YpVideoDetailFragment :
 
     /*//////////////////////////////////////////////////////////////////////////
     // Fragment's Lifecycle
-    //////////////////////////////////////////////////////////////////////////*/
+    ////////////////////////////////////////////////////////////////////////// */
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -352,7 +354,8 @@ class YpVideoDetailFragment :
         showRelatedItems = prefs.getBoolean(getString(R.string.show_next_video_key), true)
         showDescription = prefs.getBoolean(getString(R.string.show_description_key), true)
         selectedTabTag = prefs.getString(
-            getString(R.string.stream_info_selected_tab_key), COMMENTS_TAB_TAG
+            getString(R.string.stream_info_selected_tab_key),
+            COMMENTS_TAB_TAG
         )
         prefs.registerOnSharedPreferenceChangeListener(preferenceChangeListener)
 
@@ -366,7 +369,8 @@ class YpVideoDetailFragment :
             }
         }
         activity.contentResolver.registerContentObserver(
-            Settings.System.getUriFor(Settings.System.ACCELEROMETER_ROTATION), false,
+            Settings.System.getUriFor(Settings.System.ACCELEROMETER_ROTATION),
+            false,
             settingsContentObserver!!
         )
     }
@@ -478,7 +482,10 @@ class YpVideoDetailFragment :
                         onShare = {
                             runWithInfo { info ->
                                 ShareUtils.shareText(
-                                    requireContext(), info.name, info.url, info.thumbnails
+                                    requireContext(),
+                                    info.name,
+                                    info.url,
+                                    info.thumbnails
                                 )
                             }
                         },
@@ -603,19 +610,25 @@ class YpVideoDetailFragment :
         when (requestCode) {
             ReCaptchaActivity.RECAPTCHA_REQUEST -> if (resultCode == Activity.RESULT_OK) {
                 NavigationHelper.openVideoDetailFragment(
-                    requireContext(), fm,
-                    serviceId, url, title, null, false
+                    requireContext(),
+                    fm,
+                    serviceId,
+                    url,
+                    title,
+                    null,
+                    false
                 )
             } else {
                 Log.e(TAG, "ReCaptcha failed")
             }
+
             else -> Log.e(TAG, "Request code from activity not supported [$requestCode]")
         }
     }
 
     /*//////////////////////////////////////////////////////////////////////////
     // OnClick (view listeners; the header actions live in the Compose wiring above)
-    //////////////////////////////////////////////////////////////////////////*/
+    ////////////////////////////////////////////////////////////////////////// */
 
     private fun setOnClickListeners() {
         val b = binding ?: return
@@ -694,7 +707,10 @@ class YpVideoDetailFragment :
     private fun openChannel(subChannelUrl: String?, subChannelName: String?) {
         try {
             NavigationHelper.openChannelFragment(
-                fm, currentInfo!!.serviceId, subChannelUrl, subChannelName
+                fm,
+                currentInfo!!.serviceId,
+                subChannelUrl,
+                subChannelName
             )
         } catch (e: Exception) {
             ErrorUtil.showUiErrorSnackbar(this, "Opening channel fragment", e)
@@ -712,7 +728,7 @@ class YpVideoDetailFragment :
 
     /*//////////////////////////////////////////////////////////////////////////
     // Init
-    //////////////////////////////////////////////////////////////////////////*/
+    ////////////////////////////////////////////////////////////////////////// */
 
     // called from onViewCreated in {@link BaseFragment#onViewCreated}
     override fun initViews(rootView: View, savedInstanceState: Bundle?) {
@@ -785,7 +801,7 @@ class YpVideoDetailFragment :
 
     /*//////////////////////////////////////////////////////////////////////////
     // OwnStack
-    //////////////////////////////////////////////////////////////////////////*/
+    ////////////////////////////////////////////////////////////////////////// */
 
     override fun onKeyDown(keyCode: Int): Boolean {
         return isPlayerAvailable() &&
@@ -851,7 +867,7 @@ class YpVideoDetailFragment :
 
     /*//////////////////////////////////////////////////////////////////////////
     // Info loading and handling
-    //////////////////////////////////////////////////////////////////////////*/
+    ////////////////////////////////////////////////////////////////////////// */
 
     override fun doInitialLoadLogic() {
         if (wasCleared()) {
@@ -902,8 +918,11 @@ class YpVideoDetailFragment :
 
     private fun prepareAndHandleInfo(info: StreamInfo, scrollToTop: Boolean) {
         if (DEBUG) {
-            Log.d(TAG, "prepareAndHandleInfo() called with: " +
-                "info = [$info], scrollToTop = [$scrollToTop]")
+            Log.d(
+                TAG,
+                "prepareAndHandleInfo() called with: " +
+                    "info = [$info], scrollToTop = [$scrollToTop]"
+            )
         }
 
         showLoading()
@@ -950,7 +969,8 @@ class YpVideoDetailFragment :
                 isLoading.set(false)
                 hideMainPlayerOnLoadingNewStream()
                 if (result.ageLimit != NO_AGE_LIMIT && !prefs.getBoolean(
-                        getString(R.string.show_age_restricted_content), false
+                        getString(R.string.show_age_restricted_content),
+                        false
                     )
                 ) {
                     hideAgeRestrictedContent()
@@ -975,8 +995,11 @@ class YpVideoDetailFragment :
             }, { throwable ->
                 showError(
                     ErrorInfo(
-                        throwable, UserAction.REQUESTED_STREAM,
-                        url ?: "no url", serviceId, url
+                        throwable,
+                        UserAction.REQUESTED_STREAM,
+                        url ?: "no url",
+                        serviceId,
+                        url
                     )
                 )
             })
@@ -984,7 +1007,7 @@ class YpVideoDetailFragment :
 
     /*//////////////////////////////////////////////////////////////////////////
     // Tabs
-    //////////////////////////////////////////////////////////////////////////*/
+    ////////////////////////////////////////////////////////////////////////// */
 
     private fun initTabs() {
         if (!::pageAdapter.isInitialized) {
@@ -1000,7 +1023,8 @@ class YpVideoDetailFragment :
 
         if (shouldShowComments()) {
             pageAdapter.addFragment(
-                CommentsFragment.getInstance(serviceId, url, title), COMMENTS_TAB_TAG
+                CommentsFragment.getInstance(serviceId, url, title),
+                COMMENTS_TAB_TAG
             )
             tabIcons.add(R.drawable.ic_comment)
             tabContentDescriptions.add(R.string.comments_tab_description)
@@ -1111,7 +1135,9 @@ class YpVideoDetailFragment :
                     val viewPagerVisibleHeight = height - pagerHitRect.top
                     // see TabLayout.DEFAULT_HEIGHT, which is equal to 48dp
                     val tabLayoutHeight = TypedValue.applyDimension(
-                        TypedValue.COMPLEX_UNIT_DIP, 48f, resources.displayMetrics
+                        TypedValue.COMPLEX_UNIT_DIP,
+                        48f,
+                        resources.displayMetrics
                     )
 
                     if (viewPagerVisibleHeight > tabLayoutHeight * 2) {
@@ -1154,7 +1180,7 @@ class YpVideoDetailFragment :
 
     /*//////////////////////////////////////////////////////////////////////////
     // Play Utils
-    //////////////////////////////////////////////////////////////////////////*/
+    ////////////////////////////////////////////////////////////////////////// */
 
     private fun toggleFullscreenIfInFullscreenMode() {
         // If a user watched video inside fullscreen mode and than chose another player
@@ -1237,7 +1263,7 @@ class YpVideoDetailFragment :
         }
 
         if (PreferenceManager.getDefaultSharedPreferences(activity)
-            .getBoolean(this.getString(R.string.use_external_video_player_key), false)
+                .getBoolean(this.getString(R.string.use_external_video_player_key), false)
         ) {
             showExternalVideoPlaybackDialog()
         } else {
@@ -1298,7 +1324,10 @@ class YpVideoDetailFragment :
         val context = requireContext()
         val playerIntent =
             NavigationHelper.getPlayerIntent(
-                context, PlayerService::class.java, queue, PlayerIntentType.AllOthers
+                context,
+                PlayerService::class.java,
+                queue,
+                PlayerIntentType.AllOthers
             )
                 .putExtra(Player.PLAY_WHEN_READY, autoPlayEnabled)
                 .putExtra(Player.RESUME_PLAYBACK, true)
@@ -1343,7 +1372,7 @@ class YpVideoDetailFragment :
 
     /*//////////////////////////////////////////////////////////////////////////
     // Utils
-    //////////////////////////////////////////////////////////////////////////*/
+    ////////////////////////////////////////////////////////////////////////// */
 
     fun setAutoPlay(autoPlay: Boolean) {
         this.autoPlayEnabled = autoPlay
@@ -1355,7 +1384,10 @@ class YpVideoDetailFragment :
         selectedStream: Stream
     ) {
         NavigationHelper.playOnExternalPlayer(
-            context, currentInfo!!.name, currentInfo!!.subChannelName, selectedStream
+            context,
+            currentInfo!!.name,
+            currentInfo!!.subChannelName,
+            selectedStream
         )
 
         val recordManager = HistoryRecordManager(requireContext())
@@ -1444,11 +1476,13 @@ class YpVideoDetailFragment :
         val metrics = resources.displayMetrics
 
         if (view != null) {
-            val height = (if (DeviceUtils.isInMultiWindow(activity)) {
-                requireView()
-            } else {
-                activity.window.decorView
-            }).height
+            val height = (
+                if (DeviceUtils.isInMultiWindow(activity)) {
+                    requireView()
+                } else {
+                    activity.window.decorView
+                }
+                ).height
             setHeightThumbnail(height, metrics)
             view!!.viewTreeObserver.removeOnPreDrawListener(preDrawListener)
         }
@@ -1468,11 +1502,13 @@ class YpVideoDetailFragment :
         requireView().viewTreeObserver.removeOnPreDrawListener(preDrawListener)
 
         if (isFullscreen()) {
-            val height = (if (DeviceUtils.isInMultiWindow(activity)) {
-                requireView()
-            } else {
-                activity.window.decorView
-            }).height
+            val height = (
+                if (DeviceUtils.isInMultiWindow(activity)) {
+                    requireView()
+                } else {
+                    activity.window.decorView
+                }
+                ).height
             // Height is zero when the view is not yet displayed like after orientation change
             if (height != 0) {
                 setHeightThumbnail(height, metrics)
@@ -1480,11 +1516,13 @@ class YpVideoDetailFragment :
                 requireView().viewTreeObserver.addOnPreDrawListener(preDrawListener)
             }
         } else {
-            val height = (if (isPortrait) {
-                metrics.widthPixels / (16.0f / 9.0f)
-            } else {
-                metrics.heightPixels / 2.0f
-            }).toInt()
+            val height = (
+                if (isPortrait) {
+                    metrics.widthPixels / (16.0f / 9.0f)
+                } else {
+                    metrics.heightPixels / 2.0f
+                }
+                ).toInt()
             setHeightThumbnail(height, metrics)
         }
     }
@@ -1492,7 +1530,8 @@ class YpVideoDetailFragment :
     private fun setHeightThumbnail(newHeight: Int, metrics: DisplayMetrics) {
         val b = binding ?: return
         b.detailThumbnailImageView.layoutParams = FrameLayout.LayoutParams(
-            FrameLayout.LayoutParams.MATCH_PARENT, newHeight
+            FrameLayout.LayoutParams.MATCH_PARENT,
+            newHeight
         )
         b.detailThumbnailImageView.minimumHeight = newHeight
         if (isPlayerAvailable()) {
@@ -1566,8 +1605,10 @@ class YpVideoDetailFragment :
                 when (intent.action) {
                     ACTION_SHOW_MAIN_PLAYER ->
                         bottomSheetBehavior?.state = BottomSheetBehavior.STATE_EXPANDED
+
                     ACTION_HIDE_MAIN_PLAYER ->
                         bottomSheetBehavior?.state = BottomSheetBehavior.STATE_HIDDEN
+
                     ACTION_PLAYER_STARTED -> {
                         // If the state is not hidden we don't need to show the mini player
                         if (bottomSheetBehavior?.state == BottomSheetBehavior.STATE_HIDDEN) {
@@ -1586,13 +1627,16 @@ class YpVideoDetailFragment :
         intentFilter.addAction(ACTION_HIDE_MAIN_PLAYER)
         intentFilter.addAction(ACTION_PLAYER_STARTED)
         ContextCompat.registerReceiver(
-            activity, broadcastReceiver, intentFilter, ContextCompat.RECEIVER_EXPORTED
+            activity,
+            broadcastReceiver,
+            intentFilter,
+            ContextCompat.RECEIVER_EXPORTED
         )
     }
 
     /*//////////////////////////////////////////////////////////////////////////
     // Orientation listener
-    //////////////////////////////////////////////////////////////////////////*/
+    ////////////////////////////////////////////////////////////////////////// */
 
     private fun restoreDefaultOrientation() {
         if (isPlayerAvailable() && player!!.videoPlayerSelected()) {
@@ -1610,7 +1654,7 @@ class YpVideoDetailFragment :
 
     /*//////////////////////////////////////////////////////////////////////////
     // Contract
-    //////////////////////////////////////////////////////////////////////////*/
+    ////////////////////////////////////////////////////////////////////////// */
 
     override fun showLoading() {
         super.showLoading()
@@ -1679,8 +1723,10 @@ class YpVideoDetailFragment :
         checkUpdateProgressInfo(info)
         CoilHelper.loadDetailsThumbnail(b.detailThumbnailImageView, info.thumbnails)
         showMetaInfoInTextView(
-            info.metaInfo, b.detailMetaInfoTextView,
-            b.detailMetaInfoSeparator, disposables
+            info.metaInfo,
+            b.detailMetaInfoTextView,
+            b.detailMetaInfoSeparator,
+            disposables
         )
 
         setupSubscribeButton(info)
@@ -1693,8 +1739,10 @@ class YpVideoDetailFragment :
             when {
                 info.streamType == StreamType.AUDIO_LIVE_STREAM ->
                     Localization.listeningCount(activity, info.viewCount)
+
                 info.streamType == StreamType.LIVE_STREAM ->
                     Localization.localizeWatchingCount(activity, info.viewCount)
+
                 else -> Localization.localizeViewCount(activity, info.viewCount)
             }
         } else {
@@ -1781,7 +1829,7 @@ class YpVideoDetailFragment :
 
     /*//////////////////////////////////////////////////////////////////////////
     // Stream Results
-    //////////////////////////////////////////////////////////////////////////*/
+    ////////////////////////////////////////////////////////////////////////// */
 
     private fun checkUpdateProgressInfo(info: StreamInfo) {
         positionSubscriber?.dispose()
@@ -1839,7 +1887,7 @@ class YpVideoDetailFragment :
 
     /*//////////////////////////////////////////////////////////////////////////
     // Player event listener
-    //////////////////////////////////////////////////////////////////////////*/
+    ////////////////////////////////////////////////////////////////////////// */
 
     override fun onViewCreated() {
         tryAddVideoPlayerView()
@@ -1848,9 +1896,12 @@ class YpVideoDetailFragment :
     override fun onQueueUpdate(queue: PlayQueue) {
         playQueue = queue
         if (DEBUG) {
-            Log.d(TAG, "onQueueUpdate() called with: serviceId = [" +
-                serviceId + "], url = [" + url + "], name = [" +
-                title + "], playQueue = [" + playQueue + "]")
+            Log.d(
+                TAG,
+                "onQueueUpdate() called with: serviceId = [" +
+                    serviceId + "], url = [" + url + "], name = [" +
+                    title + "], playQueue = [" + playQueue + "]"
+            )
         }
 
         // Register broadcast receiver to listen to playQueue changes
@@ -1870,8 +1921,10 @@ class YpVideoDetailFragment :
             if (playQueueItem != null) {
                 stack.push(
                     StackItem(
-                        playQueueItem.serviceId, playQueueItem.url,
-                        playQueueItem.title, queue
+                        playQueueItem.serviceId,
+                        playQueueItem.url,
+                        playQueueItem.title,
+                        queue
                     )
                 )
                 return
@@ -2049,7 +2102,7 @@ class YpVideoDetailFragment :
 
     /*//////////////////////////////////////////////////////////////////////////
     // Player related utils
-    //////////////////////////////////////////////////////////////////////////*/
+    ////////////////////////////////////////////////////////////////////////// */
 
     private fun showSystemUi() {
         if (DEBUG) {
@@ -2068,7 +2121,8 @@ class YpVideoDetailFragment :
         activity.window.decorView.systemUiVisibility = 0
         activity.window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
         activity.window.statusBarColor = ThemeHelper.resolveColorFromAttr(
-            requireContext(), android.R.attr.colorPrimary
+            requireContext(),
+            android.R.attr.colorPrimary
         )
     }
 
@@ -2086,11 +2140,13 @@ class YpVideoDetailFragment :
             activity.window.attributes.layoutInDisplayCutoutMode =
                 WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
         }
-        var visibility = (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-            or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-            or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-            or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-            or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
+        var visibility = (
+            View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+            )
 
         // In multiWindow mode status bar is not transparent for devices with cutout
         // if I include this flag. So without it is better in this case
@@ -2275,7 +2331,8 @@ class YpVideoDetailFragment :
 
         if (audioTracks.isEmpty()) {
             Toast.makeText(
-                activity, R.string.no_audio_streams_available_for_external_players,
+                activity,
+                R.string.no_audio_streams_available_for_external_players,
                 Toast.LENGTH_SHORT
             ).show()
         } else if (audioTracks.size == 1) {
@@ -2433,7 +2490,9 @@ class YpVideoDetailFragment :
                         val liked = findLikedPlaylist(entries, likedName)
                         if (liked != null && liked.timesStreamIsContained > 0) {
                             Toast.makeText(
-                                context, R.string.yp_liked_already, Toast.LENGTH_SHORT
+                                context,
+                                R.string.yp_liked_already,
+                                Toast.LENGTH_SHORT
                             ).show()
                             return@subscribe
                         }
@@ -2448,13 +2507,16 @@ class YpVideoDetailFragment :
                                 .subscribe(
                                     {
                                         Toast.makeText(
-                                            context, R.string.yp_liked_added,
+                                            context,
+                                            R.string.yp_liked_added,
                                             Toast.LENGTH_SHORT
                                         ).show()
                                     },
                                     { e ->
                                         ErrorUtil.showUiErrorSnackbar(
-                                            this, "Saving liked video", e
+                                            this,
+                                            "Saving liked video",
+                                            e
                                         )
                                     }
                                 )
@@ -2507,6 +2569,7 @@ class YpVideoDetailFragment :
                         bottomSheetBehavior!!.peekHeight = 0
                         cleanUp()
                     }
+
                     BottomSheetBehavior.STATE_EXPANDED -> {
                         moveFocusToMainFragment(false)
                         manageSpaceAtTheBottom(false)
@@ -2525,6 +2588,7 @@ class YpVideoDetailFragment :
                         }
                         setOverlayLook(b.appBarLayout, behavior, 1f)
                     }
+
                     BottomSheetBehavior.STATE_COLLAPSED -> {
                         moveFocusToMainFragment(true)
                         manageSpaceAtTheBottom(false)
@@ -2538,6 +2602,7 @@ class YpVideoDetailFragment :
                         }
                         setOverlayLook(b.appBarLayout, behavior, 0f)
                     }
+
                     BottomSheetBehavior.STATE_DRAGGING, BottomSheetBehavior.STATE_SETTLING -> {
                         if (isFullscreen()) {
                             showSystemUi()
@@ -2550,6 +2615,7 @@ class YpVideoDetailFragment :
                             }
                         }
                     }
+
                     BottomSheetBehavior.STATE_HALF_EXPANDED -> {
                     }
                 }

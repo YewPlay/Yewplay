@@ -405,7 +405,6 @@ fun YpDetailHeader(
                     }
                 }
             }
-
         }
     }
 }
