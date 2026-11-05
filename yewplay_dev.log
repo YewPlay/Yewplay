@@ -1,16 +1,17 @@
 branch: yewplay/dev
-sha: fe314a0d1404eb236b30032767f896c4244001f0
+sha: 7ae43332beb5a307c71063ae2833490bdddfff9c
 outcome: failure
-run: https://github.com/YewPlay/Yewplay/actions/runs/42112113248
+run: https://github.com/YewPlay/Yewplay/actions/runs/42122968551
 
 == errors ==
-/home/runner/work/Yewplay/Yewplay/app/build/intermediates/built_in_kapt_stubs/debug/kaptGenerateStubsDebugKotlin/org/schabi/newpipe/fragments/detail/YpVideoDetailFragment.java:28: error: Don't know how to put error.NonExistentClass into a bundle
-> Task :app:kaptDebugKotlin FAILED
+> Task :feature:playlist:compileAndroidMain FAILED
+e: file:///home/runner/work/Yewplay/Yewplay/feature/playlist/src/commonMain/kotlin/io/github/yewplay/feature/playlist/PlaylistsScreen.kt:197:58 Unresolved reference 'moveDragged'.
 * What went wrong:
-Execution failed for task ':app:kaptDebugKotlin' (registered by plugin 'com.android.internal.application').
-org.gradle.api.tasks.TaskExecutionException: Execution failed for task ':app:kaptDebugKotlin' (registered by plugin 'com.android.internal.application').
-Caused by: org.jetbrains.kotlin.kapt.base.util.KaptBaseError: Error while annotation processing
-BUILD FAILED in 3m 19s
+Execution failed for task ':feature:playlist:compileAndroidMain' (registered by plugin 'com.android.internal.kotlin.multiplatform.library').
+         Unresolved reference 'moveDragged'.
+org.gradle.api.tasks.TaskExecutionException: Execution failed for task ':feature:playlist:compileAndroidMain' (registered by plugin 'com.android.internal.kotlin.multiplatform.library').
+Caused by: org.jetbrains.kotlin.gradle.tasks.CompilationErrorException: Unresolved reference 'moveDragged'.
+BUILD FAILED in 2m 19s
 
 == warnings ==
 w: ⚠️ Unused Kotlin Source Sets
@@ -25,13 +26,12 @@ w: ⚠️ Unused Kotlin Source Sets
 w: Koin compiler plugin: Kotlin 2.4.21 is newer than the newest verified version (2.4.20) — proceeding with the 2.4.20 adapter. If compilation fails, check for a koin-compiler-plugin update. Verified versions: 2.3.20, 2.4.0, 2.4.10, 2.4.20.
 w: file:///home/runner/work/Yewplay/Yewplay/feature/channel/src/commonMain/kotlin/io/github/yewplay/feature/channel/ChannelScreen.kt:403:42 Unnecessary safe call on a non-null receiver of type 'ChannelHeader'.
 w: file:///home/runner/work/Yewplay/Yewplay/feature/channel/src/commonMain/kotlin/io/github/yewplay/feature/channel/ChannelScreen.kt:431:38 Unnecessary safe call on a non-null receiver of type 'ChannelHeader'.
-w: [ksp] /home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/database/feed/dao/FeedDAO.kt:178: The DAO function return type (kotlin.collections.List<java.time.OffsetDateTime?>) with the nullable type argument is meaningless because for now Room will never put a null value in a result.
-w: [ksp] /home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/database/feed/dao/FeedDAO.kt:181: The DAO function return type (kotlin.collections.List<java.time.OffsetDateTime?>) with the nullable type argument is meaningless because for now Room will never put a null value in a result.
-warning: The following options were not recognized by any processor: '[room.internal.schemaInput, room.internal.schemaOutput, kapt.kotlin.generated]'
 
 == tail ==
-> A failure occurred while executing org.jetbrains.kotlin.gradle.internal.KaptWithoutKotlincTask$KaptExecutionWorkAction
-   > Error while annotation processing
+   > Kotlin compiler: UNRESOLVED_REFERENCE
+       Kotlin compiler error
+         Unresolved reference 'moveDragged'.
+         Location: /home/runner/work/Yewplay/Yewplay/feature/playlist/src/commonMain/kotlin/io/github/yewplay/feature/playlist/PlaylistsScreen.kt:197
 
 * Try:
 > Run with --info or --debug option to get more log output.
@@ -39,7 +39,7 @@ warning: The following options were not recognized by any processor: '[room.inte
 > Get more help at https://help.gradle.org.
 
 * Exception is:
-org.gradle.api.tasks.TaskExecutionException: Execution failed for task ':app:kaptDebugKotlin' (registered by plugin 'com.android.internal.application').
+org.gradle.api.tasks.TaskExecutionException: Execution failed for task ':feature:playlist:compileAndroidMain' (registered by plugin 'com.android.internal.kotlin.multiplatform.library').
 	at org.gradle.api.internal.tasks.execution.DefaultTaskNodeExecutor.lambda$doExecute$1(DefaultTaskNodeExecutor.java:367)
 	at org.gradle.internal.Try$Failure.ifSuccessfulOrElse(Try.java:288)
 	at org.gradle.api.internal.tasks.execution.DefaultTaskNodeExecutor.doExecute(DefaultTaskNodeExecutor.java:365)
@@ -68,7 +68,7 @@ org.gradle.api.tasks.TaskExecutionException: Execution failed for task ':app:kap
 	at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.run(DefaultPlanExecutor.java:392)
 	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:65)
 	at org.gradle.internal.concurrent.AbstractManagedExecutor$1.run(AbstractManagedExecutor.java:47)
-Caused by: org.gradle.workers.internal.DefaultWorkerExecutor$WorkExecutionException: A failure occurred while executing org.jetbrains.kotlin.gradle.internal.KaptWithoutKotlincTask$KaptExecutionWorkAction
+Caused by: org.gradle.workers.internal.DefaultWorkerExecutor$WorkExecutionException: A failure occurred while executing org.jetbrains.kotlin.compilerRunner.btapi.BuildToolsApiCompilationWork
 	at org.gradle.workers.internal.DefaultWorkerExecutor$WorkItemExecution.waitForCompletion(DefaultWorkerExecutor.java:273)
 	at org.gradle.internal.work.DefaultAsyncWorkTracker.lambda$waitForItemsAndGatherFailures$2(DefaultAsyncWorkTracker.java:132)
 	at org.gradle.internal.Factories$1.create(Factories.java:30)
@@ -155,7 +155,7 @@ Caused by: org.gradle.workers.internal.DefaultWorkerExecutor$WorkExecutionExcept
 	at org.gradle.internal.execution.steps.CaptureMutableStateBeforeExecutionStep.execute(CaptureMutableStateBeforeExecutionStep.java:65)
 	at org.gradle.internal.execution.steps.CaptureMutableStateBeforeExecutionStep.execute(CaptureMutableStateBeforeExecutionStep.java:45)
 	at org.gradle.internal.execution.steps.SkipEmptyMutableWorkStep.executeWithNonEmptySources(SkipEmptyMutableWorkStep.java:210)
-	at org.gradle.internal.execution.steps.SkipEmptyMutableWorkStep.executeMutable(SkipEmptyMutableWorkStep.java:85)
+	at org.gradle.internal.execution.steps.SkipEmptyMutableWorkStep.executeMutable(SkipEmptyMutableWorkStep.java:90)
 	at org.gradle.internal.execution.steps.SkipEmptyMutableWorkStep.executeMutable(SkipEmptyMutableWorkStep.java:53)
 	at org.gradle.internal.execution.steps.MutableStep.execute(MutableStep.java:26)
 	at org.gradle.internal.execution.steps.legacy.MarkSnapshottingInputsStartedStep.execute(MarkSnapshottingInputsStartedStep.java:38)
@@ -182,12 +182,10 @@ Caused by: org.gradle.workers.internal.DefaultWorkerExecutor$WorkExecutionExcept
 	at org.gradle.internal.execution.impl.DefaultExecutionEngine$1.execute(DefaultExecutionEngine.java:68)
 	at org.gradle.api.internal.tasks.execution.DefaultTaskNodeExecutor.doExecute(DefaultTaskNodeExecutor.java:364)
 	... 25 more
-Caused by: org.jetbrains.kotlin.kapt.base.util.KaptBaseError: Error while annotation processing
-	at org.jetbrains.kotlin.kapt.base.AnnotationProcessingKt.doAnnotationProcessing(annotationProcessing.kt:148)
-	at org.jetbrains.kotlin.kapt.base.AnnotationProcessingKt.doAnnotationProcessing(annotationProcessing.kt:37)
-	at org.jetbrains.kotlin.kapt.base.Kapt.kapt(Kapt.kt:44)
-	at org.jetbrains.kotlin.gradle.internal.KaptExecution.run(KaptWithoutKotlincTask.kt:336)
-	at org.jetbrains.kotlin.gradle.internal.KaptWithoutKotlincTask$KaptExecutionWorkAction.execute(KaptWithoutKotlincTask.kt:273)
+Caused by: org.jetbrains.kotlin.gradle.tasks.CompilationErrorException: Unresolved reference 'moveDragged'.
+	at org.jetbrains.kotlin.gradle.plugin.diagnostics.DefaultCompilerDiagnosticsProblemsReporter.reportCompilerMessage(CompilerDiagnosticsProblemsReporter.kt:63)
+	at org.jetbrains.kotlin.compilerRunner.btapi.ProblemsApiCompilerMessageRenderer.replayTo(ProblemsApiCompilerMessageRenderer.kt:88)
+	at org.jetbrains.kotlin.compilerRunner.btapi.BuildToolsApiCompilationWork.execute(BuildToolsApiCompilationWork.kt:251)
 	at org.gradle.workers.internal.DefaultWorkerServer.execute(DefaultWorkerServer.java:68)
 	at org.gradle.workers.internal.NoIsolationWorkerFactory$1$1.create(NoIsolationWorkerFactory.java:64)
 	at org.gradle.workers.internal.NoIsolationWorkerFactory$1$1.create(NoIsolationWorkerFactory.java:61)
@@ -227,6 +225,6 @@ You can use '--warning-mode all' to show the individual deprecation warnings and
 
 For more on this, please refer to https://docs.gradle.org/9.8.2/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
 
-BUILD FAILED in 3m 19s
-240 actionable tasks: 240 executed
+BUILD FAILED in 2m 19s
+170 actionable tasks: 170 executed
 Configuration cache entry stored.
