@@ -1,33 +1,15 @@
 branch: yewplay/dev
-sha: 99f5236b778c3a0daf6b3c8c3bcdb4b1dbc46a19
+sha: 64d13d8cf5d7a3abb258d0952821e75bd2436da6
 outcome: failure
-run: https://github.com/YewPlay/Yewplay/actions/runs/42124224818
+run: https://github.com/YewPlay/Yewplay/actions/runs/42125837501
 
 == errors ==
 > Task :app:compileDebugKotlin FAILED
-e: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/detail/YpVideoDetailFragment.kt:713:17 Argument type mismatch: actual type is 'String?', but 'String' was expected.
-e: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/detail/YpVideoDetailFragment.kt:748:50 Argument type mismatch: actual type is 'Context?', but 'Context' was expected.
-e: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/detail/YpVideoDetailFragment.kt:1487:61 Type checking has run into a recursive problem. Easiest workaround: specify the types of your declarations explicitly.
-e: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/detail/YpVideoDetailFragment.kt:1665:50 Argument type mismatch: actual type is 'String?', but 'String' was expected.
-e: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/detail/YpVideoDetailFragment.kt:1957:39 Only safe (?.) or non-null asserted (!!.) calls are allowed on a nullable receiver of type 'PlayQueue?'.
-e: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/detail/YpVideoDetailFragment.kt:2226:39 Argument type mismatch: actual type is 'Context?', but 'Context' was expected.
-e: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/detail/YpVideoDetailFragment.kt:2490:37 Unresolved reference 'findLikedPlaylist'.
-e: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/detail/YpVideoDetailFragment.kt:2491:52 Unresolved reference 'timesStreamIsContained' on receiver of type 'Any'.
-e: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/detail/YpVideoDetailFragment.kt:2502:60 Unresolved reference 'uid' on receiver of type 'Any'.
-e: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/detail/YpVideoDetailFragment.kt:2643:35 Only safe (?.) or non-null asserted (!!.) calls are allowed on a nullable receiver of type 'PlayQueue?'.
-e: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/YpListenScreen.kt:559:46 Unresolved reference 'basicMarquee'.
-e: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/YpListenScreen.kt:570:49 Unresolved reference 'basicMarquee'.
-e: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/YpListenScreen.kt:1025:71 Unresolved reference 'scrollBy' on receiver of type 'LazyListState'.
-e: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/YpListenScreen.kt:1026:73 Unresolved reference 'scrollBy' on receiver of type 'LazyListState'.
-e: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/YpPlayQueueActivity.kt:120:29 @Composable invocations can only happen from the context of a @Composable function
-e: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/YpPlayQueueActivity.kt:192:73 Argument type mismatch: actual type is 'PlayQueue?', but 'PlayQueue' was expected.
-e: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/YpPlayQueueActivity.kt:217:44 Argument type mismatch: actual type is 'Int', but 'Long' was expected.
-e: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/YpPlayQueueActivity.kt:567:14 Cannot infer type for type parameter 'U'. Specify it explicitly.
-e: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/YpPlayQueueActivity.kt:567:36 Inapplicable candidate(s): fun getMaybeAudioTrack(): Optional<MediaItemTag.AudioTrack!>
+e: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/YpPlayQueueActivity.kt:567:34 Only safe (?.) or non-null asserted (!!.) calls are allowed on a nullable receiver of type 'MediaItemTag?'.
 * What went wrong:
 Execution failed for task ':app:compileDebugKotlin' (registered by plugin 'com.android.internal.application').
 org.gradle.api.tasks.TaskExecutionException: Execution failed for task ':app:compileDebugKotlin' (registered by plugin 'com.android.internal.application').
-BUILD FAILED in 2m 24s
+BUILD FAILED in 2m 9s
 
 == warnings ==
 w: ⚠️ Unused Kotlin Source Sets
@@ -201,7 +183,7 @@ Caused by: org.gradle.workers.internal.DefaultWorkerExecutor$WorkExecutionExcept
 	at org.gradle.internal.execution.impl.DefaultExecutionEngine$1.execute(DefaultExecutionEngine.java:68)
 	at org.gradle.api.internal.tasks.execution.DefaultTaskNodeExecutor.doExecute(DefaultTaskNodeExecutor.java:364)
 	... 55 more
-Caused by: org.jetbrains.kotlin.gradle.tasks.CompilationErrorException: Argument type mismatch: actual type is 'String?', but 'String' was expected.
+Caused by: org.jetbrains.kotlin.gradle.tasks.CompilationErrorException: Only safe (?.) or non-null asserted (!!.) calls are allowed on a nullable receiver of type 'MediaItemTag?'.
 	at org.jetbrains.kotlin.gradle.plugin.diagnostics.DefaultCompilerDiagnosticsProblemsReporter.reportCompilerMessage(CompilerDiagnosticsProblemsReporter.kt:63)
 	at org.jetbrains.kotlin.compilerRunner.btapi.ProblemsApiCompilerMessageRenderer.replayTo(ProblemsApiCompilerMessageRenderer.kt:88)
 	at org.jetbrains.kotlin.compilerRunner.btapi.BuildToolsApiCompilationWork.execute(BuildToolsApiCompilationWork.kt:251)
@@ -244,6 +226,6 @@ You can use '--warning-mode all' to show the individual deprecation warnings and
 
 For more on this, please refer to https://docs.gradle.org/9.8.2/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
 
-BUILD FAILED in 2m 24s
+BUILD FAILED in 2m 9s
 241 actionable tasks: 241 executed
 Configuration cache entry stored.
