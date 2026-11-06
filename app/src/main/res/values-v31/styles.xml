@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- YewPlay: Android 12+ draws its own splash screen; same look as the one of older
+         versions: graphite background, the icon and the name at the bottom. -->
+    <style name="OpeningTheme" parent="Base.OpeningTheme">
+        <item name="android:windowSplashScreenBackground">@color/yewplay_splash_background</item>
+        <item name="android:windowSplashScreenAnimatedIcon">@drawable/yp_splash_icon</item>
+        <item name="android:windowSplashScreenIconBackgroundColor">@color/yewplay_splash_background</item>
+        <item name="android:windowSplashScreenBrandingImage">@drawable/yp_splash_wordmark</item>
+    </style>
+</resources>

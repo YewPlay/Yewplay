@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- YewPlay: message of the empty state of the list screens that are still views
+         (BaseStateFragment); declared here since the layouts that had it are now Compose -->
+    <item name="empty_state_message" type="id" />
+
+    <!-- YewPlay: ids referenced by touch/focus helpers (FocusAwareCoordinator,
+         CustomBottomSheetBehavior, FlingBehavior) whose views moved into the Compose
+         player chrome. playbackControlRoot is assigned to the ComposeView hosting the
+         chrome (YpPlayerViews); the rest stay unassigned so the null-guarded lookups
+         in those helpers simply skip them. -->
+    <item name="playbackControlRoot" type="id" />
+    <item name="bottomControls" type="id" />
+    <item name="playPauseButton" type="id" />
+    <item name="playPreviousButton" type="id" />
+    <item name="playNextButton" type="id" />
+    <item name="itemsListPanel" type="id" />
+    <item name="playbackSeekBar" type="id" />
+
+    <!-- YewPlay: ids of the activity shell built in code (MainActivity.buildContentView);
+         declared here since activity_main.xml became a Kotlin view tree -->
+    <item name="fragment_holder" type="id" />
+    <item name="fragment_player_holder" type="id" />
+</resources>

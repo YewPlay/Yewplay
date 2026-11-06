@@ -1,0 +1,166 @@
+/*
+ * SPDX-FileCopyrightText: 2026 NewPipe e.V. <https://newpipe-ev.de>
+ * SPDX-License-Identifier: GPL-3.0-or-later
+ */
+
+package net.newpipe.app.theme
+
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material3.ColorScheme
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.TopAppBarColors
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.darkColorScheme
+import androidx.compose.material3.lightColorScheme
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalInspectionMode
+import com.russhwolf.settings.Settings
+import net.newpipe.app.Constants.KEY_STREAMING_SERVICE
+import org.koin.compose.koinInject
+
+// YewPlay: the bars use the background color for every service; color never identifies the service
+val youTubeLightScheme = lightColorScheme(
+    primaryContainer = backgroundLight,
+    onPrimaryContainer = onBackgroundLight
+)
+
+val youTubeDarkScheme = darkColorScheme(
+    primaryContainer = backgroundDark,
+    onPrimaryContainer = onBackgroundDark
+)
+
+val soundCloudLightScheme = lightColorScheme(
+    primaryContainer = backgroundLight,
+    onPrimaryContainer = onBackgroundLight
+)
+
+val soundCloudDarkScheme = darkColorScheme(
+    primaryContainer = backgroundDark,
+    onPrimaryContainer = onBackgroundDark
+)
+
+val mediaCCCLightScheme = lightColorScheme(
+    primaryContainer = backgroundLight,
+    onPrimaryContainer = onBackgroundLight
+)
+
+val mediaCCCDarkScheme = darkColorScheme(
+    primaryContainer = backgroundDark,
+    onPrimaryContainer = onBackgroundDark
+)
+
+val peerTubeLightScheme = lightColorScheme(
+    primaryContainer = backgroundLight,
+    onPrimaryContainer = onBackgroundLight
+)
+
+val peerTubeDarkScheme = darkColorScheme(
+    primaryContainer = backgroundDark,
+    onPrimaryContainer = onBackgroundDark
+)
+
+val bandCampLightScheme = lightColorScheme(
+    primaryContainer = backgroundLight,
+    onPrimaryContainer = onBackgroundLight
+)
+
+val bandCampDarkScheme = darkColorScheme(
+    primaryContainer = backgroundDark,
+    onPrimaryContainer = onBackgroundDark
+)
+
+/**
+ * Supported services in the NewPipe app and minor information about them for UI decisions.
+ * @property serviceId ID of the service as defined in NewPipeExtractor
+ * @property serviceName Name of the service as defined in NewPipeExtractor
+ * @property lightScheme Light color scheme to reflect the brand
+ * @property darkScheme Dark color scheme to reflect the brand
+ * @property isSchemeColorDensityLight Whether this brand's color schemes are of lighter density.
+ */
+enum class Service(
+    val serviceId: Int,
+    val serviceName: String,
+    val lightScheme: ColorScheme,
+    val darkScheme: ColorScheme,
+    val isSchemeColorDensityLight: Boolean = false
+) {
+    YOUTUBE(
+        serviceId = 0,
+        serviceName = "YouTube",
+        lightScheme = youTubeLightScheme,
+        darkScheme = youTubeDarkScheme
+    ),
+    SOUNDCLOUD(
+        serviceId = 1,
+        serviceName = "SoundCloud",
+        lightScheme = soundCloudLightScheme,
+        darkScheme = soundCloudDarkScheme
+    ),
+    MEDIA_CCC(
+        serviceId = 2,
+        serviceName = "media.ccc.de",
+        lightScheme = mediaCCCLightScheme,
+        darkScheme = mediaCCCDarkScheme
+    ),
+    PEERTUBE(
+        serviceId = 3,
+        serviceName = "PeerTube",
+        lightScheme = peerTubeLightScheme,
+        darkScheme = peerTubeDarkScheme
+    ),
+    BANDCAMP(
+        serviceId = 4,
+        serviceName = "Bandcamp",
+        lightScheme = bandCampLightScheme,
+        darkScheme = bandCampDarkScheme
+    )
+}
+
+/**
+ * Currently active/selected service by user
+ */
+@Composable
+fun currentService(settings: Settings = koinInject()): Service {
+    return Service.entries.find { service ->
+        service.serviceName == settings.getString(
+            KEY_STREAMING_SERVICE,
+            Service.YOUTUBE.serviceName
+        )
+    }!!
+}
+
+/**
+ * Currently active/selected service's color that can be used to represent it.
+ * Fallbacks to YouTube on preview.
+ */
+@Composable
+fun currentServiceScheme(
+    isPreview: Boolean = LocalInspectionMode.current,
+    useDarkTheme: Boolean = isSystemInDarkTheme(),
+    service: Service = if (isPreview) Service.YOUTUBE else currentService()
+): ColorScheme {
+    return when {
+        useDarkTheme -> service.darkScheme
+        else -> service.lightScheme
+    }
+}
+
+/**
+ * Top app bar colors to represent the currently active service.
+ * Fallbacks to YouTube on preview.
+ */
+@Composable
+fun currentServiceTopAppBarColors(
+    serviceScheme: ColorScheme = currentServiceScheme()
+): TopAppBarColors {
+    // YewPlay: bars follow the theme chosen in the app (not the system), for every service
+    val colors = MaterialTheme.colorScheme
+    return TopAppBarDefaults.topAppBarColors(
+        containerColor = colors.background,
+        scrolledContainerColor = colors.background,
+        navigationIconContentColor = colors.onBackground,
+        titleContentColor = colors.onBackground,
+        subtitleContentColor = colors.onSurfaceVariant,
+        actionIconContentColor = colors.onBackground
+    )
+}
