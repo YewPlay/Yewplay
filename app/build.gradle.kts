@@ -249,6 +249,7 @@ dependencies {
 
     // YewPlay MultiEngine — NewTube engine (vendored MediaServiceCore, MIT)
     implementation(projects.engine.newtube.youtubeapi)
+    implementation(projects.engine.flow)
 
     // Checkstyle
     checkstyle(libs.puppycrawl.checkstyle)

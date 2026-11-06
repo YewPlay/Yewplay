@@ -30,6 +30,7 @@ import org.acra.ACRA.isACRASenderServiceProcess
 import org.acra.config.CoreConfigurationBuilder
 import org.schabi.newpipe.engine.EngineManager
 import org.schabi.newpipe.engine.SharedPreferencesEnginePrefs
+import org.schabi.newpipe.engine.impl.FlowEngine
 import org.schabi.newpipe.engine.impl.NewPipeEngine
 import org.schabi.newpipe.engine.impl.NewTubeEngine
 import org.schabi.newpipe.error.ReCaptchaActivity
@@ -115,6 +116,7 @@ open class App :
         val engineManager = EngineManager.init(SharedPreferencesEnginePrefs(this))
         engineManager.register(NewPipeEngine())
         engineManager.register(NewTubeEngine(this))
+        engineManager.register(FlowEngine(this))
 
         ServiceHelper.initServices(this)
 

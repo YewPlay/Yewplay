@@ -40,6 +40,7 @@ include(":feature:home")
 include(":feature:playlist")
 
 // YewPlay MultiEngine — NewTube engine (vendored MediaServiceCore, MIT)
+include(":engine:flow")
 include(":engine:newtube:mediaserviceinterfaces")
 include(":engine:newtube:sharedutils")
 include(":engine:newtube:youtubeapi")

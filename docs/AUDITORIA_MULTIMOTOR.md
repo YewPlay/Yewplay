@@ -115,3 +115,31 @@ A integração é **tecnicamente viável** com esforço real e delimitado: NewTu
   resolvedores sig/nsig/poToken do youtubeapi — sem ele o motor não reproduz.
 - **Inicialização**: `GlobalPreferences.instance(context)` é obrigatório antes do primeiro uso
   (`MediaServiceData` lança `IllegalStateException` sem ele); feito lazy no `NewTubeEngine`.
+
+## Adendo — FASE 7 (FlowTube): decisão de integração por vendor
+
+- **Fonte**: `Flow-Tube/Flow` (GPL-3.0), commit `7ecb4766877b` (main, 2026-11-06), vendored em
+  `engine/flow/` (módulo único, pacotes originais `io.github.aedev.flow.*` preservados).
+- **Escopo vendored**: `innertube/` completo (143 arquivos) + suporte mínimo e auto-contido:
+  `data/model/{Models,RichText}.kt`, `data/local/ThumbnailQuality.kt`,
+  `data/localmedia/LocalMediaIds.kt`, `utils/` (7 arquivos), `utils/cipher/` (5),
+  `network/` (proxy, 3), `player/sabr/proto/ProtobufReader.kt`,
+  `player/stream/{SignatureCipher,PrerollWait,PlayabilityVerdict}.kt`.
+- **Fora do escopo** (substituídos pela infra do YewPlay, não pelo engine): stack SABR de
+  reprodução, poToken WebView, `InnerTubeVideoStreamExtractor` e toda a UI/player do Flow.
+- **Adaptações documentadas** (mínimas, marcadas "YewPlay adaptation" no código):
+  1. `InnerTube.kt`: flag RYTD lida de `PlayerPreferences` (DataStore) virou
+     `var returnYouTubeDislikeEnabled` no `InnerTube` — o módulo é headless, sem DataStore.
+  2. `PaidPromotionResponse.kt`: anotação `@Immutable` (Compose) removida — módulo sem Compose.
+  3. `VpnStateMonitor.kt` (Hilt) deletado — não referenciado por nenhum arquivo do escopo.
+  4. `yewplay/FlowYewPlayFacade.kt` (arquivo NOVO, não-upstream): fachada pública que expõe
+     `searchParams`, `initialize` e `resolveStreams` (caminho TV_TIZEN com solução de
+     signature/`n` via `PipePipeNsigDecoder`), mantendo os helpers `internal` do upstream
+     (`YouTubeSearchParams`, `SignatureCipher`) encapsulados no módulo.
+- **Dependências**: ktor client 3.5.2 (core/okhttp/content-negotiation/encoding/serialization),
+  kotlinx-serialization-json 1.12.0 (catálogo), okhttp 5.5.0, NewPipeExtractor (o próprio Flow
+  já usa `YoutubeParsingHelper`), annotation.
+- **Adapter**: `FlowEngine` (`engine/impl/`), id `flow`, registrado no `App.kt` após NewTube.
+  Busca de vídeos/canais/playlists via `YouTube.videoSearch` (params protobuf do próprio Flow);
+  músicas via `YouTube.search(FILTER_SONG)`; streams via `FlowYewPlayFacade.resolveStreams`;
+  legendas via `PlayerResponse.captions`; paginação por continuation tokens opacos.
