@@ -16,4 +16,9 @@
     <item name="playNextButton" type="id" />
     <item name="itemsListPanel" type="id" />
     <item name="playbackSeekBar" type="id" />
+
+    <!-- YewPlay: ids of the activity shell built in code (MainActivity.buildContentView);
+         declared here since activity_main.xml became a Kotlin view tree -->
+    <item name="fragment_holder" type="id" />
+    <item name="fragment_player_holder" type="id" />
 </resources>
