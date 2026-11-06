@@ -125,7 +125,7 @@ fun Modifier.ypShimmer(): Modifier {
         targetValue = 0.45f,
         animationSpec = infiniteRepeatable(
             animation = tween(MotionDurations.LONG * 2, easing = MotionEasings.Standard),
-            repeatMode = RepeatMode.REVERSE
+            repeatMode = RepeatMode.Reverse
         ),
         label = "ypShimmerAlpha"
     )
