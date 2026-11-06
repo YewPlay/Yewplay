@@ -127,6 +127,7 @@ androidx-work-rxjava3 = { module = "androidx.work:work-rxjava3", version.ref = "
 assertj-core = { module = "org.assertj:assertj-core", version.ref = "assertj" }
 brotli-dec = { module = "org.brotli:dec", version.ref = "brotli-dec" }
 chromium-cronet-api = { module = "org.chromium.net:cronet-api", version.ref = "cronet-api" }
+chromium-cronet-embedded = { module = "org.chromium.net:cronet-embedded", version.ref = "cronet-api" }
 coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" }
 coil-network-okhttp = { module = "io.coil-kt.coil3:coil-network-okhttp", version.ref = "coil" }
 commons-io = { module = "commons-io:commons-io", version.ref = "commons-io" }

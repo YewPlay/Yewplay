@@ -51,6 +51,7 @@ dependencies {
     implementation(libs.squareup.okhttp.logging)
     implementation(libs.google.gson)
     implementation(libs.chromium.cronet.api)
+    compileOnly(libs.chromium.cronet.embedded)
     implementation(libs.brotli.dec)
     implementation(libs.dnsjava)
     implementation(libs.jakewharton.disklrucache)

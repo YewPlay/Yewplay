@@ -50,6 +50,7 @@ dependencies {
     implementation(libs.jayway.jsonpath)
     implementation(libs.brotli.dec)
     implementation(libs.chromium.cronet.api)
+    implementation(libs.chromium.cronet.embedded)
     implementation(libs.google.cronet.okhttp)
     implementation(libs.reactivex.rxjava)
     implementation(libs.reactivex.rxandroid)
