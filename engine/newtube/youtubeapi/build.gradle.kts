@@ -54,5 +54,6 @@ dependencies {
     implementation(libs.florianingerl.regex)
     implementation(libs.androidx.webkit)
     implementation(libs.newpipe.nanojson)
-    implementation(libs.eclipsesource.j2v8)
+    // @aar: the published module metadata is broken (points to the .asc signature)
+    implementation("com.eclipsesource.j2v8:j2v8:6.2.1@aar")
 }
