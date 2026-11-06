@@ -32,11 +32,11 @@ jobs:
           distribution: "temurin"
           cache: 'gradle'
 
-      - name: Build debug APK
+      - name: Build debug APK, lint e testes unitarios
         id: build
         run: |
           set -o pipefail
-          ./gradlew assembleDebug lintDebug --stacktrace -DskipFormatKtlint 2>&1 | tee build.log
+          ./gradlew assembleDebug lintDebug testDebugUnitTest --stacktrace -DskipFormatKtlint 2>&1 | tee build.log
 
       - name: Upload APK
         if: success()
