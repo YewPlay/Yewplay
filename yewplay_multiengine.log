@@ -1,23 +1,11 @@
 branch: yewplay/multiengine
-sha: 17ec3a653f10f6efc1089cc09dd26101d534510c
-outcome: success
-run: https://github.com/YewPlay/Yewplay/actions/runs/42271421149
+sha: 62bb25621eccc34f42374463ecccb71aa42ad5fc
+outcome: cancelled
+run: https://github.com/YewPlay/Yewplay/actions/runs/42273718149
 
 == errors ==
 
 == warnings ==
-w: file:///home/runner/work/Yewplay/Yewplay/app/build.gradle.kts:155:30: 'fun provideDelegate(thisRef: Any?, property: KProperty<*>): ExistingDomainObjectDelegate<Configuration>' is deprecated. Use 'val element = create(name)' instead. See the Gradle 9.6 upgrading guide.
-w: file:///home/runner/work/Yewplay/Yewplay/app/build.gradle.kts:155:30: 'val <T : Any> NamedDomainObjectContainer<T>.creating: NamedDomainObjectContainerCreatingDelegateProvider<T>' is deprecated. Use 'val element = create(name)' instead. See the Gradle 9.6 upgrading guide.
-w: file:///home/runner/work/Yewplay/Yewplay/app/build.gradle.kts:155:30: 'fun <T> ExistingDomainObjectDelegate<out T>.getValue(receiver: Any?, property: KProperty<*>): T' is deprecated. Use the named() API instead. See the Gradle 9.6 upgrading guide.
-w: file:///home/runner/work/Yewplay/Yewplay/shared/build.gradle.kts:18:35: 'fun <U : Task> RegisteringDomainObjectDelegateProviderWithTypeAndAction<out TaskContainer, U>.provideDelegate(receiver: Any?, property: KProperty<*>): ExistingDomainObjectDelegate<TaskProvider<U>>' is deprecated. Use 'val task = tasks.register<Type>(name) { }' instead. See the Gradle 9.6 upgrading guide.
-w: file:///home/runner/work/Yewplay/Yewplay/shared/build.gradle.kts:18:35: 'fun <T : Any, C : PolymorphicDomainObjectContainer<T>, U : T> C.registering(type: KClass<U>, action: U.() -> Unit): RegisteringDomainObjectDelegateProviderWithTypeAndAction<out C, U>' is deprecated. Use 'val element = register<Type>(name) { }' instead. See the Gradle 9.6 upgrading guide.
-w: file:///home/runner/work/Yewplay/Yewplay/shared/build.gradle.kts:18:35: 'fun <T> ExistingDomainObjectDelegate<out T>.getValue(receiver: Any?, property: KProperty<*>): T' is deprecated. Use the named() API instead. See the Gradle 9.6 upgrading guide.
-w: file:///home/runner/work/Yewplay/Yewplay/shared/build.gradle.kts:132:34: 'fun provideDelegate(thisRef: Any?, property: KProperty<*>): ExistingDomainObjectDelegate<KotlinSourceSet>' is deprecated. Use 'val element = getByName(name)' instead. See the Gradle 9.6 upgrading guide.
-w: file:///home/runner/work/Yewplay/Yewplay/shared/build.gradle.kts:132:34: 'fun <T : Any, U : NamedDomainObjectCollection<T>> U.getting(configuration: T.() -> Unit): NamedDomainObjectCollectionDelegateProvider<T>' is deprecated. Use 'val element = getByName(name) { }' instead. See the Gradle 9.6 upgrading guide.
-w: file:///home/runner/work/Yewplay/Yewplay/shared/build.gradle.kts:132:34: 'fun <T> ExistingDomainObjectDelegate<out T>.getValue(receiver: Any?, property: KProperty<*>): T' is deprecated. Use the named() API instead. See the Gradle 9.6 upgrading guide.
-w: file:///home/runner/work/Yewplay/Yewplay/shared/build.gradle.kts:142:24: 'fun provideDelegate(thisRef: Any?, property: KProperty<*>): ExistingDomainObjectDelegate<KotlinSourceSet>' is deprecated. Use 'val element = getByName(name)' instead. See the Gradle 9.6 upgrading guide.
-w: file:///home/runner/work/Yewplay/Yewplay/shared/build.gradle.kts:142:24: 'fun <T : Any, U : NamedDomainObjectCollection<T>> U.getting(configuration: T.() -> Unit): NamedDomainObjectCollectionDelegateProvider<T>' is deprecated. Use 'val element = getByName(name) { }' instead. See the Gradle 9.6 upgrading guide.
-w: file:///home/runner/work/Yewplay/Yewplay/shared/build.gradle.kts:142:24: 'fun <T> ExistingDomainObjectDelegate<out T>.getValue(receiver: Any?, property: KProperty<*>): T' is deprecated. Use the named() API instead. See the Gradle 9.6 upgrading guide.
 w: ⚠️ Unused Kotlin Source Sets
 w: ⚠️ Unused Kotlin Source Sets
 w: ⚠️ Unused Kotlin Source Sets
@@ -28,10 +16,10 @@ w: ⚠️ Unused Kotlin Source Sets
 w: ⚠️ Unused Kotlin Source Sets
 w: ⚠️ Unused Kotlin Source Sets
 w: Koin compiler plugin: Kotlin 2.4.21 is newer than the newest verified version (2.4.20) — proceeding with the 2.4.20 adapter. If compilation fails, check for a koin-compiler-plugin update. Verified versions: 2.3.20, 2.4.0, 2.4.10, 2.4.20.
-w: file:///home/runner/work/Yewplay/Yewplay/feature/channel/src/commonMain/kotlin/io/github/yewplay/feature/channel/ChannelScreen.kt:403:42 Unnecessary safe call on a non-null receiver of type 'ChannelHeader'.
-w: file:///home/runner/work/Yewplay/Yewplay/feature/channel/src/commonMain/kotlin/io/github/yewplay/feature/channel/ChannelScreen.kt:431:38 Unnecessary safe call on a non-null receiver of type 'ChannelHeader'.
 w: file:///home/runner/work/Yewplay/Yewplay/engine/newtube/youtubeapi/src/main/java/com/liskovsoft/googlecommon/common/helpers/RetrofitOkHttpHelper.kt:611:30 Unnecessary safe call on a non-null receiver of type 'HttpUrl.Builder'.
 w: file:///home/runner/work/Yewplay/Yewplay/engine/newtube/youtubeapi/src/main/java/com/liskovsoft/youtubeapi/app/potokennp2/generators/PoTokenV8.kt:107:13 Expression is unused.
+w: file:///home/runner/work/Yewplay/Yewplay/feature/channel/src/commonMain/kotlin/io/github/yewplay/feature/channel/ChannelScreen.kt:403:42 Unnecessary safe call on a non-null receiver of type 'ChannelHeader'.
+w: file:///home/runner/work/Yewplay/Yewplay/feature/channel/src/commonMain/kotlin/io/github/yewplay/feature/channel/ChannelScreen.kt:431:38 Unnecessary safe call on a non-null receiver of type 'ChannelHeader'.
 w: file:///home/runner/work/Yewplay/Yewplay/engine/flow/src/main/java/io/github/aedev/flow/innertube/YouTube.kt:352:17 Redundant creation of Json format. Creating instances for each use can be slow.
 w: file:///home/runner/work/Yewplay/Yewplay/engine/flow/src/main/java/io/github/aedev/flow/innertube/YouTube.kt:363:17 Redundant creation of Json format. Creating instances for each use can be slow.
 w: file:///home/runner/work/Yewplay/Yewplay/engine/flow/src/main/java/io/github/aedev/flow/innertube/YouTube.kt:388:21 Expression is unused.
@@ -165,6 +153,24 @@ w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe
 OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
 
 == tail ==
+> Task :engine:newtube:sharedutils:compileDebugUnitTestJavaWithJavac NO-SOURCE
+> Task :engine:newtube:sharedutils:processDebugUnitTestJavaRes NO-SOURCE
+> Task :engine:newtube:sharedutils:testDebugUnitTest NO-SOURCE
+> Task :engine:newtube:sharedutils:lintAnalyzeDebug
+> Task :engine:newtube:youtubeapi:generateDebugUnitTestStubRFile
+> Task :engine:newtube:youtubeapi:compileDebugUnitTestKotlin NO-SOURCE
+> Task :engine:newtube:youtubeapi:javaPreCompileDebugUnitTest
+> Task :engine:newtube:youtubeapi:compileDebugUnitTestJavaWithJavac NO-SOURCE
+> Task :engine:newtube:youtubeapi:processDebugUnitTestJavaRes NO-SOURCE
+> Task :engine:newtube:youtubeapi:testDebugUnitTest NO-SOURCE
+
+> Task :app:kspDebugKotlin
+w: [ksp] /home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/database/feed/dao/FeedDAO.kt:178: The DAO function return type (kotlin.collections.List<java.time.OffsetDateTime?>) with the nullable type argument is meaningless because for now Room will never put a null value in a result.
+w: [ksp] /home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/database/feed/dao/FeedDAO.kt:181: The DAO function return type (kotlin.collections.List<java.time.OffsetDateTime?>) with the nullable type argument is meaningless because for now Room will never put a null value in a result.
+
+> Task :engine:newtube:sharedutils:lintReportDebug
+Wrote HTML report to file:///home/runner/work/Yewplay/Yewplay/engine/newtube/sharedutils/build/reports/lint-results-debug.html
+Wrote SARIF report to file:///home/runner/work/Yewplay/Yewplay/engine/newtube/sharedutils/build/reports/lint-results-debug.sarif
 
 > Task :engine:newtube:sharedutils:lintDebug
 > Task :engine:newtube:mediaserviceinterfaces:lintAnalyzeDebug
@@ -180,13 +186,18 @@ Wrote SARIF report to file:///home/runner/work/Yewplay/Yewplay/engine/newtube/me
 > Task :app:kaptDebugKotlin
 warning: The following options were not recognized by any processor: '[room.internal.schemaInput, room.internal.schemaOutput, kapt.kotlin.generated]'
 
-> Task :app:compileDebugKotlin
-
 > Task :engine:flow:lintReportDebug
 Wrote HTML report to file:///home/runner/work/Yewplay/Yewplay/engine/flow/build/reports/lint-results-debug.html
 Wrote SARIF report to file:///home/runner/work/Yewplay/Yewplay/engine/flow/build/reports/lint-results-debug.sarif
 
 > Task :engine:flow:lintDebug
+> Task :app:compileDebugKotlin
+
+> Task :engine:newtube:youtubeapi:lintReportDebug
+Wrote HTML report to file:///home/runner/work/Yewplay/Yewplay/engine/newtube/youtubeapi/build/reports/lint-results-debug.html
+Wrote SARIF report to file:///home/runner/work/Yewplay/Yewplay/engine/newtube/youtubeapi/build/reports/lint-results-debug.sarif
+
+> Task :engine:newtube:youtubeapi:lintDebug
 
 > Task :app:compileDebugKotlin
 w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/App.kt:222:21 Only safe (?.) or non-null asserted (!!.) calls are allowed on a nullable receiver of type 'Thread.UncaughtExceptionHandler?'.
@@ -301,24 +312,19 @@ Note: Recompile with -Xlint:deprecation for details.
 Note: Some input files use unchecked or unsafe operations.
 Note: Recompile with -Xlint:unchecked for details.
 
-> Task :engine:newtube:youtubeapi:lintReportDebug
-Wrote HTML report to file:///home/runner/work/Yewplay/Yewplay/engine/newtube/youtubeapi/build/reports/lint-results-debug.html
-Wrote SARIF report to file:///home/runner/work/Yewplay/Yewplay/engine/newtube/youtubeapi/build/reports/lint-results-debug.sarif
-
-> Task :engine:newtube:youtubeapi:lintDebug
 > Task :app:processDebugJavaRes
+> Task :app:generateDebugLintReportModel
 > Task :app:bundleDebugClassesToCompileJar
 > Task :app:kspDebugUnitTestKotlin
-> Task :app:generateDebugLintReportModel
+> Task :app:mergeDebugJavaResource
 > Task :app:generateDebugAndroidTestLintModel
 > Task :app:generateDebugUnitTestLintModel
+> Task :app:kaptGenerateStubsDebugUnitTestKotlin
+> Task :app:kaptDebugUnitTestKotlin SKIPPED
 
 > Task :app:lintAnalyzeDebug
 com.evernote.android.state.lint.registry.StateIssueRegistry in /home/runner/.gradle/caches/9.8.2/transforms/d9a1c29196d2f7ca24f081b2a5330a10/transformed/android-state-1.4.1/jars/lint.jar does not specify a vendor; see IssueRegistry#vendor
 
-> Task :app:mergeDebugJavaResource
-> Task :app:kaptGenerateStubsDebugUnitTestKotlin
-> Task :app:kaptDebugUnitTestKotlin SKIPPED
 > Task :app:lintAnalyzeDebugAndroidTest
 
 > Task :app:compileDebugUnitTestKotlin
@@ -335,33 +341,15 @@ w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe
 w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/settings/ImportExportManagerTest.kt:173:42 'fun loadSerializedPrefs(zipFile: StoredFileHelper, preferences: SharedPreferences): Unit' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
 w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/settings/ImportExportManagerTest.kt:188:46 'fun loadSerializedPrefs(zipFile: StoredFileHelper, preferences: SharedPreferences): Unit' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
 
-> Task :app:dexBuilderDebug
 > Task :app:compileDebugUnitTestJavaWithJavac
 > Task :app:copyRoomSchemas NO-SOURCE
 > Task :app:bundleDebugClassesToRuntimeJar
 > Task :app:processDebugUnitTestJavaRes
 > Task :app:lintAnalyzeDebugUnitTest
 OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+> Task :app:dexBuilderDebug
 > Task :app:mergeProjectDexDebug
 > Task :app:testDebugUnitTest
 > Task :app:packageDebug
 > Task :app:assembleDebug
 > Task :app:createDebugApkListingFileRedirect
-
-> Task :app:lintReportDebug
-Wrote HTML report to file:///home/runner/work/Yewplay/Yewplay/app/build/reports/lint-results-debug.html
-Wrote SARIF report to file:///home/runner/work/Yewplay/Yewplay/app/build/reports/lint-results-debug.sarif
-
-> Task :app:lintDebug
-
-[Incubating] Problems report is available at: file:///home/runner/work/Yewplay/Yewplay/build/reports/problems/problems-report.html
-
-Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
-
-You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
-
-For more on this, please refer to https://docs.gradle.org/9.8.2/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
-
-BUILD SUCCESSFUL in 12m 50s
-451 actionable tasks: 451 executed
-Configuration cache entry stored.
