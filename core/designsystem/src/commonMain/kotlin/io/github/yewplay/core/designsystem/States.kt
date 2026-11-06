@@ -148,6 +148,7 @@ fun YpSkeletonRow() {
                 .aspectRatio(16f / 9f)
                 .clip(RoundedCornerShape(10.dp))
                 .background(block)
+                .ypShimmer()
         )
         Column(
             modifier = Modifier.weight(1f),
@@ -160,6 +161,7 @@ fun YpSkeletonRow() {
                         .height(12.dp)
                         .clip(RoundedCornerShape(6.dp))
                         .background(block)
+                        .ypShimmer()
                 )
             }
         }

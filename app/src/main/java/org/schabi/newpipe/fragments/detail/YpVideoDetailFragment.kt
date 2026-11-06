@@ -130,6 +130,7 @@ import org.schabi.newpipe.util.NavigationHelper.openPlayQueue
 import org.schabi.newpipe.util.PermissionHelper
 import org.schabi.newpipe.util.PlayButtonHelper
 import org.schabi.newpipe.util.ThemeHelper
+import org.schabi.newpipe.util.YpViewMotion
 import org.schabi.newpipe.util.external_communication.KoreUtils
 import org.schabi.newpipe.util.external_communication.ShareUtils
 import org.schabi.newpipe.util.image.CoilHelper
@@ -770,7 +771,7 @@ class YpVideoDetailFragment :
             if (motionEvent.action == MotionEvent.ACTION_DOWN &&
                 PlayButtonHelper.shouldShowHoldToAppendTip(activity)
             ) {
-                b.touchAppendDetail.animate(true, 250) {
+                b.touchAppendDetail.animate(true, YpViewMotion.NORMAL) {
                     b.touchAppendDetail.animate(false, 1500, delay = 1000)
                 }
             }
@@ -1572,7 +1573,7 @@ class YpVideoDetailFragment :
             AppCompatResources.getDrawable(requireContext(), imageResource)
         )
         b.detailThumbnailImageView.animate(false, 0, execOnEnd = {
-            b.detailThumbnailImageView.animate(true, 500)
+            b.detailThumbnailImageView.animate(true, YpViewMotion.LONG)
         })
     }
 
@@ -1666,8 +1667,8 @@ class YpVideoDetailFragment :
             b.detailContentRootHiding.visibility = View.INVISIBLE
         }
 
-        b.detailThumbnailPlayButton.animate(false, 50)
-        b.detailDurationView.animate(false, 100)
+        b.detailThumbnailPlayButton.animate(false, YpViewMotion.EXTRA_FAST)
+        b.detailDurationView.animate(false, YpViewMotion.EXTRA_FAST)
         b.detailPositionView.visibility = View.GONE
         b.positionView.visibility = View.GONE
 
@@ -1704,18 +1705,18 @@ class YpVideoDetailFragment :
 
         updateTabs(info)
 
-        b.detailThumbnailPlayButton.animate(true, 200)
+        b.detailThumbnailPlayButton.animate(true, YpViewMotion.NORMAL)
 
         updateHeaderWithInfo(info)
 
         if (info.duration > 0) {
             b.detailDurationView.text = Localization.getDurationString(info.duration)
             b.detailDurationView.setBackgroundResource(R.drawable.yp_badge_duration)
-            b.detailDurationView.animate(true, 100)
+            b.detailDurationView.animate(true, YpViewMotion.EXTRA_FAST)
         } else if (info.streamType == StreamType.LIVE_STREAM) {
             b.detailDurationView.setText(R.string.duration_live)
             b.detailDurationView.setBackgroundResource(R.drawable.yp_badge_live)
-            b.detailDurationView.animate(true, 100)
+            b.detailDurationView.animate(true, YpViewMotion.EXTRA_FAST)
         } else {
             b.detailDurationView.visibility = View.GONE
         }
@@ -1880,8 +1881,8 @@ class YpVideoDetailFragment :
             b.detailPositionView.text = position
         }
         if (b.positionView.visibility != View.VISIBLE) {
-            b.positionView.animate(true, 100)
-            b.detailPositionView.animate(true, 100)
+            b.positionView.animate(true, YpViewMotion.EXTRA_FAST)
+            b.detailPositionView.animate(true, YpViewMotion.EXTRA_FAST)
         }
     }
 
@@ -1956,8 +1957,8 @@ class YpVideoDetailFragment :
                     player?.playQueue?.item != null &&
                     player!!.playQueue?.item!!.url == url
                 ) {
-                    b.positionView.animate(true, 100)
-                    b.detailPositionView.animate(true, 100)
+                    b.positionView.animate(true, YpViewMotion.EXTRA_FAST)
+                    b.detailPositionView.animate(true, YpViewMotion.EXTRA_FAST)
                 }
             }
         }

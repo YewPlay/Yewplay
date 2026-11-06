@@ -50,6 +50,7 @@ import androidx.compose.ui.zIndex
 import coil3.compose.AsyncImage
 import io.github.yewplay.core.designsystem.YpMessageState
 import io.github.yewplay.core.designsystem.YpScreenMargin
+import io.github.yewplay.core.designsystem.ypAnimateItem
 import io.github.yewplay.core.designsystem.ypMoveDragged
 
 /** A playlist of the list; [key] stays the same while it is moved. */
@@ -159,6 +160,7 @@ fun PlaylistsScreen(
                 val dragging = draggingKey == item.key
                 Row(
                     modifier = Modifier
+                        .ypAnimateItem(this)
                         .zIndex(if (dragging) 1f else 0f)
                         .graphicsLayer { translationY = if (dragging) dragOffset else 0f }
                         .fillMaxWidth()

@@ -36,6 +36,11 @@ import io.github.yewplay.core.designsystem.YpAvatar
 import io.github.yewplay.core.designsystem.YpScreenMargin
 import io.github.yewplay.core.designsystem.YpSubscribeButton
 import io.github.yewplay.core.designsystem.YpSubscribeLabels
+import net.newpipe.app.theme.LocalReduceMotion
+import net.newpipe.app.theme.MotionDurations
+import net.newpipe.app.theme.MotionEasings
+import net.newpipe.app.theme.MotionTransitions
+import net.newpipe.app.theme.motionSpec
 
 /**
  * YewPlay: state of the video detail header (title, channel, counts, actions), drawn in Compose.
@@ -182,6 +187,11 @@ fun YpDetailHeader(
         // Title: one line; tap expands to ten lines and shows the secondary panel
         val chevronRotation by animateFloatAsState(
             targetValue = if (state.titleExpanded) 180f else 0f,
+            animationSpec = motionSpec(
+                LocalReduceMotion.current,
+                MotionDurations.NORMAL,
+                MotionEasings.Standard
+            ),
             label = "chevron"
         )
         Row(
@@ -368,7 +378,8 @@ fun YpDetailHeader(
             }
 
             // Secondary panel: share, open in browser, Kodi (and the debug crasher)
-            AnimatedVisibility(visible = state.secondaryVisible) {
+            val (expandEnter, expandExit) = MotionTransitions.expand()
+            AnimatedVisibility(visible = state.secondaryVisible, enter = expandEnter, exit = expandExit) {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()

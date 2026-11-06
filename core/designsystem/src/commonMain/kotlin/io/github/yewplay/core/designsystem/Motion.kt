@@ -4,7 +4,11 @@
 
 package io.github.yewplay.core.designsystem
 
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.snap
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -103,4 +107,27 @@ fun Modifier.ypAnimateGridItem(scope: LazyGridItemScope): Modifier {
             }
         )
     }
+}
+
+/**
+ * Subtle skeleton shimmer: the block pulses gently while content loads.
+ * Continuous by nature, but reads [LocalReduceMotion] and freezes at full
+ * opacity when the user reduced motion. Uses [graphicsLayer] (no recomposition
+ * during the loop) and stops automatically once the skeleton leaves composition.
+ */
+@Composable
+fun Modifier.ypShimmer(): Modifier {
+    val reduce = LocalReduceMotion.current
+    if (reduce) return this
+    val transition = rememberInfiniteTransition(label = "ypShimmer")
+    val alpha by transition.animateFloat(
+        initialValue = 1f,
+        targetValue = 0.45f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(MotionDurations.LONG * 2, easing = MotionEasings.Standard),
+            repeatMode = RepeatMode.REVERSE
+        ),
+        label = "ypShimmerAlpha"
+    )
+    return graphicsLayer { this.alpha = alpha }
 }

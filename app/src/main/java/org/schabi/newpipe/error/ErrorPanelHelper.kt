@@ -15,6 +15,7 @@ import java.util.concurrent.TimeUnit
 import org.schabi.newpipe.MainActivity
 import org.schabi.newpipe.R
 import org.schabi.newpipe.ktx.animate
+import org.schabi.newpipe.util.YpViewMotion
 import org.schabi.newpipe.util.external_communication.ShareUtils
 import org.schabi.newpipe.util.text.setTextWithLinks
 
@@ -116,12 +117,12 @@ class ErrorPanelHelper(
     }
 
     private fun setRootVisible() {
-        errorPanelRoot.animate(true, 300)
+        errorPanelRoot.animate(true, YpViewMotion.NORMAL)
     }
 
     fun hide() {
         errorActionButton.setOnClickListener(null)
-        errorPanelRoot.animate(false, 150)
+        errorPanelRoot.animate(false, YpViewMotion.FAST)
     }
 
     fun isVisible(): Boolean {

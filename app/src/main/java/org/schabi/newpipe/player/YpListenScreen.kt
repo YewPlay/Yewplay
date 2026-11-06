@@ -73,6 +73,7 @@ import coil3.compose.AsyncImage
 import io.github.yewplay.core.designsystem.YpDialogCard
 import io.github.yewplay.core.designsystem.YpScreenMargin
 import io.github.yewplay.core.designsystem.YpThumbnail
+import io.github.yewplay.core.designsystem.ypAnimateItem
 import io.github.yewplay.core.designsystem.ypMoveDragged
 import kotlin.math.roundToInt
 import kotlinx.coroutines.delay
@@ -1048,6 +1049,7 @@ private fun YpListenQueueList(
                 labels = labels,
                 dragHandle = icons.dragHandle,
                 modifier = Modifier
+                    .ypAnimateItem(this)
                     .zIndex(if (dragging) 1f else 0f)
                     .graphicsLayer { translationY = if (dragging) dragOffset else 0f },
                 onClick = { actions.onQueueItemClick(index) },

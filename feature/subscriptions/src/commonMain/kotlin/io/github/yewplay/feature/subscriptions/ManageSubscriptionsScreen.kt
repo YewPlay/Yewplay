@@ -36,6 +36,7 @@ import io.github.yewplay.core.designsystem.YpAvatar
 import io.github.yewplay.core.designsystem.YpScreenMargin
 import io.github.yewplay.core.designsystem.YpSectionTitle
 import io.github.yewplay.core.designsystem.YpSkeletonList
+import io.github.yewplay.core.designsystem.ypAnimateItem
 import io.github.yewplay.core.model.YpChannelItem
 
 /** A group of channels as the screen shows it. */
@@ -173,7 +174,8 @@ fun ManageSubscriptionsScreen(
                 ChannelRow(
                     channel = channel,
                     onClick = { actions.onOpenChannel(channel) },
-                    onLongClick = { actions.onChannelMenu(channel) }
+                    onLongClick = { actions.onChannelMenu(channel) },
+                    modifier = Modifier.ypAnimateItem(this)
                 )
             }
         }
@@ -205,9 +207,14 @@ private fun GroupChip(icon: Painter, label: String, onClick: () -> Unit, onLongC
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-private fun ChannelRow(channel: YpChannelItem, onClick: () -> Unit, onLongClick: () -> Unit) {
+private fun ChannelRow(
+    channel: YpChannelItem,
+    onClick: () -> Unit,
+    onLongClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
     Row(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .combinedClickable(onClick = onClick, onLongClick = onLongClick)
             .padding(horizontal = YpScreenMargin, vertical = 8.dp),

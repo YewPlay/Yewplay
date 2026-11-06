@@ -16,7 +16,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.isGone
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
-import androidx.interpolator.view.animation.FastOutSlowInInterpolator
+import org.schabi.newpipe.util.YpViewMotion
 
 // logs in this class are disabled by default since it's usually not useful,
 // you can enable them by setting this flag to MainActivity.DEBUG
@@ -101,7 +101,7 @@ fun View.animateBackgroundColor(duration: Long, @ColorInt colorStart: Int, @Colo
         )
     }
     val viewPropertyAnimator = ValueAnimator.ofObject(ArgbEvaluator(), colorStart, colorEnd)
-    viewPropertyAnimator.interpolator = FastOutSlowInInterpolator()
+    viewPropertyAnimator.interpolator = YpViewMotion.standard
     viewPropertyAnimator.duration = duration
 
     fun listenerAction(color: Int) {
@@ -117,7 +117,7 @@ fun View.animateHeight(duration: Long, targetHeight: Int): ValueAnimator {
         Log.d(TAG, "animateHeight: duration = [$duration], from $height to → $targetHeight in: $this")
     }
     val animator = ValueAnimator.ofFloat(height.toFloat(), targetHeight.toFloat())
-    animator.interpolator = FastOutSlowInInterpolator()
+    animator.interpolator = YpViewMotion.standard
     animator.duration = duration
 
     fun listenerAction(value: Int) {
@@ -137,7 +137,7 @@ fun View.animateRotation(duration: Long, targetRotation: Int) {
     animate().setListener(null).cancel()
     animate()
         .rotation(targetRotation.toFloat()).setDuration(duration)
-        .setInterpolator(FastOutSlowInInterpolator())
+        .setInterpolator(YpViewMotion.standard)
         .setListener(object : AnimatorListenerAdapter() {
             override fun onAnimationCancel(animation: Animator) {
                 rotation = targetRotation.toFloat()
@@ -151,12 +151,12 @@ fun View.animateRotation(duration: Long, targetRotation: Int) {
 
 private fun View.animateAlpha(enterOrExit: Boolean, duration: Long, delay: Long, execOnEnd: Runnable?) {
     if (enterOrExit) {
-        animate().setInterpolator(FastOutSlowInInterpolator()).alpha(1f)
+        animate().setInterpolator(YpViewMotion.standard).alpha(1f)
             .setDuration(duration).setStartDelay(delay)
             .setListener(ExecOnEndListener(execOnEnd))
             .start()
     } else {
-        animate().setInterpolator(FastOutSlowInInterpolator()).alpha(0f)
+        animate().setInterpolator(YpViewMotion.standard).alpha(0f)
             .setDuration(duration).setStartDelay(delay)
             .setListener(HideAndExecOnEndListener(this, execOnEnd))
             .start()
@@ -168,7 +168,7 @@ private fun View.animateScaleAndAlpha(enterOrExit: Boolean, duration: Long, dela
         scaleX = .8f
         scaleY = .8f
         animate()
-            .setInterpolator(FastOutSlowInInterpolator())
+            .setInterpolator(YpViewMotion.standard)
             .alpha(1f).scaleX(1f).scaleY(1f)
             .setDuration(duration).setStartDelay(delay)
             .setListener(ExecOnEndListener(execOnEnd))
@@ -177,7 +177,7 @@ private fun View.animateScaleAndAlpha(enterOrExit: Boolean, duration: Long, dela
         scaleX = 1f
         scaleY = 1f
         animate()
-            .setInterpolator(FastOutSlowInInterpolator())
+            .setInterpolator(YpViewMotion.standard)
             .alpha(0f).scaleX(.8f).scaleY(.8f)
             .setDuration(duration).setStartDelay(delay)
             .setListener(HideAndExecOnEndListener(this, execOnEnd))
@@ -191,7 +191,7 @@ private fun View.animateLightScaleAndAlpha(enterOrExit: Boolean, duration: Long,
         scaleX = .95f
         scaleY = .95f
         animate()
-            .setInterpolator(FastOutSlowInInterpolator())
+            .setInterpolator(YpViewMotion.standard)
             .alpha(1f).scaleX(1f).scaleY(1f)
             .setDuration(duration).setStartDelay(delay)
             .setListener(ExecOnEndListener(execOnEnd))
@@ -201,7 +201,7 @@ private fun View.animateLightScaleAndAlpha(enterOrExit: Boolean, duration: Long,
         scaleX = 1f
         scaleY = 1f
         animate()
-            .setInterpolator(FastOutSlowInInterpolator())
+            .setInterpolator(YpViewMotion.standard)
             .alpha(0f).scaleX(.95f).scaleY(.95f)
             .setDuration(duration).setStartDelay(delay)
             .setListener(HideAndExecOnEndListener(this, execOnEnd))
@@ -214,13 +214,13 @@ private fun View.animateSlideAndAlpha(enterOrExit: Boolean, duration: Long, dela
         translationY = -height.toFloat()
         alpha = 0f
         animate()
-            .setInterpolator(FastOutSlowInInterpolator()).alpha(1f).translationY(0f)
+            .setInterpolator(YpViewMotion.standard).alpha(1f).translationY(0f)
             .setDuration(duration).setStartDelay(delay)
             .setListener(ExecOnEndListener(execOnEnd))
             .start()
     } else {
         animate()
-            .setInterpolator(FastOutSlowInInterpolator())
+            .setInterpolator(YpViewMotion.standard)
             .alpha(0f).translationY(-height.toFloat())
             .setDuration(duration).setStartDelay(delay)
             .setListener(HideAndExecOnEndListener(this, execOnEnd))
@@ -233,12 +233,12 @@ private fun View.animateLightSlideAndAlpha(enterOrExit: Boolean, duration: Long,
         translationY = -height / 2.0f
         alpha = 0f
         animate()
-            .setInterpolator(FastOutSlowInInterpolator()).alpha(1f).translationY(0f)
+            .setInterpolator(YpViewMotion.standard).alpha(1f).translationY(0f)
             .setDuration(duration).setStartDelay(delay)
             .setListener(ExecOnEndListener(execOnEnd))
             .start()
     } else {
-        animate().setInterpolator(FastOutSlowInInterpolator())
+        animate().setInterpolator(YpViewMotion.standard)
             .alpha(0f).translationY(-height / 2.0f)
             .setDuration(duration).setStartDelay(delay)
             .setListener(HideAndExecOnEndListener(this, execOnEnd))
@@ -263,7 +263,7 @@ fun View.slideUp(
         .translationY(0f)
         .setStartDelay(delay)
         .setDuration(duration)
-        .setInterpolator(FastOutSlowInInterpolator())
+        .setInterpolator(YpViewMotion.standard)
         .setListener(ExecOnEndListener(execOnEnd))
         .start()
 }

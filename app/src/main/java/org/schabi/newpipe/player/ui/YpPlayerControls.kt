@@ -74,6 +74,10 @@ import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import io.github.yewplay.core.designsystem.ypMoveDragged
 import kotlin.math.roundToInt
+import net.newpipe.app.theme.LocalReduceMotion
+import net.newpipe.app.theme.MotionDurations
+import net.newpipe.app.theme.MotionEasings
+import net.newpipe.app.theme.motionSpec
 import org.schabi.newpipe.player.YpQueueEntry
 import org.schabi.newpipe.player.YpQueueItemAction
 
@@ -278,6 +282,7 @@ fun YpPlayerChrome(
     icons: YpChromeIcons,
     actions: YpChromeActions
 ) {
+    val reduceMotion = LocalReduceMotion.current
     Box(Modifier.fillMaxSize()) {
         if (state.blocked) {
             Box(

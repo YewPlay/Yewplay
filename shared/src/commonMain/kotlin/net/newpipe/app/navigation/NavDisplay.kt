@@ -6,7 +6,10 @@
 package net.newpipe.app.navigation
 
 import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.animation.togetherWith
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.saveable.rememberSerializable
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
@@ -52,19 +55,37 @@ fun NavDisplay(
         // YewPlay Motion Design System: forward = slide-in from the end edge,
         // back = mirror. Collapses to a plain crossfade when reduce-motion is on.
         transitionSpec = {
-            slideInHorizontally(
-                motionSpec(reduceMotion, MotionDurations.MEDIUM, MotionEasings.StandardDecelerate)
-            ) { it / 4 } + fadeIn(motionSpec(reduceMotion, MotionDurations.MEDIUM))
+            (
+                slideInHorizontally(
+                    motionSpec(reduceMotion, MotionDurations.MEDIUM, MotionEasings.StandardDecelerate)
+                ) { it / 4 } + fadeIn(motionSpec(reduceMotion, MotionDurations.MEDIUM))
+                ) togetherWith (
+                slideOutHorizontally(
+                    motionSpec(reduceMotion, MotionDurations.MEDIUM, MotionEasings.StandardAccelerate)
+                ) { -it / 4 } + fadeOut(motionSpec(reduceMotion, MotionDurations.MEDIUM))
+                )
         },
         popTransitionSpec = {
-            slideInHorizontally(
-                motionSpec(reduceMotion, MotionDurations.MEDIUM, MotionEasings.StandardDecelerate)
-            ) { -it / 4 } + fadeIn(motionSpec(reduceMotion, MotionDurations.MEDIUM))
+            (
+                slideInHorizontally(
+                    motionSpec(reduceMotion, MotionDurations.MEDIUM, MotionEasings.StandardDecelerate)
+                ) { -it / 4 } + fadeIn(motionSpec(reduceMotion, MotionDurations.MEDIUM))
+                ) togetherWith (
+                slideOutHorizontally(
+                    motionSpec(reduceMotion, MotionDurations.MEDIUM, MotionEasings.StandardAccelerate)
+                ) { it / 4 } + fadeOut(motionSpec(reduceMotion, MotionDurations.MEDIUM))
+                )
         },
         predictivePopTransitionSpec = {
-            slideInHorizontally(
-                motionSpec(reduceMotion, MotionDurations.MEDIUM, MotionEasings.StandardDecelerate)
-            ) { -it / 4 } + fadeIn(motionSpec(reduceMotion, MotionDurations.MEDIUM))
+            (
+                slideInHorizontally(
+                    motionSpec(reduceMotion, MotionDurations.MEDIUM, MotionEasings.StandardDecelerate)
+                ) { -it / 4 } + fadeIn(motionSpec(reduceMotion, MotionDurations.MEDIUM))
+                ) togetherWith (
+                slideOutHorizontally(
+                    motionSpec(reduceMotion, MotionDurations.MEDIUM, MotionEasings.StandardAccelerate)
+                ) { it / 4 } + fadeOut(motionSpec(reduceMotion, MotionDurations.MEDIUM))
+                )
         },
         entryProvider = koinEntryProvider()
     )
