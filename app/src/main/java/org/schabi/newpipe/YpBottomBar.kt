@@ -38,11 +38,18 @@ enum class YpNavDestination {
 }
 
 @DrawableRes
-private fun YpNavDestination.icon(): Int = when (this) {
-    YpNavDestination.HOME -> R.drawable.yp_nav_home
-    YpNavDestination.SEARCH -> R.drawable.yp_nav_search
-    YpNavDestination.SUBSCRIPTIONS -> R.drawable.yp_nav_subscriptions
-    YpNavDestination.LIBRARY -> R.drawable.yp_nav_library
+private fun YpNavDestination.icon(selected: Boolean): Int = when (this) {
+    YpNavDestination.HOME ->
+        if (selected) R.drawable.yp_ic_nav_home_fill else R.drawable.yp_ic_nav_home
+
+    YpNavDestination.SEARCH ->
+        if (selected) R.drawable.yp_ic_nav_search_fill else R.drawable.yp_ic_nav_search
+
+    YpNavDestination.SUBSCRIPTIONS ->
+        if (selected) R.drawable.yp_ic_nav_subscriptions_fill else R.drawable.yp_ic_nav_subscriptions
+
+    YpNavDestination.LIBRARY ->
+        if (selected) R.drawable.yp_ic_nav_library_fill else R.drawable.yp_ic_nav_library
 }
 
 @StringRes
@@ -111,7 +118,7 @@ fun YpBottomBar(
                 verticalArrangement = Arrangement.Center
             ) {
                 Icon(
-                    painter = painterResource(destination.icon()),
+                    painter = painterResource(destination.icon(isSelected)),
                     contentDescription = label,
                     tint = tint,
                     modifier = Modifier.size(22.dp)
