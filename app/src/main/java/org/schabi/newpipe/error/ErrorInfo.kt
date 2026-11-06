@@ -5,8 +5,8 @@ import android.os.Parcelable
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import androidx.media3.datasource.HttpDataSource
-import androidx.media3.datasource.Loader
 import androidx.media3.exoplayer.ExoPlaybackException
+import androidx.media3.exoplayer.upstream.Loader
 import java.net.UnknownHostException
 import kotlinx.parcelize.Parcelize
 import org.schabi.newpipe.R

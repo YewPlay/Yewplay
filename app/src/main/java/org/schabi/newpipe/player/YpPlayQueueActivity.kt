@@ -142,19 +142,19 @@ class YpPlayQueueActivity : AppCompatActivity(), PlayerEventListener, PlaybackPa
                         previous = painterResource(R.drawable.ic_previous),
                         next = painterResource(R.drawable.ic_next),
                         rewind = painterResource(
-                            androidx.media3.ui.R.drawable.exo_controls_rewind
+                            androidx.media3.ui.R.drawable.exo_icon_rewind
                         ),
                         forward = painterResource(
-                            androidx.media3.ui.R.drawable.exo_controls_fastforward
+                            androidx.media3.ui.R.drawable.exo_icon_fastforward
                         ),
                         repeatOff = painterResource(
-                            androidx.media3.ui.R.drawable.exo_controls_repeat_off
+                            androidx.media3.ui.R.drawable.exo_icon_repeat_off
                         ),
                         repeatOne = painterResource(
-                            androidx.media3.ui.R.drawable.exo_controls_repeat_one
+                            androidx.media3.ui.R.drawable.exo_icon_repeat_one
                         ),
                         repeatAll = painterResource(
-                            androidx.media3.ui.R.drawable.exo_controls_repeat_all
+                            androidx.media3.ui.R.drawable.exo_icon_repeat_all
                         ),
                         shuffle = painterResource(R.drawable.ic_shuffle),
                         timer = painterResource(R.drawable.yp_ic_timer),
