@@ -12,17 +12,18 @@ import androidx.compose.material3.MaterialExpressiveTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalInspectionMode
-import com.russhwolf.settings.Settings
-import org.koin.compose.koinInject
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalInspectionMode
 import com.russhwolf.settings.ObservableSettings
+import com.russhwolf.settings.Settings
 import net.newpipe.app.preferences.AppearancePreferences
+import org.koin.compose.koinInject
 
 private val lightScheme = lightColorScheme(
     primary = primaryLight,
@@ -122,10 +123,14 @@ fun currentColorScheme(
     settings: Settings = koinInject()
 ): ColorScheme {
     val theme = rememberSettingString(
-        settings, AppearancePreferences.KEY_THEME, AppearancePreferences.DEFAULT_THEME
+        settings,
+        AppearancePreferences.KEY_THEME,
+        AppearancePreferences.DEFAULT_THEME
     )
     val nightTheme = rememberSettingString(
-        settings, AppearancePreferences.KEY_NIGHT_THEME, AppearancePreferences.DEFAULT_NIGHT_THEME
+        settings,
+        AppearancePreferences.KEY_NIGHT_THEME,
+        AppearancePreferences.DEFAULT_NIGHT_THEME
     )
 
     return yewplayColorScheme(theme, nightTheme, useDarkTheme)
@@ -194,10 +199,12 @@ fun AppTheme(
     },
     content: @Composable () -> Unit
 ) {
-    MaterialExpressiveTheme(
-        colorScheme = colorScheme,
-        typography = yewplayTypography(),
-        shapes = yewplayShapes,
-        content = content
-    )
+    CompositionLocalProvider(LocalReduceMotion provides rememberPlatformReduceMotion()) {
+        MaterialExpressiveTheme(
+            colorScheme = colorScheme,
+            typography = yewplayTypography(),
+            shapes = yewplayShapes,
+            content = content
+        )
+    }
 }

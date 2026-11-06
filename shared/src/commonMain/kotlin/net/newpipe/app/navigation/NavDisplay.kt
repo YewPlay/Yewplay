@@ -5,12 +5,18 @@
 
 package net.newpipe.app.navigation
 
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.slideInHorizontally
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.saveable.rememberSerializable
 import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
 import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import androidx.savedstate.compose.serialization.serializers.SnapshotStateListSerializer
+import net.newpipe.app.theme.LocalReduceMotion
+import net.newpipe.app.theme.MotionDurations
+import net.newpipe.app.theme.MotionEasings
+import net.newpipe.app.theme.motionSpec
 import org.koin.compose.koinInject
 import org.koin.compose.navigation3.koinEntryProvider
 import org.koin.core.annotation.KoinExperimentalAPI
@@ -35,6 +41,7 @@ fun NavDisplay(
         navigator.backstack
     }
 
+    val reduceMotion = LocalReduceMotion.current
     NavDisplay(
         backStack = backstack,
         onBack = { navigator.navigateUp() },
@@ -42,6 +49,23 @@ fun NavDisplay(
             rememberSaveableStateHolderNavEntryDecorator(),
             rememberViewModelStoreNavEntryDecorator()
         ),
+        // YewPlay Motion Design System: forward = slide-in from the end edge,
+        // back = mirror. Collapses to a plain crossfade when reduce-motion is on.
+        transitionSpec = {
+            slideInHorizontally(
+                motionSpec(reduceMotion, MotionDurations.MEDIUM, MotionEasings.StandardDecelerate)
+            ) { it / 4 } + fadeIn(motionSpec(reduceMotion, MotionDurations.MEDIUM))
+        },
+        popTransitionSpec = {
+            slideInHorizontally(
+                motionSpec(reduceMotion, MotionDurations.MEDIUM, MotionEasings.StandardDecelerate)
+            ) { -it / 4 } + fadeIn(motionSpec(reduceMotion, MotionDurations.MEDIUM))
+        },
+        predictivePopTransitionSpec = {
+            slideInHorizontally(
+                motionSpec(reduceMotion, MotionDurations.MEDIUM, MotionEasings.StandardDecelerate)
+            ) { -it / 4 } + fadeIn(motionSpec(reduceMotion, MotionDurations.MEDIUM))
+        },
         entryProvider = koinEntryProvider()
     )
 }
