@@ -7,8 +7,6 @@ import com.liskovsoft.sharedutils.mylogger.Log;
 import com.liskovsoft.sharedutils.okhttp.interceptors.RateLimitInterceptor;
 import com.liskovsoft.sharedutils.okhttp.interceptors.UnzippingInterceptor;
 import com.liskovsoft.sharedutils.prefs.GlobalPreferences;
-import com.localebro.okhttpprofiler.OkHttpProfilerInterceptor;
-
 import okhttp3.CipherSuite;
 import okhttp3.ConnectionPool;
 import okhttp3.ConnectionSpec;
@@ -43,7 +41,34 @@ final class OkHttpCommons {
     public static final long CONNECT_TIMEOUT_MS = 20_000;
     public static final long READ_TIMEOUT_MS = 20_000;
     public static final long WRITE_TIMEOUT_MS = 20_000;
-    public static boolean enableProfiler = true;
+    // NEWTUBE(mobile): the only TOTAL bound. connect/read/write are per-phase: a link that dribbles
+    // a few bytes every 19s (tunnel, saturated uplink, dying Wi-Fi) resets the read timer forever
+    // and the call hangs with no upper bound - the UI just waits. 45s is well above the worst
+    // healthy InnerTube call (the /player + /next open path is separately bounded to 8s connect+read
+    // by RetrofitOkHttpHelper; browse/search get 10s connect) and above the sign-in device-code
+    // poll, which is NOT a long poll: AuthService.getAccessTokenWait sleeps 3s between ordinary
+    // short requests, so no single call ever approaches this.
+    // CAUTION: this rides every client derived from the shared one via newBuilder(), including the
+    // bulk transfers (in-app APK update download, the cast proxy's upstream fetches). Those must
+    // use OkHttpManager#getStreamingClient() instead - see its javadoc.
+    public static final long CALL_TIMEOUT_MS = 45_000;
+    // NEWTUBE(mobile): HTTP/2 health probe. With preferHttp2 ON, ALL InnerTube traffic multiplexes
+    // onto ONE connection, so a half-open connection (tunnel, lift, Wi-Fi <-> cellular handover)
+    // stalls EVERY API call for the full read timeout before OkHttp gives up and retries on a new
+    // one. An H2 ping that goes unacked for this interval kills the connection instead, so the
+    // retry happens in ~10s. No-op on HTTP/1.1 connections (pings exist only in H2/web sockets),
+    // so TV boxes - still pinned to HTTP/1.1 - are unaffected.
+    public static final long PING_INTERVAL_MS = 10_000;
+    // Retained for source compatibility with existing callers. The abandoned Android Studio
+    // profiler interceptor was removed while migrating to OkHttp 5; network diagnostics now use
+    // the bounded application logging paths.
+    public static boolean enableProfiler = false;
+    // NEWTUBE(mobile): let clients negotiate HTTP/2 again. The HTTP/1.1 pin below dodges a
+    // StreamResetException seen on old TV boxes' interrupt/create-stream patterns; on phones the
+    // pin just costs every API call multiplexing and connection reuse (the media path already
+    // runs H2/QUIC via Cronet). Set via OkHttpManager.setPreferHttp2 BEFORE the first client is
+    // built. Default OFF = TV behavior unchanged.
+    static boolean preferHttp2;
 
     private OkHttpCommons() {
 
@@ -94,6 +119,9 @@ final class OkHttpCommons {
         okBuilder.connectTimeout(CONNECT_TIMEOUT_MS, TimeUnit.MILLISECONDS);
         okBuilder.readTimeout(READ_TIMEOUT_MS, TimeUnit.MILLISECONDS);
         okBuilder.writeTimeout(WRITE_TIMEOUT_MS, TimeUnit.MILLISECONDS);
+        // Total-call bound and H2 liveness probe - see the constants for the reasoning.
+        okBuilder.callTimeout(CALL_TIMEOUT_MS, TimeUnit.MILLISECONDS);
+        okBuilder.pingInterval(PING_INTERVAL_MS, TimeUnit.MILLISECONDS);
 
         // Imitate 'keepAlive' = false (yt throttle fix? Cause slow video loading?)
         // https://stackoverflow.com/questions/70873186/how-to-disable-connection-pooling-and-make-a-new-connection-for-each-request-in
@@ -243,8 +271,13 @@ final class OkHttpCommons {
             // Create an ssl socket factory with our all-trusting manager
             final SSLSocketFactory sslSocketFactory = new Tls12SocketFactory(sslContext.getSocketFactory());
 
-            //builder.sslSocketFactory(sslSocketFactory, (X509TrustManager)trustAllCerts[0]);
-            builder.sslSocketFactory(sslSocketFactory);
+            // NEWTUBE(api24): pass the trust manager explicitly. Since OkHttp 4/5 the one-arg
+            // sslSocketFactory(factory) stores the factory and THEN throws "Unable to extract the
+            // trust manager" (Tls12SocketFactory is a wrapper it cannot introspect); the catch below
+            // swallowed that, leaving a builder with a factory but no certificate chain cleaner, so
+            // build() hit a NullPointerException in OkHttpClient.<init> and the app died in
+            // Application.onCreate on every Android 7.0 device (issue #78). OkHttp 3.12 tolerated it.
+            builder.sslSocketFactory(sslSocketFactory, (X509TrustManager) trustAllCerts[0]);
             //builder.hostnameVerifier((hostname, session) -> true);
         } catch (Exception e) {
             Log.w(TAG, "Exception while configuring IgnoreSslCertificate: " + e, e);
@@ -259,6 +292,10 @@ final class OkHttpCommons {
      * https://github.com/square/okhttp/issues/3955
      */
     private static void fixStreamResetError(Builder okBuilder) {
+        if (preferHttp2) {
+            return; // NEWTUBE(mobile): keep OkHttp's default ALPN negotiation (H2 + HTTP/1.1)
+        }
+
         okBuilder.protocols(Collections.singletonList(Protocol.HTTP_1_1));
     }
 
@@ -322,20 +359,16 @@ final class OkHttpCommons {
             // Profiler could cause OutOfMemoryError when testing.
             // Also outputs to logcat tons of info.
             // If you enable it to all requests - expect slowdowns.
-            if (enableProfiler) {
-                addProfiler(okBuilder);
-            }
             addLogger(okBuilder);
         }
     }
 
-    private static void addProfiler(OkHttpClient.Builder okBuilder) {
-        okBuilder.addInterceptor(new OkHttpProfilerInterceptor());
-    }
-
     private static void addLogger(OkHttpClient.Builder okBuilder) {
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+        // BASIC (was BODY): BODY dumped the full multi-hundred-KB player/next JSON per request,
+        // drowning debug logcat and costing real time on every response. BASIC keeps the useful
+        // line (method/url/code/size/duration) per request.
+        logging.setLevel(HttpLoggingInterceptor.Level.BASIC);
         okBuilder.addInterceptor(logging);
     }
 

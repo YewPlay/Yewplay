@@ -4,17 +4,17 @@ import androidx.annotation.Nullable;
 
 import com.liskovsoft.sharedutils.helpers.Helpers;
 import com.liskovsoft.sharedutils.mylogger.Log;
-import io.reactivex.Completable;
-import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.Scheduler;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.exceptions.OnErrorNotImplementedException;
-import io.reactivex.exceptions.UndeliverableException;
-import io.reactivex.plugins.RxJavaPlugins;
-import io.reactivex.schedulers.Schedulers;
+import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.ObservableEmitter;
+import io.reactivex.rxjava3.core.ObservableOnSubscribe;
+import io.reactivex.rxjava3.core.Scheduler;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.disposables.Disposable;
+import io.reactivex.rxjava3.exceptions.OnErrorNotImplementedException;
+import io.reactivex.rxjava3.exceptions.UndeliverableException;
+import io.reactivex.rxjava3.plugins.RxJavaPlugins;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 import java.io.IOException;
 import java.net.SocketException;
@@ -23,8 +23,6 @@ import java.net.UnknownHostException;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -36,35 +34,9 @@ public class RxHelper {
 
     private static Scheduler getCachedScheduler() {
         if (sCachedScheduler == null) {
-            // Don't replace with a bounded ThreadPoolExecutor + CallerRunsPolicy:
-            // when the pool is full, tasks run on the caller thread (often main)
-            // and cause NetworkOnMainThreadException.
+            // NEWTUBE(rx): unbounded cached pool, as before upstream bc67a7e/86f0327. Their bounded
+            // pool (CallerRunsPolicy) ran overflow work on the subscribing thread, often main.
             sCachedScheduler = Schedulers.from(Executors.newCachedThreadPool());
-
-            /*
-             * DON'T DO THIS: bounded pool + CallerRunsPolicy.
-             * When all threads are busy and the queue is full, the task runs on the
-             * submitting thread (often main) -> NetworkOnMainThreadException.
-             *
-             * int cores = Runtime.getRuntime().availableProcessors();
-             * int corePoolSize = Math.max(2, Math.min(4, cores));
-             * int maxPoolSize = Math.max(4, Math.min(8, cores * 2));
-             *
-             * // Bounded so maxPoolSize is actually reachable under load —
-             * // an unbounded queue starves pool growth entirely.
-             * int queueCapacity = corePoolSize * 4;
-             *
-             * ThreadPoolExecutor executor = new ThreadPoolExecutor(
-             *         corePoolSize,
-             *         maxPoolSize,
-             *         60L,
-             *         TimeUnit.SECONDS,
-             *         new LinkedBlockingQueue<>(queueCapacity),
-             *         new ThreadPoolExecutor.CallerRunsPolicy()
-             * );
-             * executor.allowCoreThreadTimeOut(true);
-             * sCachedScheduler = Schedulers.from(executor);
-             */
         }
 
         return sCachedScheduler;

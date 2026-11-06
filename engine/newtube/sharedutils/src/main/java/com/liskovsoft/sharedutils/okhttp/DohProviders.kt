@@ -86,7 +86,6 @@ object DohProviders {
     }
 
     internal fun parseUrl(s: String): HttpUrl {
-
         return s.toHttpUrl()
     }
 

@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0-or-later
  *
- * Vendored from yuliskov/SharedModules (MIT License), commit pinned in
+ * Vendored from aleixrodriala/SharedModules (MIT License), commit pinned in
  * docs/AUDITORIA_MULTIMOTOR.md. Do not refactor: adaptations only where
  * YewPlay integration requires them.
  */
@@ -50,7 +50,6 @@ dependencies {
     implementation(libs.brotli.dec)
     implementation(libs.dnsjava)
     implementation(libs.jakewharton.disklrucache)
-    implementation(libs.localebro.okhttpprofiler)
     implementation(libs.reactivex.rxjava)
     implementation(libs.reactivex.rxandroid)
 }

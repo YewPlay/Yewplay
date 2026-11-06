@@ -60,7 +60,6 @@ mockitoCore = "5.24.0"
 multiplatform = "1.12.2"
 navigation3 = "1.1.2"
 okhttp = "5.5.0"
-okhttpprofiler = "1.0.8"
 phoenix = "3.0.0"
 preference = "1.2.1"
 prettytime = "5.0.8.Final"
@@ -178,7 +177,6 @@ kotlinx-coroutines-rx3 = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-rx
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization-json" }
 leakcanary = { group = "com.android.tools.studio.leakcanary", name = "leakcanary", version.ref = "leakcanaryVersion" }
 livefront-bridge = { module = "com.github.livefront:bridge", version.ref = "bridge" }
-localebro-okhttpprofiler = { module = "com.localebro:okhttpprofiler", version.ref = "okhttpprofiler" }
 mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockitoCore" }
 newpipe-extractor = { module = "com.github.TeamNewPipe:NewPipeExtractor", version.ref = "teamnewpipe-newpipe-extractor" }
 newpipe-filepicker = { module = "com.github.TeamNewPipe:NoNonsense-FilePicker", version.ref = "teamnewpipe-filepicker" }

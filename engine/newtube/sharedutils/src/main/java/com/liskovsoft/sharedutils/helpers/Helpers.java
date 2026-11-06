@@ -94,6 +94,19 @@ public final class Helpers {
     private static final String LEGACY_DATA_DELIM = ",";
     private static final String OBJ_DELIM = "&vi;";
     private static final Pattern URL_PREFIX = Pattern.compile("^[a-z.]+://.+$");
+    // NEWTUBE(perf): String.matches() and String.split(regex) compile a fresh ICU pattern on EVERY
+    // call, and these helpers run thousands of times on the launch path (every pref restore, the
+    // 300-entry watch-state history, pinned sections, the feed snapshot). A Pixel 9 sampling trace
+    // of a cold start spent ~58 ms of main thread in PatternNative.compileImpl, almost all of it from
+    // parseInt/parseLong/parseFloat/split. Same regexes, compiled once; Pattern is immutable and
+    // thread-safe, a Matcher is created per call exactly as String.matches() does.
+    private static final Pattern NUMERIC_PATTERN = Pattern.compile("^[-+]?\\d*\\.?\\d+$");
+    private static final Pattern INTEGER_PATTERN = Pattern.compile("^[-+]?\\d+$");
+    private static final Pattern HAS_WORDS_PATTERN = Pattern.compile("^.*[^\\d\\W]+.*$");
+    private static final Pattern HAS_DIGITS_PATTERN = Pattern.compile("^.*[-+]?\\d*\\.?\\d+.*$");
+    /** Quoted-delimiter patterns for {@link #split(String, String)}; callers use a handful of constants. */
+    private static final Map<String, Pattern> SPLIT_PATTERNS = new java.util.concurrent.ConcurrentHashMap<>();
+    private static final int SPLIT_PATTERNS_MAX = 64;
     private static Random sRandom;
     private static Boolean sIsAndroidTVLauncher;
     private static Boolean sIsAmazonFireTVDevice;
@@ -444,19 +457,19 @@ public final class Helpers {
      * Any number, e.g. -1.0, 15
      */
     public static boolean isNumeric(String s) {
-        return s != null && s.matches("^[-+]?\\d*\\.?\\d+$");
+        return s != null && NUMERIC_PATTERN.matcher(s).matches();
     }
 
     public static boolean isInteger(String s) {
-        return s != null && s.matches("^[-+]?\\d+$");
+        return s != null && INTEGER_PATTERN.matcher(s).matches();
     }
 
     public static boolean hasWords(String s) {
-        return s != null && s.matches("^.*[^\\d\\W]+.*$");
+        return s != null && HAS_WORDS_PATTERN.matcher(s).matches();
     }
 
     public static boolean hasDigits(String s) {
-        return s != null && s.matches("^.*[-+]?\\d*\\.?\\d+.*$");
+        return s != null && HAS_DIGITS_PATTERN.matcher(s).matches();
     }
 
     /**
@@ -683,10 +696,8 @@ public final class Helpers {
             activity.getWindow().setFlags(LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         }
 
-        if (hasNotch(activity)) {
-            // Use space of phone's display cutout/notch area
-            activity.getWindow().getAttributes().layoutInDisplayCutoutMode = LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
-        }
+        // NEWTUBE(cutout): no layoutInDisplayCutoutMode here (upstream 183daf5 forced SHORT_EDGES).
+        // The phone player sets the mode itself (ALWAYS on API 30+) right before calling this.
     }
 
     private static boolean hasNotch(Context context) {
@@ -1546,7 +1557,20 @@ public final class Helpers {
             return new String[]{};
         }
 
-        return data.split(Pattern.quote(delim));
+        // NEWTUBE(perf): String.split(regex) == Pattern.compile(regex).split(this, 0); only the
+        // compile is cached (see SPLIT_PATTERNS), so the result is identical.
+        return splitPattern(delim).split(data);
+    }
+
+    private static Pattern splitPattern(String delim) {
+        Pattern pattern = SPLIT_PATTERNS.get(delim);
+        if (pattern == null) {
+            pattern = Pattern.compile(Pattern.quote(delim));
+            if (SPLIT_PATTERNS.size() < SPLIT_PATTERNS_MAX) {
+                SPLIT_PATTERNS.put(delim, pattern);
+            }
+        }
+        return pattern;
     }
 
     public static String merge(String delim, Object... params) {

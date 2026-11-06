@@ -104,7 +104,8 @@ A integração é **tecnicamente viável** com esforço real e delimitado: NewTu
 - **Vendor em `engine/newtube/`** (MIT, atribuição mantida nos fontes):
   - `mediaserviceinterfaces` + `youtubeapi` de `aleixrodriala/MediaServiceCore` @ `52fecea0`
     (NewTube é fork de yuliskov/SmartTube; copyright yuliskov 2020-present, MIT).
-  - `sharedutils` de `yuliskov/SharedModules` @ master (2026-11), MIT.
+  - `sharedutils` de `aleixrodriala/SharedModules` @ `25213805` (pin real do app NewTube;
+    o repo `yuliskov/SharedModules` ainda é RxJava2 e não compila com o MediaServiceCore do fork, que é RxJava3), MIT.
 - **Adaptações mínimas** (nenhuma no código-fonte): builds Groovy → `build.gradle.kts` do padrão
   YewPlay; remoção do atributo `package` do manifest do sharedutils (obrigatório desde AGP 8);
   j2v8 consumido do Maven Central (`com.eclipsesource.j2v8:j2v8:6.2.1`) em vez do módulo local
