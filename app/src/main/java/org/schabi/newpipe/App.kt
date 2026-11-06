@@ -24,6 +24,7 @@ import io.reactivex.rxjava3.plugins.RxJavaPlugins
 import java.io.IOException
 import java.io.InterruptedIOException
 import java.net.SocketException
+import net.newpipe.app.theme.MotionDurations
 import org.acra.ACRA.init
 import org.acra.ACRA.isACRASenderServiceProcess
 import org.acra.config.CoreConfigurationBuilder
@@ -130,7 +131,8 @@ open class App :
         .Builder(this)
         .logger(if (BuildConfig.DEBUG) DebugLogger() else null)
         .allowRgb565(getSystemService<ActivityManager>()!!.isLowRamDevice)
-        .crossfade(true)
+        // YewPlay Motion: image crossfade uses the NORMAL token
+        .crossfade(MotionDurations.NORMAL)
         .components {
             add(OkHttpNetworkFetcherFactory(callFactory = DownloaderImpl.getInstance().client))
         }.build()
