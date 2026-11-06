@@ -168,7 +168,7 @@ class EngineManagerTest {
 
         assertTrue(result.fallbackUsed)
         assertEquals("backup", result.servedBy.id)
-        assertEquals(EngineManager.NEWPIPE_ID, prefs.getString(EngineManager.KEY_ENGINE, null))
+        assertFalse(prefs.strings.containsKey(EngineManager.KEY_ENGINE))
     }
 
     @Test(expected = EngineException::class)
