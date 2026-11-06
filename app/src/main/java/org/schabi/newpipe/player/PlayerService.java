@@ -32,8 +32,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ServiceCompat;
 import androidx.media.MediaBrowserServiceCompat;
-
-import com.google.android.exoplayer2.ext.mediasession.MediaSessionConnector;
+import androidx.media3.session.MediaSession;
 
 import org.schabi.newpipe.ktx.BundleKt;
 import org.schabi.newpipe.player.mediabrowser.MediaBrowserImpl;
@@ -64,10 +63,10 @@ public final class PlayerService extends MediaBrowserServiceCompat {
     private MediaBrowserImpl mediaBrowserImpl;
     private MediaBrowserPlaybackPreparer mediaBrowserPlaybackPreparer;
 
-    // these are instantiated in onCreate() as per
-    // https://developer.android.com/training/cars/media#browser_workflow
-    private MediaSessionCompat mediaSession;
-    private MediaSessionConnector sessionConnector;
+    // The Media3 session is created by MediaSessionPlayerUi together with the player (it needs
+    // the player's Media3 player instance) and registered here through onMediaSessionStarted().
+    @Nullable
+    private MediaSession mediaSession;
 
     @Nullable
     private Player player;
@@ -93,24 +92,12 @@ public final class PlayerService extends MediaBrowserServiceCompat {
         ThemeHelper.setTheme(this);
 
         mediaBrowserImpl = new MediaBrowserImpl(this, this::notifyChildrenChanged);
+        mediaBrowserPlaybackPreparer = new MediaBrowserPlaybackPreparer(this);
 
-        // see https://developer.android.com/training/cars/media#browser_workflow
-        mediaSession = new MediaSessionCompat(this, "MediaSessionPlayerServ");
-        setSessionToken(mediaSession.getSessionToken());
-        sessionConnector = new MediaSessionConnector(mediaSession);
-        sessionConnector.setMetadataDeduplicationEnabled(true);
-
-        mediaBrowserPlaybackPreparer = new MediaBrowserPlaybackPreparer(
-                this,
-                sessionConnector::setCustomErrorMessage,
-                () -> sessionConnector.setCustomErrorMessage(null),
-                (playWhenReady) -> {
-                    if (player != null) {
-                        player.onPrepare();
-                    }
-                }
-        );
-        sessionConnector.setPlaybackPreparer(mediaBrowserPlaybackPreparer);
+        // Note: the Media3 session is not created here, because it needs the player's Media3
+        // player instance, which is created on demand (see the comment below about not creating
+        // the player just to serve media queries). MediaSessionPlayerUi registers the session
+        // through onMediaSessionStarted() as soon as a player exists.
 
         // Note: you might be tempted to create the player instance and call startForeground here,
         // but be aware that the Android system might start the service just to perform media
@@ -136,7 +123,7 @@ public final class PlayerService extends MediaBrowserServiceCompat {
             final boolean playerWasNull = (player == null);
             if (playerWasNull) {
                 // make sure the player exists, in case the service was resumed
-                player = new Player(this, mediaSession, sessionConnector);
+                player = new Player(this);
             }
 
             // Be sure that the player notification is set and the service is started in foreground,
@@ -213,7 +200,10 @@ public final class PlayerService extends MediaBrowserServiceCompat {
         cleanup();
 
         mediaBrowserPlaybackPreparer.dispose();
-        mediaSession.release();
+        if (mediaSession != null) {
+            mediaSession.release();
+            mediaSession = null;
+        }
         mediaBrowserImpl.dispose();
     }
 
@@ -227,8 +217,11 @@ public final class PlayerService extends MediaBrowserServiceCompat {
             player = null;
         }
 
-        // Should already be handled by MediaSessionPlayerUi, but just to be sure.
-        mediaSession.setActive(false);
+        // Should already be handled by MediaSessionPlayerUi.destroyPlayer(), but just to be sure.
+        if (mediaSession != null) {
+            mediaSession.release();
+            mediaSession = null;
+        }
 
         // Should already be handled by NotificationUtil.cancelNotificationAndStopForeground() in
         // NotificationPlayerUi, but let's make sure that the foreground service is stopped.
@@ -321,6 +314,20 @@ public final class PlayerService extends MediaBrowserServiceCompat {
             // if there is no player, then `null` will be sent here, to ensure the state is synced
             listener.accept(player);
         }
+    }
+    /**
+     * Called by {@link MediaSessionPlayerUi} when a Media3 session is created for the current
+     * player. The platform token is exposed to media1 browsers (e.g. Android Auto) through this
+     * service, so they keep working unchanged.
+     */
+    public void onMediaSessionStarted(@NonNull final MediaSession session) {
+        mediaSession = session;
+        setSessionToken(MediaSessionCompat.Token.fromToken(session.getPlatformToken()));
+    }
+
+    @NonNull
+    MediaBrowserPlaybackPreparer getMediaBrowserPlaybackPreparer() {
+        return mediaBrowserPlaybackPreparer;
     }
     //endregion
 

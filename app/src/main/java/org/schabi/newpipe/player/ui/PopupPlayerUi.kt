@@ -18,8 +18,8 @@ import android.view.animation.AnticipateInterpolator
 import android.widget.FrameLayout
 import androidx.core.content.ContextCompat
 import androidx.core.math.MathUtils
-import com.google.android.exoplayer2.ui.AspectRatioFrameLayout
-import com.google.android.exoplayer2.ui.SubtitleView
+import androidx.media3.ui.AspectRatioFrameLayout
+import androidx.media3.ui.SubtitleView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.flow.update
 import org.schabi.newpipe.R

@@ -11,11 +11,11 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.painterResource
 import androidx.core.graphics.BitmapCompat
-import com.google.android.exoplayer2.C
-import com.google.android.exoplayer2.PlaybackParameters
-import com.google.android.exoplayer2.Tracks
-import com.google.android.exoplayer2.text.Cue
-import com.google.android.exoplayer2.video.VideoSize
+import androidx.media3.common.C
+import androidx.media3.common.PlaybackParameters
+import androidx.media3.common.Tracks
+import androidx.media3.common.text.Cue
+import androidx.media3.common.VideoSize
 import io.github.yewplay.core.designsystem.YpTheme
 import java.util.Collections
 import java.util.Optional
@@ -141,9 +141,9 @@ abstract class VideoPlayerUi(
             replay = painterResource(R.drawable.ic_replay),
             previous = painterResource(R.drawable.ic_previous),
             next = painterResource(R.drawable.ic_next),
-            repeatOff = painterResource(com.google.android.exoplayer2.ui.R.drawable.exo_controls_repeat_off),
-            repeatOne = painterResource(com.google.android.exoplayer2.ui.R.drawable.exo_controls_repeat_one),
-            repeatAll = painterResource(com.google.android.exoplayer2.ui.R.drawable.exo_controls_repeat_all),
+            repeatOff = painterResource(androidx.media3.ui.R.drawable.exo_controls_repeat_off),
+            repeatOne = painterResource(androidx.media3.ui.R.drawable.exo_controls_repeat_one),
+            repeatAll = painterResource(androidx.media3.ui.R.drawable.exo_controls_repeat_all),
             shuffle = painterResource(R.drawable.ic_shuffle),
             moreOptions = painterResource(R.drawable.ic_expand_more),
             fullScreen = painterResource(R.drawable.ic_fullscreen),
@@ -350,9 +350,9 @@ abstract class VideoPlayerUi(
             chromeState.update {
                 it.copy(
                     shuffled = exo.shuffleModeEnabled,
-                    repeatOff = exo.repeatMode == com.google.android.exoplayer2.Player
+                    repeatOff = exo.repeatMode == androidx.media3.common.Player
                         .REPEAT_MODE_OFF,
-                    repeatOne = exo.repeatMode == com.google.android.exoplayer2.Player
+                    repeatOne = exo.repeatMode == androidx.media3.common.Player
                         .REPEAT_MODE_ONE
                 )
             }
@@ -657,8 +657,8 @@ abstract class VideoPlayerUi(
         super.onRepeatModeChanged(repeatMode)
         chromeState.update {
             it.copy(
-                repeatOff = repeatMode == com.google.android.exoplayer2.Player.REPEAT_MODE_OFF,
-                repeatOne = repeatMode == com.google.android.exoplayer2.Player.REPEAT_MODE_ONE
+                repeatOff = repeatMode == androidx.media3.common.Player.REPEAT_MODE_OFF,
+                repeatOne = repeatMode == androidx.media3.common.Player.REPEAT_MODE_ONE
             )
         }
     }
@@ -992,7 +992,7 @@ abstract class VideoPlayerUi(
         setupSubtitleView(captionScale)
         val captionStyle = PlayerHelper.getCaptionStyle(context)
         views.subtitleView.setApplyEmbeddedStyles(
-            captionStyle == com.google.android.exoplayer2.ui.CaptionStyleCompat.DEFAULT
+            captionStyle == androidx.media3.ui.CaptionStyleCompat.DEFAULT
         )
         views.subtitleView.setStyle(captionStyle)
     }

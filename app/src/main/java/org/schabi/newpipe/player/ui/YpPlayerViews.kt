@@ -7,7 +7,7 @@ import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import androidx.compose.ui.platform.ComposeView
-import com.google.android.exoplayer2.ui.SubtitleView
+import androidx.media3.ui.SubtitleView
 import org.schabi.newpipe.R
 import org.schabi.newpipe.views.ExpandableSurfaceView
 import org.schabi.newpipe.views.player.PlayerFastSeekOverlay

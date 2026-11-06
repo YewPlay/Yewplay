@@ -3,10 +3,10 @@ package org.schabi.newpipe.player.ui
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
-import com.google.android.exoplayer2.PlaybackParameters
-import com.google.android.exoplayer2.Tracks
-import com.google.android.exoplayer2.text.Cue
-import com.google.android.exoplayer2.video.VideoSize
+import androidx.media3.common.PlaybackParameters
+import androidx.media3.common.Tracks
+import androidx.media3.common.text.Cue
+import androidx.media3.common.VideoSize
 import org.schabi.newpipe.extractor.stream.StreamInfo
 import org.schabi.newpipe.player.Player
 
@@ -80,7 +80,7 @@ abstract class PlayerUi(
      * @param currentProgress the current progress in milliseconds
      * @param duration the duration of the stream being played
      * @param bufferPercent the percentage of stream already buffered, see
-     * [com.google.android.exoplayer2.BasePlayer.getBufferedPercentage]
+     * [androidx.media3.common.BasePlayer.getBufferedPercentage]
      */
     open fun onUpdateProgress(currentProgress: Int, duration: Int, bufferPercent: Int) {}
 
@@ -104,16 +104,16 @@ abstract class PlayerUi(
 
     open fun onMuteUnmuteChanged(isMuted: Boolean) {}
 
-    /** @see com.google.android.exoplayer2.Player.Listener.onTracksChanged */
+    /** @see androidx.media3.common.Player.Listener.onTracksChanged */
     open fun onTextTracksChanged(currentTracks: Tracks) {}
 
-    /** @see com.google.android.exoplayer2.Player.Listener.onPlaybackParametersChanged */
+    /** @see androidx.media3.common.Player.Listener.onPlaybackParametersChanged */
     open fun onPlaybackParametersChanged(playbackParameters: PlaybackParameters) {}
 
-    /** @see com.google.android.exoplayer2.Player.Listener.onRenderedFirstFrame */
+    /** @see androidx.media3.common.Player.Listener.onRenderedFirstFrame */
     open fun onRenderedFirstFrame() {}
 
-    /** @see com.google.android.exoplayer2.text.TextOutput.onCues */
+    /** @see androidx.media3.extractor.text.TextOutput.onCues */
     open fun onCues(cues: List<Cue>) {}
 
     /**
@@ -135,7 +135,7 @@ abstract class PlayerUi(
 
     /**
      * @param videoSize the new video size, useful to set the surface aspect ratio
-     * @see com.google.android.exoplayer2.Player.Listener.onVideoSizeChanged
+     * @see androidx.media3.common.Player.Listener.onVideoSizeChanged
      */
     open fun onVideoSizeChanged(videoSize: VideoSize) {}
 }

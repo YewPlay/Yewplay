@@ -21,7 +21,7 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import com.google.android.exoplayer2.PlaybackParameters
+import androidx.media3.common.PlaybackParameters
 import io.github.yewplay.core.designsystem.YpTheme
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Maybe
@@ -142,19 +142,19 @@ class YpPlayQueueActivity : AppCompatActivity(), PlayerEventListener, PlaybackPa
                         previous = painterResource(R.drawable.ic_previous),
                         next = painterResource(R.drawable.ic_next),
                         rewind = painterResource(
-                            com.google.android.exoplayer2.ui.R.drawable.exo_controls_rewind
+                            androidx.media3.ui.R.drawable.exo_controls_rewind
                         ),
                         forward = painterResource(
-                            com.google.android.exoplayer2.ui.R.drawable.exo_controls_fastforward
+                            androidx.media3.ui.R.drawable.exo_controls_fastforward
                         ),
                         repeatOff = painterResource(
-                            com.google.android.exoplayer2.ui.R.drawable.exo_controls_repeat_off
+                            androidx.media3.ui.R.drawable.exo_controls_repeat_off
                         ),
                         repeatOne = painterResource(
-                            com.google.android.exoplayer2.ui.R.drawable.exo_controls_repeat_one
+                            androidx.media3.ui.R.drawable.exo_controls_repeat_one
                         ),
                         repeatAll = painterResource(
-                            com.google.android.exoplayer2.ui.R.drawable.exo_controls_repeat_all
+                            androidx.media3.ui.R.drawable.exo_controls_repeat_all
                         ),
                         shuffle = painterResource(R.drawable.ic_shuffle),
                         timer = painterResource(R.drawable.yp_ic_timer),
@@ -360,8 +360,8 @@ class YpPlayQueueActivity : AppCompatActivity(), PlayerEventListener, PlaybackPa
                     else -> YpListenPlayState.BUFFERING
                 },
                 repeatMode = when (repeatMode) {
-                    com.google.android.exoplayer2.Player.REPEAT_MODE_ONE -> YpListenRepeatMode.ONE
-                    com.google.android.exoplayer2.Player.REPEAT_MODE_ALL -> YpListenRepeatMode.ALL
+                    androidx.media3.common.Player.REPEAT_MODE_ONE -> YpListenRepeatMode.ONE
+                    androidx.media3.common.Player.REPEAT_MODE_ALL -> YpListenRepeatMode.ALL
                     else -> YpListenRepeatMode.OFF
                 },
                 shuffled = shuffled,

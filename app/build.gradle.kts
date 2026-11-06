@@ -299,17 +299,8 @@ dependencies {
     implementation(libs.squareup.okhttp.brotli)
 
     // Media player
-    implementation(libs.google.exoplayer.core)
-    implementation(libs.google.exoplayer.dash)
-    implementation(libs.google.exoplayer.database)
-    implementation(libs.google.exoplayer.datasource)
-    implementation(libs.google.exoplayer.hls)
-    implementation(libs.google.exoplayer.mediasession)
-    implementation(libs.google.exoplayer.smoothstreaming)
-    implementation(libs.google.exoplayer.ui)
-
-    // Media3 (FASE 10): central playback infrastructure. Added side-by-side with
-    // ExoPlayer2 during the migration; ExoPlayer2 is removed at the end of FASE 11.
+    // Media3 (FASE 10-11): the central playback infrastructure. ExoPlayer2 was fully
+    // removed in FASE 11 (see docs/AUDITORIA_MULTIMOTOR.md).
     implementation(libs.androidx.media3.common)
     implementation(libs.androidx.media3.database)
     implementation(libs.androidx.media3.datasource)

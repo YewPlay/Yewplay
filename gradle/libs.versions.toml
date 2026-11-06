@@ -31,7 +31,6 @@ disklrucache = "2.0.2"
 dnsjava = "3.6.3"
 documentfile = "1.1.0"
 espresso = "3.7.0"
-exoplayer = "2.19.1"
 florianingerl-regex = "1.1.11"
 fragment = "1.9.1"
 gson = "2.13.2"
@@ -150,14 +149,6 @@ florianingerl-regex = { module = "com.github.florianingerl.util:regex", version.
 google-android-material = { module = "com.google.android.material:material", version.ref = "material" }
 google-autoservice-annotations = { module = "com.google.auto.service:auto-service-annotations", version.ref = "autoservice-google" }
 google-cronet-okhttp = { module = "com.google.net.cronet:cronet-okhttp", version.ref = "cronet-okhttp" }
-google-exoplayer-core = { module = "com.google.android.exoplayer:exoplayer-core", version.ref = "exoplayer" }
-google-exoplayer-dash = { module = "com.google.android.exoplayer:exoplayer-dash", version.ref = "exoplayer" }
-google-exoplayer-database = { module = "com.google.android.exoplayer:exoplayer-database", version.ref = "exoplayer" }
-google-exoplayer-datasource = { module = "com.google.android.exoplayer:exoplayer-datasource", version.ref = "exoplayer" }
-google-exoplayer-hls = { module = "com.google.android.exoplayer:exoplayer-hls", version.ref = "exoplayer" }
-google-exoplayer-mediasession = { module = "com.google.android.exoplayer:extension-mediasession", version.ref = "exoplayer" }
-google-exoplayer-smoothstreaming = { module = "com.google.android.exoplayer:exoplayer-smoothstreaming", version.ref = "exoplayer" }
-google-exoplayer-ui = { module = "com.google.android.exoplayer:exoplayer-ui", version.ref = "exoplayer" }
 google-gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 jakewharton-disklrucache = { module = "com.jakewharton:disklrucache", version.ref = "disklrucache" }
 jakewharton-phoenix = { module = "com.jakewharton:process-phoenix", version.ref = "phoenix" }
