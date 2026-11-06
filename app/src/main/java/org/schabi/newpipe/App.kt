@@ -112,10 +112,9 @@ open class App :
         StateSaver.init(this)
         initNotificationChannels()
 
-        EngineManager
-            .init(SharedPreferencesEnginePrefs(this))
-            .register(NewPipeEngine())
-            .register(NewTubeEngine(this))
+        val engineManager = EngineManager.init(SharedPreferencesEnginePrefs(this))
+        engineManager.register(NewPipeEngine())
+        engineManager.register(NewTubeEngine(this))
 
         ServiceHelper.initServices(this)
 
