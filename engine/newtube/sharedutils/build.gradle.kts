@@ -8,7 +8,6 @@
 
 plugins {
     alias(libs.plugins.android.library.classic)
-    alias(libs.plugins.jetbrains.kotlin.android)
 }
 
 android {
@@ -35,10 +34,6 @@ android {
         abortOnError = false
         checkReleaseBuilds = false
     }
-}
-
-kotlin {
-    jvmToolchain(21)
 }
 
 dependencies {
