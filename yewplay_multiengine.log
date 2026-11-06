@@ -1,7 +1,7 @@
 branch: yewplay/multiengine
-sha: 62bb25621eccc34f42374463ecccb71aa42ad5fc
+sha: 4165a6ffdb14ff08a8b84398fc386710d5cf8229
 outcome: cancelled
-run: https://github.com/YewPlay/Yewplay/actions/runs/42273718149
+run: https://github.com/YewPlay/Yewplay/actions/runs/42274796960
 
 == errors ==
 
@@ -138,25 +138,39 @@ w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe
 w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/settings/export/ImportExportManager.kt:109:65 'val FILE_NAME_SERIALIZED_PREFS: String' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
 w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/settings/export/ImportExportManager.kt:143:63 'val FILE_NAME_SERIALIZED_PREFS: String' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
 w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/us/shandian/giga/ui/fragment/YpDownloadsFragment.kt:877:49 'static field ACTION_MEDIA_SCANNER_SCAN_FILE: String' is deprecated. Deprecated in Java.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/engine/EngineManagerTest.kt:151:9 Expression is unused.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/engine/EngineManagerTest.kt:190:9 Expression is unused.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/settings/ImportAllCombinationsTest.kt:86:68 'fun exportHasSerializedPrefs(zipFile: StoredFileHelper): Boolean' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/settings/ImportAllCombinationsTest.kt:87:50 'fun loadSerializedPrefs(zipFile: StoredFileHelper, preferences: SharedPreferences): Unit' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/settings/ImportAllCombinationsTest.kt:100:68 'fun exportHasSerializedPrefs(zipFile: StoredFileHelper): Boolean' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/settings/ImportAllCombinationsTest.kt:102:54 'fun loadSerializedPrefs(zipFile: StoredFileHelper, preferences: SharedPreferences): Unit' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/settings/ImportAllCombinationsTest.kt:110:69 'fun exportHasSerializedPrefs(zipFile: StoredFileHelper): Boolean' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/settings/ImportAllCombinationsTest.kt:112:54 'fun loadSerializedPrefs(zipFile: StoredFileHelper, preferences: SharedPreferences): Unit' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/settings/ImportExportManagerTest.kt:153:53 'fun exportHasSerializedPrefs(zipFile: StoredFileHelper): Boolean' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/settings/ImportExportManagerTest.kt:160:54 'fun exportHasSerializedPrefs(zipFile: StoredFileHelper): Boolean' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/settings/ImportExportManagerTest.kt:173:42 'fun loadSerializedPrefs(zipFile: StoredFileHelper, preferences: SharedPreferences): Unit' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/settings/ImportExportManagerTest.kt:188:46 'fun loadSerializedPrefs(zipFile: StoredFileHelper, preferences: SharedPreferences): Unit' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
-OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
 
 == tail ==
+> Task :engine:newtube:sharedutils:lintAnalyzeDebugAndroidTest
+> Task :engine:newtube:sharedutils:lintAnalyzeDebugUnitTest
+> Task :engine:newtube:youtubeapi:preDebugAndroidTestBuild UP-TO-DATE
+> Task :engine:newtube:youtubeapi:generateDebugAndroidTestLintModel
+> Task :engine:newtube:youtubeapi:preDebugUnitTestBuild UP-TO-DATE
+> Task :engine:newtube:sharedutils:lintAnalyzeDebug
+> Task :engine:newtube:youtubeapi:generateDebugUnitTestLintModel
+> Task :engine:newtube:youtubeapi:lintAnalyzeDebugAndroidTest
+> Task :engine:newtube:youtubeapi:lintAnalyzeDebugUnitTest
+> Task :engine:flow:generateDebugLintReportModel
+> Task :engine:newtube:mediaserviceinterfaces:generateDebugLintReportModel
+> Task :engine:newtube:sharedutils:generateDebugLintReportModel
+> Task :engine:newtube:youtubeapi:generateDebugLintReportModel
+> Task :engine:flow:generateDebugUnitTestStubRFile
+> Task :engine:flow:compileDebugUnitTestKotlin NO-SOURCE
+> Task :engine:flow:javaPreCompileDebugUnitTest
+> Task :engine:flow:compileDebugUnitTestJavaWithJavac NO-SOURCE
+> Task :engine:flow:processDebugUnitTestJavaRes NO-SOURCE
+> Task :engine:flow:testDebugUnitTest NO-SOURCE
+> Task :engine:newtube:mediaserviceinterfaces:generateDebugUnitTestStubRFile
+> Task :engine:newtube:mediaserviceinterfaces:compileDebugUnitTestKotlin NO-SOURCE
+> Task :engine:newtube:mediaserviceinterfaces:javaPreCompileDebugUnitTest
+> Task :engine:newtube:mediaserviceinterfaces:compileDebugUnitTestJavaWithJavac NO-SOURCE
+> Task :engine:newtube:mediaserviceinterfaces:processDebugUnitTestJavaRes NO-SOURCE
+> Task :engine:newtube:mediaserviceinterfaces:testDebugUnitTest NO-SOURCE
+> Task :engine:newtube:sharedutils:generateDebugUnitTestStubRFile
+> Task :engine:newtube:sharedutils:compileDebugUnitTestKotlin NO-SOURCE
+> Task :engine:newtube:sharedutils:javaPreCompileDebugUnitTest
 > Task :engine:newtube:sharedutils:compileDebugUnitTestJavaWithJavac NO-SOURCE
 > Task :engine:newtube:sharedutils:processDebugUnitTestJavaRes NO-SOURCE
 > Task :engine:newtube:sharedutils:testDebugUnitTest NO-SOURCE
-> Task :engine:newtube:sharedutils:lintAnalyzeDebug
 > Task :engine:newtube:youtubeapi:generateDebugUnitTestStubRFile
 > Task :engine:newtube:youtubeapi:compileDebugUnitTestKotlin NO-SOURCE
 > Task :engine:newtube:youtubeapi:javaPreCompileDebugUnitTest
@@ -180,18 +194,19 @@ Wrote HTML report to file:///home/runner/work/Yewplay/Yewplay/engine/newtube/med
 Wrote SARIF report to file:///home/runner/work/Yewplay/Yewplay/engine/newtube/mediaserviceinterfaces/build/reports/lint-results-debug.sarif
 
 > Task :engine:newtube:mediaserviceinterfaces:lintDebug
-> Task :app:kaptGenerateStubsDebugKotlin
 > Task :engine:newtube:youtubeapi:lintAnalyzeDebug
+> Task :app:kaptGenerateStubsDebugKotlin
 
 > Task :app:kaptDebugKotlin
 warning: The following options were not recognized by any processor: '[room.internal.schemaInput, room.internal.schemaOutput, kapt.kotlin.generated]'
+
+> Task :app:compileDebugKotlin
 
 > Task :engine:flow:lintReportDebug
 Wrote HTML report to file:///home/runner/work/Yewplay/Yewplay/engine/flow/build/reports/lint-results-debug.html
 Wrote SARIF report to file:///home/runner/work/Yewplay/Yewplay/engine/flow/build/reports/lint-results-debug.sarif
 
 > Task :engine:flow:lintDebug
-> Task :app:compileDebugKotlin
 
 > Task :engine:newtube:youtubeapi:lintReportDebug
 Wrote HTML report to file:///home/runner/work/Yewplay/Yewplay/engine/newtube/youtubeapi/build/reports/lint-results-debug.html
@@ -316,40 +331,12 @@ Note: Recompile with -Xlint:unchecked for details.
 > Task :app:generateDebugLintReportModel
 > Task :app:bundleDebugClassesToCompileJar
 > Task :app:kspDebugUnitTestKotlin
+
+> Task :app:lintAnalyzeDebug
+com.evernote.android.state.lint.registry.StateIssueRegistry in /home/runner/.gradle/caches/9.8.2/transforms/d9a1c29196d2f7ca24f081b2a5330a10/transformed/android-state-1.4.1/jars/lint.jar does not specify a vendor; see IssueRegistry#vendor
+
 > Task :app:mergeDebugJavaResource
 > Task :app:generateDebugAndroidTestLintModel
 > Task :app:generateDebugUnitTestLintModel
 > Task :app:kaptGenerateStubsDebugUnitTestKotlin
 > Task :app:kaptDebugUnitTestKotlin SKIPPED
-
-> Task :app:lintAnalyzeDebug
-com.evernote.android.state.lint.registry.StateIssueRegistry in /home/runner/.gradle/caches/9.8.2/transforms/d9a1c29196d2f7ca24f081b2a5330a10/transformed/android-state-1.4.1/jars/lint.jar does not specify a vendor; see IssueRegistry#vendor
-
-> Task :app:lintAnalyzeDebugAndroidTest
-
-> Task :app:compileDebugUnitTestKotlin
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/engine/EngineManagerTest.kt:151:9 Expression is unused.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/engine/EngineManagerTest.kt:190:9 Expression is unused.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/settings/ImportAllCombinationsTest.kt:86:68 'fun exportHasSerializedPrefs(zipFile: StoredFileHelper): Boolean' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/settings/ImportAllCombinationsTest.kt:87:50 'fun loadSerializedPrefs(zipFile: StoredFileHelper, preferences: SharedPreferences): Unit' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/settings/ImportAllCombinationsTest.kt:100:68 'fun exportHasSerializedPrefs(zipFile: StoredFileHelper): Boolean' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/settings/ImportAllCombinationsTest.kt:102:54 'fun loadSerializedPrefs(zipFile: StoredFileHelper, preferences: SharedPreferences): Unit' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/settings/ImportAllCombinationsTest.kt:110:69 'fun exportHasSerializedPrefs(zipFile: StoredFileHelper): Boolean' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/settings/ImportAllCombinationsTest.kt:112:54 'fun loadSerializedPrefs(zipFile: StoredFileHelper, preferences: SharedPreferences): Unit' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/settings/ImportExportManagerTest.kt:153:53 'fun exportHasSerializedPrefs(zipFile: StoredFileHelper): Boolean' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/settings/ImportExportManagerTest.kt:160:54 'fun exportHasSerializedPrefs(zipFile: StoredFileHelper): Boolean' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/settings/ImportExportManagerTest.kt:173:42 'fun loadSerializedPrefs(zipFile: StoredFileHelper, preferences: SharedPreferences): Unit' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/settings/ImportExportManagerTest.kt:188:46 'fun loadSerializedPrefs(zipFile: StoredFileHelper, preferences: SharedPreferences): Unit' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
-
-> Task :app:compileDebugUnitTestJavaWithJavac
-> Task :app:copyRoomSchemas NO-SOURCE
-> Task :app:bundleDebugClassesToRuntimeJar
-> Task :app:processDebugUnitTestJavaRes
-> Task :app:lintAnalyzeDebugUnitTest
-OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
-> Task :app:dexBuilderDebug
-> Task :app:mergeProjectDexDebug
-> Task :app:testDebugUnitTest
-> Task :app:packageDebug
-> Task :app:assembleDebug
-> Task :app:createDebugApkListingFileRedirect
