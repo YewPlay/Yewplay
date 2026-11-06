@@ -13,6 +13,15 @@ import static android.support.v4.media.session.PlaybackStateCompat.ACTION_SET_SH
 import static android.support.v4.media.session.PlaybackStateCompat.ACTION_SKIP_TO_NEXT;
 import static android.support.v4.media.session.PlaybackStateCompat.ACTION_SKIP_TO_PREVIOUS;
 import static android.support.v4.media.session.PlaybackStateCompat.ACTION_SKIP_TO_QUEUE_ITEM;
+import static androidx.media3.common.Player.EVENT_IS_PLAYING_CHANGED;
+import static androidx.media3.common.Player.EVENT_MEDIA_ITEM_TRANSITION;
+import static androidx.media3.common.Player.EVENT_PLAYBACK_PARAMETERS_CHANGED;
+import static androidx.media3.common.Player.EVENT_PLAYBACK_STATE_CHANGED;
+import static androidx.media3.common.Player.EVENT_PLAY_WHEN_READY_CHANGED;
+import static androidx.media3.common.Player.EVENT_POSITION_DISCONTINUITY;
+import static androidx.media3.common.Player.EVENT_REPEAT_MODE_CHANGED;
+import static androidx.media3.common.Player.EVENT_SHUFFLE_MODE_ENABLED_CHANGED;
+import static androidx.media3.common.Player.EVENT_TIMELINE_CHANGED;
 import static org.schabi.newpipe.MainActivity.DEBUG;
 import static org.schabi.newpipe.player.notification.NotificationConstants.ACTION_RECREATE_NOTIFICATION;
 
@@ -98,20 +107,18 @@ public class MediaSessionPlayerUi extends PlayerUi
                 @Override
                 public void onEvents(@NonNull final androidx.media3.common.Player exoPlayer,
                                      @NonNull final androidx.media3.common.Player.Events events) {
-                    if (events.containsAny(androidx.media3.common.Player.EVENT_TIMELINE_CHANGED,
-                            androidx.media3.common.Player.EVENT_MEDIA_ITEM_TRANSITION)) {
+                    if (events.containsAny(EVENT_TIMELINE_CHANGED,
+                            EVENT_MEDIA_ITEM_TRANSITION)) {
                         pushMetadata();
                         pushQueueWindow();
                     }
-                    if (events.containsAny(androidx.media3.common.Player.EVENT_PLAYBACK_STATE_CHANGED,
-                            androidx.media3.common.Player.EVENT_PLAY_WHEN_READY_CHANGED,
-                            androidx.media3.common.Player.EVENT_IS_PLAYING_CHANGED,
-                            androidx.media3.common.Player.EVENT_POSITION_DISCONTINUITY,
-                            androidx.media3.common.Player.EVENT_PLAYBACK_PARAMETERS_CHANGED)) {
+                    if (events.containsAny(EVENT_PLAYBACK_STATE_CHANGED,
+                            EVENT_PLAY_WHEN_READY_CHANGED, EVENT_IS_PLAYING_CHANGED,
+                            EVENT_POSITION_DISCONTINUITY, EVENT_PLAYBACK_PARAMETERS_CHANGED)) {
                         pushPlaybackState();
                     }
-                    if (events.containsAny(androidx.media3.common.Player.EVENT_REPEAT_MODE_CHANGED,
-                            androidx.media3.common.Player.EVENT_SHUFFLE_MODE_ENABLED_CHANGED)) {
+                    if (events.containsAny(EVENT_REPEAT_MODE_CHANGED,
+                            EVENT_SHUFFLE_MODE_ENABLED_CHANGED)) {
                         pushRepeatShuffle();
                     }
                 }
