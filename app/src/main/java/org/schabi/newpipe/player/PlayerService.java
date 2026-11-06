@@ -319,6 +319,8 @@ public final class PlayerService extends MediaBrowserServiceCompat {
      * Called by {@link MediaSessionPlayerUi} when a Media3 session is created for the current
      * player. The platform token is exposed to media1 browsers (e.g. Android Auto) through this
      * service, so they keep working unchanged.
+     *
+     * @param session the Media3 session created by the player UI
      */
     public void onMediaSessionStarted(@NonNull final MediaSession session) {
         mediaSession = session;

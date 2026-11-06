@@ -5,8 +5,8 @@ import android.content.Intent
 import android.graphics.Bitmap
 import androidx.media3.common.PlaybackParameters
 import androidx.media3.common.Tracks
-import androidx.media3.common.text.Cue
 import androidx.media3.common.VideoSize
+import androidx.media3.common.text.Cue
 import org.schabi.newpipe.extractor.stream.StreamInfo
 import org.schabi.newpipe.player.Player
 

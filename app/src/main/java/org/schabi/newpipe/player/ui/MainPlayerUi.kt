@@ -15,8 +15,8 @@ import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.WindowManager
 import android.widget.FrameLayout
-import androidx.media3.ui.SubtitleView
 import androidx.media3.common.VideoSize
+import androidx.media3.ui.SubtitleView
 import java.util.Collections
 import java.util.Optional
 import java.util.WeakHashMap

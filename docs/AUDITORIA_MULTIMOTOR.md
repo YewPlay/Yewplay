@@ -200,3 +200,76 @@ MediaSessionCompat/MediaBrowserServiceCompat). 46 arquivos com imports `com.goog
   NewPipe (`StreamInfo`) permanece intacto enquanto o engine padrão é `newpipe`.
 - **Sem fake**: enquanto a sessão Media3 não estiver completa, a camada antiga continua ativa —
   nenhuma das duas é removida antes da substituta estar funcional e com CI verde.
+
+## Adendo — FASE 10 (núcleo de reprodução Media3): MediaPlaybackCore
+
+Novos componentes em `app/.../player/core/`, independentes de engine (contrato
+`engines → StreamResolver → MediaItemFactory → MediaPlaybackCore → Media3 → UI`):
+
+- **`FormatSelector.kt`** — política pura de seleção de formato sobre os modelos internos
+  (`YpVideoInfo`/`YpMediaFormat`): live → manifesto DASH depois HLS; VOD → melhor muxed
+  ≤ altura máxima (com fallback para a mais próxima acima); senão melhor video-only + áudio de
+  maior bitrate; último recurso qualquer manifesto/URL. Coberto por `FormatSelectorTest` (8 testes).
+- **`MediaItemFactory.kt`** — converte `PlaybackSelection` em `MediaItem` Media3 (mimeType
+  MPD/M3U8 para manifestos, `SubtitleConfiguration` para legendas `YpSubtitleTrack`).
+- **`EngineStreamResolver.kt`** — resolve URL → `YpVideoInfo` via
+  `engineManager.execute(STREAM_EXTRACTION)`, respeitando o engine ativo e o fallback
+  configurável (FASE 5).
+- **`MediaPlaybackCore.kt`** — wrapper do `ExoPlayer` Media3 (`DefaultMediaSourceFactory` +
+  `DefaultHttpDataSource`, UA "YewPlay (Media3)"), com `Listener` próprio e ciclo de vida
+  explícito (`setVideo`/`setMediaItem`/`play`/`pause`/`seekTo`/`release`).
+
+Nesta fase o caminho de reprodução existente (ExoPlayer2) permaneceu ativo e intacto; o núcleo
+novo foi adicionado lado a lado, conforme a estratégia incremental da FASE 9.
+
+## Adendo — FASE 11 (migração Media3): remoção do ExoPlayer2 e redesign de sessão
+
+**Migração mecânica** — 45 arquivos migrados de `com.google.android.exoplayer2.*` para
+`androidx.media3.*` (mesma API, novo pacote): `Player.java`, datasource, mediasource, resolver,
+helpers, UIs, `ErrorInfo`, fragments. Exceção mínima já prevista na FASE 9:
+`us/shandian/giga/util/Utility.java` troca apenas o import de `Util.toByteArray` (zona excluída,
+zero mudança de lógica). As 8 dependências `google-exoplayer-*` e a `extension-mediasession`
+foram removidas do catálogo e dos builds; restam zero referências a `exoplayer2` no repositório.
+
+**Redesign de sessão** — `MediaSessionConnector` (ext-mediasession) não tem equivalente no
+Media3. O design foi feito a partir do código-fonte do `media3-session:1.11.1`:
+
+- **`MediaSessionPlayerUi` agora é dona da `androidx.media3.session.MediaSession`**: criada em
+  `initPlayer` (`MediaSession.Builder(context, forwardingPlayer)`), liberada em `destroyPlayer`.
+- **`PlayerService` permanece `MediaBrowserServiceCompat` (media1)** e recebe a sessão via
+  `onMediaSessionStarted`, expondo `MediaSessionCompat.Token.fromToken(session.getPlatformToken())`.
+  A árvore de browse media1 (`MediaBrowserImpl`, Android Auto, `PackageValidator`) e os receivers
+  do manifesto ficam intocados; `androidx.media:media:1.7.1` é mantida.
+- **`PlayQueueNavigator` removido**: o Media3 publica fila e metadados nativamente a partir da
+  timeline — `MediaItemTag.asMediaItem()` já preenche `MediaMetadata` (título, artista, artwork),
+  então a janela flutuante e o `buildMediaMetadata` do navigator eram redundantes de verdade
+  (não é simplificação). Roteamento de skip feito por overrides do `ForwardingPlayer`
+  (`seekToNext/Previous` → `playNext/playPrevious`; `seekToDefaultPosition(int)` →
+  `selectQueueItem`, mapeando o `onSkipToQueueItem` legado).
+- **`SessionConnectorActionProvider` removido**: ações customizadas passam a
+  `session.setCustomLayout(List<CommandButton>)` (Android 13+, slots de `NotificationActionData`)
+  + `onCustomCommand` → `sendBroadcast`. Ícones de repeat/shuffle vêm de `media3-ui`
+  (`exo_icon_repeat_*`, `exo_icon_shuffle_*`).
+- **`playFromMediaId` legado** → `MediaSession.Callback.onSetMediaItems`: extrai o mediaId e
+  delega a `MediaBrowserPlaybackPreparer.prepareFromMediaId` de forma out-of-band, retornando
+  future completada com `CancellationException`. Conforme `MediaSessionLegacyStub.handleMediaRequest`
+  ("the session is free to ignore these requests"), uma future falha/cancelada faz a sessão
+  ignorar o pedido — é o padrão correto para preparação assíncrona fora da sessão.
+- **Botões de mídia**: `handleMediaButtonIntent` mapeia manualmente `KeyEvent.ACTION_DOWN`
+  (PLAY/PAUSE/PLAY_PAUSE/NEXT/PREVIOUS/FAST_FORWARD/REWIND), com o gate
+  `shouldIgnoreHardwareMediaButtons` (botões do sistema passam pela sessão, botões entregues ao
+  service pelo manifesto passam por esse handler).
+
+**Mudanças de comportamento documentadas** (não são regressões silenciosas):
+
+1. **Canal de erro da sessão**: o `PlaybackPreparer` do connector propagava mensagem de erro
+   customizada pela sessão; no novo fluxo out-of-band, falha de preparação resulta apenas em
+   `onResult(false)` — sem mensagem de erro transitando pela sessão. Erros de reprodução
+   continuam reportados pelo caminho normal do player (`ErrorInfo` → UI/notificação).
+2. **`playFromSearch`/`playFromUri` legados**: eram delegados ao preparer, que não implementava
+   busca/URI (retornava erro); agora são silenciosamente ignorados pela sessão. Nenhum cliente
+   conhecido (Auto, assistentes) usava esses caminhos com sucesso antes.
+
+**Testes**: `FormatSelectorTest` (8 testes unitários do núcleo novo). A verificação da sessão é
+de integração (compilação + lint + smoke manual), pois `MediaSession` exige instrumentação —
+limitação registrada, não contornada com mock falso.

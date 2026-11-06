@@ -131,6 +131,8 @@ public class MediaSessionPlayerUi extends PlayerUi
      * never reach the session's platform callback. System-originated media buttons go through the
      * session directly and are gated by {@link #shouldIgnoreHardwareMediaButtons} in the
      * session callback.
+     *
+     * @param intent the media button intent, must contain an {@link Intent#EXTRA_KEY_EVENT} extra
      */
     public void handleMediaButtonIntent(@NonNull final Intent intent) {
         if (shouldIgnoreHardwareMediaButtons) {
