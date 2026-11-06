@@ -1,17 +1,15 @@
 branch: yewplay/multiengine
-sha: 03e70f6852d8f94b4acad9ae778cc4181bb5dd2d
+sha: 661758846be74628cd31300ec5d4e1eae863a446
 outcome: failure
-run: https://github.com/YewPlay/Yewplay/actions/runs/42258340348
+run: https://github.com/YewPlay/Yewplay/actions/runs/42260564726
 
 == errors ==
-> Task :app:compileDebugKotlin FAILED
-e: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/App.kt:118:14 Unresolved reference 'register' on receiver of type 'Unit'.
+> Task :app:packageDebug FAILED
 * What went wrong:
-Execution failed for task ':app:compileDebugKotlin' (registered by plugin 'com.android.internal.application').
-         Unresolved reference 'register' on receiver of type 'Unit'.
-org.gradle.api.tasks.TaskExecutionException: Execution failed for task ':app:compileDebugKotlin' (registered by plugin 'com.android.internal.application').
-Caused by: org.jetbrains.kotlin.gradle.tasks.CompilationErrorException: Unresolved reference 'register' on receiver of type 'Unit'.
-BUILD FAILED in 8m 54s
+Execution failed for task ':app:packageDebug' (registered by plugin 'com.android.internal.application').
+org.gradle.api.tasks.TaskExecutionException: Execution failed for task ':app:packageDebug' (registered by plugin 'com.android.internal.application').
+Caused by: java.lang.OutOfMemoryError: Java heap space
+BUILD FAILED in 13m 7s
 
 == warnings ==
 w: file:///home/runner/work/Yewplay/Yewplay/app/build.gradle.kts:155:30: 'fun provideDelegate(thisRef: Any?, property: KProperty<*>): ExistingDomainObjectDelegate<Configuration>' is deprecated. Use 'val element = create(name)' instead. See the Gradle 9.6 upgrading guide.
@@ -43,49 +41,146 @@ w: file:///home/runner/work/Yewplay/Yewplay/feature/channel/src/commonMain/kotli
 w: [ksp] /home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/database/feed/dao/FeedDAO.kt:178: The DAO function return type (kotlin.collections.List<java.time.OffsetDateTime?>) with the nullable type argument is meaningless because for now Room will never put a null value in a result.
 w: [ksp] /home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/database/feed/dao/FeedDAO.kt:181: The DAO function return type (kotlin.collections.List<java.time.OffsetDateTime?>) with the nullable type argument is meaningless because for now Room will never put a null value in a result.
 warning: The following options were not recognized by any processor: '[room.internal.schemaInput, room.internal.schemaOutput, kapt.kotlin.generated]'
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/App.kt:220:21 Only safe (?.) or non-null asserted (!!.) calls are allowed on a nullable receiver of type 'Thread.UncaughtExceptionHandler?'.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/MainActivity.kt:430:19 'fun onBackPressed(): Unit' is deprecated. This method has been deprecated in favor of using the
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/MainActivity.kt:760:39 'fun getSerializableExtra(p0: String!): Serializable?' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/MainActivity.kt:833:20 'fun getSerializableExtra(p0: String!): Serializable?' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/download/DownloadDialog.kt:324:24 'field isVideoOnly: Boolean' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/download/DownloadDialog.kt:384:34 Condition is always 'true'.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/download/DownloadDialog.kt:385:36 'constructor(p0: String!): Locale' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/download/DownloadDialog.kt:444:34 'field isVideoOnly: Boolean' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/download/DownloadDialog.kt:445:34 'field resolution: String!' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/download/DownloadDialog.kt:499:96 'field isVideoOnly: Boolean' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/download/DownloadDialog.kt:533:27 Unnecessary non-null assertion (!!) on a non-null receiver of type 'AudioTrackAdapter.AudioTracksWrapper'.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/engine/impl/NewPipeEngine.kt:272:31 'val url: String?' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/engine/impl/NewPipeEngine.kt:283:15 'val url: String?' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/engine/impl/NewPipeEngine.kt:285:24 'field resolution: String!' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/engine/impl/NewPipeEngine.kt:295:15 'val url: String?' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/error/ErrorInfo.kt:184:30 'class ExoPlaybackException : PlaybackException' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/error/ErrorInfo.kt:202:43 'class ExoPlaybackException : PlaybackException' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/error/ErrorInfo.kt:205:43 'class ExoPlaybackException : PlaybackException' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/error/ErrorPanelHelper.kt:76:26 'fun startActivityForResult(p0: Intent, p1: Int): Unit' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/error/ReCaptchaActivity.kt:146:18 'static fun navigateUpTo(p0: Activity, p1: Intent): Unit' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/LibraryFragment.kt:38:9 'fun setHasOptionsMenu(p0: Boolean): Unit' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/LibraryFragment.kt:125:15 'fun onCreateOptionsMenu(p0: Menu, p1: MenuInflater): Unit' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/LibraryFragment.kt:138:22 'fun onOptionsItemSelected(p0: MenuItem): Boolean' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/MainFragment.kt:205:13 'constructor(p0: String!, p1: String!): Locale' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/MainFragment.kt:249:9 'class FragmentStatePagerAdapterMenuWorkaround : PagerAdapter' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/MainFragment.kt:251:9 'class FragmentStatePagerAdapterMenuWorkaround : PagerAdapter' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/detail/DescriptionFragment.kt:73:21 'fun bundleOf(vararg pairs: Pair<String, Any?>): Bundle' is deprecated. This method does not provide type safety at compile time. Use the platform `Bundle` class directly instead.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/detail/YpVideoDetailFragment.kt:365:60 'constructor(): Handler' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/detail/YpVideoDetailFragment.kt:847:30 Java type mismatch: inferred type is 'StackItem?', but 'StackItem' was expected.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/detail/YpVideoDetailFragment.kt:986:30 Only safe (?.) or non-null asserted (!!.) calls are allowed on a nullable receiver of type 'StackItem?'.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/detail/YpVideoDetailFragment.kt:1949:21 'class PlaybackParameters : Any, Bundleable' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/detail/YpVideoDetailFragment.kt:2013:39 'class PlaybackException : Exception, Bundleable' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/detail/YpVideoDetailFragment.kt:2122:35 'var systemUiVisibility: Int' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/detail/YpVideoDetailFragment.kt:2123:63 'static field FLAG_FULLSCREEN: Int' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/detail/YpVideoDetailFragment.kt:2124:25 'var statusBarColor: Int' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/detail/YpVideoDetailFragment.kt:2145:18 'static field SYSTEM_UI_FLAG_LAYOUT_STABLE: Int' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/detail/YpVideoDetailFragment.kt:2146:25 'static field SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN: Int' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/detail/YpVideoDetailFragment.kt:2147:25 'static field SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION: Int' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/detail/YpVideoDetailFragment.kt:2148:25 'static field SYSTEM_UI_FLAG_HIDE_NAVIGATION: Int' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/detail/YpVideoDetailFragment.kt:2149:25 'static field SYSTEM_UI_FLAG_IMMERSIVE_STICKY: Int' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/detail/YpVideoDetailFragment.kt:2156:45 'static field SYSTEM_UI_FLAG_FULLSCREEN: Int' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/detail/YpVideoDetailFragment.kt:2158:35 'var systemUiVisibility: Int' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/detail/YpVideoDetailFragment.kt:2161:29 'var statusBarColor: Int' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/detail/YpVideoDetailFragment.kt:2162:29 'var navigationBarColor: Int' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/detail/YpVideoDetailFragment.kt:2164:63 'static field FLAG_FULLSCREEN: Int' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/list/comments/CommentRepliesFragment.kt:60:21 'fun bundleOf(vararg pairs: Pair<String, Any?>): Bundle' is deprecated. This method does not provide type safety at compile time. Use the platform `Bundle` class directly instead.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/list/comments/CommentsFragment.kt:110:25 'fun bundleOf(vararg pairs: Pair<String, Any?>): Bundle' is deprecated. This method does not provide type safety at compile time. Use the platform `Bundle` class directly instead.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/list/search/YpSearchViewModel.kt:522:35 Unnecessary safe call on a non-null receiver of type 'String'.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/list/videos/RelatedItemsFragment.kt:185:25 'fun bundleOf(vararg pairs: Pair<String, Any?>): Bundle' is deprecated. This method does not provide type safety at compile time. Use the platform `Bundle` class directly instead.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/local/feed/service/FeedLoadManager.kt:243:33 Unnecessary non-null assertion (!!) on a non-null receiver of type 'Info'.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/local/subscription/dialog/FeedGroupDialog.kt:434:25 'fun bundleOf(vararg pairs: Pair<String, Any?>): Bundle' is deprecated. This method does not provide type safety at compile time. Use the platform `Bundle` class directly instead.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/local/yewplay/YpDialogs.kt:75:44 'static field SOFT_INPUT_ADJUST_RESIZE: Int' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/YpPlayQueueActivity.kt:352:21 'class PlaybackParameters : Any, Bundleable' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/YpPlayQueueActivity.kt:363:51 'interface Player : Any' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/YpPlayQueueActivity.kt:364:51 'interface Player : Any' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/mediabrowser/MediaBrowserPlaybackPreparer.kt:12:8 'class MediaSessionConnector : Any' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/mediabrowser/MediaBrowserPlaybackPreparer.kt:102:17 'interface Player : Any' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/MainPlayerUi.kt:392:24 'var statusBarColor: Int' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/MainPlayerUi.kt:393:24 'var navigationBarColor: Int' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/MainPlayerUi.kt:394:39 'static field SYSTEM_UI_FLAG_LAYOUT_STABLE: Int' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/MainPlayerUi.kt:395:26 'static field SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN: Int' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/MainPlayerUi.kt:396:26 'static field SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION: Int' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/MainPlayerUi.kt:397:34 'var systemUiVisibility: Int' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/MainPlayerUi.kt:398:62 'static field FLAG_FULLSCREEN: Int' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/MainPlayerUi.kt:437:13 'class SubtitleView : FrameLayout' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/MainPlayerUi.kt:713:48 'class VideoSize : Any, Bundleable' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/PlayerUi.kt:108:49 'class Tracks : Any, Bundleable' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/PlayerUi.kt:111:62 'class PlaybackParameters : Any, Bundleable' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/PlayerUi.kt:117:32 'class Cue : Any, Bundleable' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/PlayerUi.kt:140:44 'class VideoSize : Any, Bundleable' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/PopupPlayerUi.kt:88:23 'class AspectRatioFrameLayout : FrameLayout' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/PopupPlayerUi.kt:339:13 'class SubtitleView : FrameLayout' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/PopupPlayerUi.kt:409:59 'static field SOFT_INPUT_ADJUST_RESIZE: Int' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/PopupPlayerUi.kt:487:44 'static field SOFT_INPUT_ADJUST_RESIZE: Int' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:353:81 'interface Player : Any' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:355:81 'interface Player : Any' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:660:73 'interface Player : Any' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:661:73 'interface Player : Any' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:676:66 'class PlaybackParameters : Any, Bundleable' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:786:79 'field resolution: String!' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:789:27 'field resolution: String!' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:832:53 'field resolution: String!' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:866:80 'field resolution: String!' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:878:53 'class Tracks : Any, Bundleable' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:881:66 'class C : Any' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:882:43 'class C : Any' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:890:41 'class C : Any' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:925:56 'class C : Any' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:942:34 Unnecessary safe call on a non-null receiver of type 'Format'.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:975:48 'class C : Any' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:985:36 'class Cue : Any, Bundleable' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:995:62 'class CaptionStyleCompat : Any' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:1092:48 'class VideoSize : Any, Bundleable' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/YpPlayerViews.kt:49:23 'class SubtitleView : FrameLayout' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/YpPlayerViews.kt:49:38 'constructor(p0: Context): SubtitleView' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/settings/BackupRestoreSettingsFragment.kt:146:41 'fun exportHasSerializedPrefs(zipFile: StoredFileHelper): Boolean' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/settings/BackupRestoreSettingsFragment.kt:169:37 'fun loadSerializedPrefs(zipFile: StoredFileHelper, preferences: SharedPreferences): Unit' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/settings/export/ImportExportManager.kt:39:35 'val FILE_NAME_SERIALIZED_PREFS: String' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/settings/export/ImportExportManager.kt:93:69 'val FILE_NAME_SERIALIZED_PREFS: String' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/settings/export/ImportExportManager.kt:109:65 'val FILE_NAME_SERIALIZED_PREFS: String' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/settings/export/ImportExportManager.kt:143:63 'val FILE_NAME_SERIALIZED_PREFS: String' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/us/shandian/giga/ui/fragment/YpDownloadsFragment.kt:877:49 'static field ACTION_MEDIA_SCANNER_SCAN_FILE: String' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/engine/EngineManagerTest.kt:151:9 Expression is unused.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/engine/EngineManagerTest.kt:190:9 Expression is unused.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/settings/ImportAllCombinationsTest.kt:86:68 'fun exportHasSerializedPrefs(zipFile: StoredFileHelper): Boolean' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/settings/ImportAllCombinationsTest.kt:87:50 'fun loadSerializedPrefs(zipFile: StoredFileHelper, preferences: SharedPreferences): Unit' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/settings/ImportAllCombinationsTest.kt:100:68 'fun exportHasSerializedPrefs(zipFile: StoredFileHelper): Boolean' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/settings/ImportAllCombinationsTest.kt:102:54 'fun loadSerializedPrefs(zipFile: StoredFileHelper, preferences: SharedPreferences): Unit' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/settings/ImportAllCombinationsTest.kt:110:69 'fun exportHasSerializedPrefs(zipFile: StoredFileHelper): Boolean' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/settings/ImportAllCombinationsTest.kt:112:54 'fun loadSerializedPrefs(zipFile: StoredFileHelper, preferences: SharedPreferences): Unit' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/settings/ImportExportManagerTest.kt:153:53 'fun exportHasSerializedPrefs(zipFile: StoredFileHelper): Boolean' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/settings/ImportExportManagerTest.kt:160:54 'fun exportHasSerializedPrefs(zipFile: StoredFileHelper): Boolean' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/settings/ImportExportManagerTest.kt:173:42 'fun loadSerializedPrefs(zipFile: StoredFileHelper, preferences: SharedPreferences): Unit' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/settings/ImportExportManagerTest.kt:188:46 'fun loadSerializedPrefs(zipFile: StoredFileHelper, preferences: SharedPreferences): Unit' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
 
 == tail ==
-   > Kotlin compiler: UNRESOLVED_REFERENCE
-       Kotlin compiler error
-         Unresolved reference 'register' on receiver of type 'Unit'.
-         Location: /home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/App.kt:118
-
-* Try:
-> Run with --info or --debug option to get more log output.
-> Run with --scan to get full insights from a Build Scan (powered by Develocity).
-> Get more help at https://help.gradle.org.
-
-* Exception is:
-org.gradle.api.tasks.TaskExecutionException: Execution failed for task ':app:compileDebugKotlin' (registered by plugin 'com.android.internal.application').
-	at org.gradle.api.internal.tasks.execution.DefaultTaskNodeExecutor.lambda$doExecute$1(DefaultTaskNodeExecutor.java:367)
-	at org.gradle.internal.Try$Failure.ifSuccessfulOrElse(Try.java:288)
-	at org.gradle.api.internal.tasks.execution.DefaultTaskNodeExecutor.doExecute(DefaultTaskNodeExecutor.java:365)
-	at org.gradle.api.internal.tasks.execution.DefaultTaskNodeExecutor.executeTrackingTaskIdentity(DefaultTaskNodeExecutor.java:332)
-	at org.gradle.api.internal.tasks.execution.DefaultTaskNodeExecutor.executeFinalizingProperties(DefaultTaskNodeExecutor.java:318)
-	at org.gradle.api.internal.tasks.execution.DefaultTaskNodeExecutor.executeSkippingWithNoActions(DefaultTaskNodeExecutor.java:289)
-	at org.gradle.api.internal.tasks.execution.DefaultTaskNodeExecutor.executeSkippingOnlyIf(DefaultTaskNodeExecutor.java:272)
-	at org.gradle.api.internal.tasks.execution.DefaultTaskNodeExecutor.executeCatchingFailures(DefaultTaskNodeExecutor.java:228)
-	at org.gradle.api.internal.tasks.execution.DefaultTaskNodeExecutor.executeWithFallbackOperationId(DefaultTaskNodeExecutor.java:197)
-	at org.gradle.api.internal.tasks.execution.DefaultTaskNodeExecutor.executeWithLifecycle(DefaultTaskNodeExecutor.java:171)
-	at org.gradle.api.internal.tasks.execution.DefaultTaskNodeExecutor.access$000(DefaultTaskNodeExecutor.java:67)
-	at org.gradle.api.internal.tasks.execution.DefaultTaskNodeExecutor$1.run(DefaultTaskNodeExecutor.java:136)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$1.execute(DefaultBuildOperationRunner.java:30)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$1.execute(DefaultBuildOperationRunner.java:27)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:67)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:60)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:167)
 	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:60)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.run(DefaultBuildOperationRunner.java:48)
-	at org.gradle.api.internal.tasks.execution.DefaultTaskNodeExecutor.execute(DefaultTaskNodeExecutor.java:133)
-	at org.gradle.execution.plan.LocalTaskNode.execute(LocalTaskNode.java:229)
-	at org.gradle.execution.DefaultBuildWorkExecutor.lambda$executePlan$0(DefaultBuildWorkExecutor.java:153)
-	at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.lambda$execute$0(DefaultPlanExecutor.java:476)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.call(DefaultBuildOperationRunner.java:54)
+	at org.gradle.execution.DefaultBuildWorkExecutor.execute(DefaultBuildWorkExecutor.java:75)
+	at org.gradle.internal.build.DefaultBuildLifecycleController.lambda$executeTasks$0(DefaultBuildLifecycleController.java:323)
+	at org.gradle.internal.model.StateTransitionController.doTransition(StateTransitionController.java:324)
+	at org.gradle.internal.model.StateTransitionController.lambda$tryTransition$0(StateTransitionController.java:235)
+	at org.gradle.internal.work.DefaultSynchronizer.withLock(DefaultSynchronizer.java:45)
+	at org.gradle.internal.model.StateTransitionController.tryTransition(StateTransitionController.java:235)
+	at org.gradle.internal.build.DefaultBuildLifecycleController.executeTasks(DefaultBuildLifecycleController.java:314)
+	at org.gradle.internal.build.DefaultBuildWorkGraphController$DefaultBuildWorkGraph.runWork(DefaultBuildWorkGraphController.java:207)
+	at org.gradle.internal.work.DefaultWorkerLeaseService.lambda$runAndReleaseLocks$0(DefaultWorkerLeaseService.java:296)
+	at org.gradle.internal.work.ResourceLockStatistics$1.measure(ResourceLockStatistics.java:43)
+	at org.gradle.internal.work.DefaultWorkerLeaseService.runAndReleaseLocks(DefaultWorkerLeaseService.java:294)
+	at org.gradle.internal.work.DefaultWorkerLeaseService.withLocksAcquired(DefaultWorkerLeaseService.java:290)
+	at org.gradle.internal.work.DefaultWorkerLeaseService.withLocks(DefaultWorkerLeaseService.java:282)
+	at org.gradle.internal.work.DefaultWorkerLeaseService.runAsWorkerThread(DefaultWorkerLeaseService.java:132)
+	at org.gradle.composite.internal.DefaultBuildController.doRun(DefaultBuildController.java:182)
+	at org.gradle.composite.internal.DefaultBuildController$BuildOpRunnable.lambda$run$0(DefaultBuildController.java:199)
 	at org.gradle.internal.operations.CurrentBuildOperationRef.with(CurrentBuildOperationRef.java:85)
-	at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.execute(DefaultPlanExecutor.java:475)
-	at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.run(DefaultPlanExecutor.java:392)
+	at org.gradle.composite.internal.DefaultBuildController$BuildOpRunnable.run(DefaultBuildController.java:199)
 	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:65)
 	at org.gradle.internal.concurrent.AbstractManagedExecutor$1.run(AbstractManagedExecutor.java:47)
-Caused by: org.gradle.workers.internal.DefaultWorkerExecutor$WorkExecutionException: A failure occurred while executing org.jetbrains.kotlin.compilerRunner.btapi.BuildToolsApiCompilationWork
+Caused by: org.gradle.workers.internal.DefaultWorkerExecutor$WorkExecutionException: A failure occurred while executing com.android.build.gradle.tasks.PackageAndroidArtifact$IncrementalSplitterRunnable
 	at org.gradle.workers.internal.DefaultWorkerExecutor$WorkItemExecution.waitForCompletion(DefaultWorkerExecutor.java:273)
 	at org.gradle.internal.work.DefaultAsyncWorkTracker.lambda$waitForItemsAndGatherFailures$2(DefaultAsyncWorkTracker.java:132)
 	at org.gradle.internal.Factories$1.create(Factories.java:30)
@@ -99,7 +194,12 @@ Caused by: org.gradle.workers.internal.DefaultWorkerExecutor$WorkExecutionExcept
 	at org.gradle.internal.resources.AbstractResourceLockRegistry.whileDisallowingLockChanges(AbstractResourceLockRegistry.java:51)
 	at org.gradle.internal.work.DefaultWorkerLeaseService.whileDisallowingProjectLockChanges(DefaultWorkerLeaseService.java:266)
 	at org.gradle.internal.work.DefaultAsyncWorkTracker.waitForItemsAndGatherFailures(DefaultAsyncWorkTracker.java:127)
-	at org.gradle.internal.work.DefaultAsyncWorkTracker.waitForItemsAndGatherFailures(DefaultAsyncWorkTracker.java:93)
+	at org.gradle.internal.work.DefaultAsyncWorkTracker.lambda$waitForItemsAndGatherFailures$0(DefaultAsyncWorkTracker.java:101)
+	at org.gradle.internal.Factories$1.create(Factories.java:30)
+	at org.gradle.internal.work.DefaultWorkerLeaseService.withoutLocks(DefaultWorkerLeaseService.java:368)
+	at org.gradle.internal.work.DefaultWorkerLeaseService.runAsIsolatedTask(DefaultWorkerLeaseService.java:238)
+	at org.gradle.internal.work.DefaultWorkerLeaseService.runAsIsolatedTask(DefaultWorkerLeaseService.java:227)
+	at org.gradle.internal.work.DefaultAsyncWorkTracker.waitForItemsAndGatherFailures(DefaultAsyncWorkTracker.java:101)
 	at org.gradle.internal.work.DefaultAsyncWorkTracker.waitForAll(DefaultAsyncWorkTracker.java:79)
 	at org.gradle.internal.work.DefaultAsyncWorkTracker.waitForCompletion(DefaultAsyncWorkTracker.java:67)
 	at org.gradle.api.internal.tasks.execution.TaskExecution$3.run(TaskExecution.java:276)
@@ -172,7 +272,7 @@ Caused by: org.gradle.workers.internal.DefaultWorkerExecutor$WorkExecutionExcept
 	at org.gradle.internal.execution.steps.CaptureMutableStateBeforeExecutionStep.execute(CaptureMutableStateBeforeExecutionStep.java:65)
 	at org.gradle.internal.execution.steps.CaptureMutableStateBeforeExecutionStep.execute(CaptureMutableStateBeforeExecutionStep.java:45)
 	at org.gradle.internal.execution.steps.SkipEmptyMutableWorkStep.executeWithNonEmptySources(SkipEmptyMutableWorkStep.java:210)
-	at org.gradle.internal.execution.steps.SkipEmptyMutableWorkStep.executeMutable(SkipEmptyMutableWorkStep.java:90)
+	at org.gradle.internal.execution.steps.SkipEmptyMutableWorkStep.executeMutable(SkipEmptyMutableWorkStep.java:85)
 	at org.gradle.internal.execution.steps.SkipEmptyMutableWorkStep.executeMutable(SkipEmptyMutableWorkStep.java:53)
 	at org.gradle.internal.execution.steps.MutableStep.execute(MutableStep.java:26)
 	at org.gradle.internal.execution.steps.legacy.MarkSnapshottingInputsStartedStep.execute(MarkSnapshottingInputsStartedStep.java:38)
@@ -198,11 +298,17 @@ Caused by: org.gradle.workers.internal.DefaultWorkerExecutor$WorkExecutionExcept
 	at org.gradle.internal.execution.steps.IdentifyStep.execute(IdentifyStep.java:38)
 	at org.gradle.internal.execution.impl.DefaultExecutionEngine$1.execute(DefaultExecutionEngine.java:68)
 	at org.gradle.api.internal.tasks.execution.DefaultTaskNodeExecutor.doExecute(DefaultTaskNodeExecutor.java:364)
-	... 25 more
-Caused by: org.jetbrains.kotlin.gradle.tasks.CompilationErrorException: Unresolved reference 'register' on receiver of type 'Unit'.
-	at org.jetbrains.kotlin.gradle.plugin.diagnostics.DefaultCompilerDiagnosticsProblemsReporter.reportCompilerMessage(CompilerDiagnosticsProblemsReporter.kt:63)
-	at org.jetbrains.kotlin.compilerRunner.btapi.ProblemsApiCompilerMessageRenderer.replayTo(ProblemsApiCompilerMessageRenderer.kt:88)
-	at org.jetbrains.kotlin.compilerRunner.btapi.BuildToolsApiCompilationWork.execute(BuildToolsApiCompilationWork.kt:251)
+	... 55 more
+Caused by: java.lang.OutOfMemoryError
+	at com.android.builder.internal.packaging.ApkFlinger.close(ApkFlinger.kt:232)
+	at com.google.common.io.Closer.close(Closer.java:205)
+	at com.android.builder.internal.packaging.IncrementalPackager.close(IncrementalPackager.java:525)
+	at kotlin.io.CloseableKt.closeFinally(Closeable.kt:47)
+	at com.android.build.gradle.tasks.PackageAndroidArtifact$Companion.doTask(PackageAndroidArtifact.kt:962)
+	at com.android.build.gradle.tasks.PackageAndroidArtifact$Companion.access$doTask(PackageAndroidArtifact.kt:765)
+	at com.android.build.gradle.tasks.PackageAndroidArtifact$IncrementalSplitterRunnable.doExecute(PackageAndroidArtifact.kt:418)
+	at com.android.build.gradle.internal.workeractions.WorkActionAdapter.execute(WorkActionAdapter.kt:34)
+	at com.android.build.gradle.tasks.PackageAndroidArtifact$IncrementalSplitterRunnable.execute(PackageAndroidArtifact.kt:387)
 	at org.gradle.workers.internal.DefaultWorkerServer.execute(DefaultWorkerServer.java:68)
 	at org.gradle.workers.internal.NoIsolationWorkerFactory$1$1.create(NoIsolationWorkerFactory.java:64)
 	at org.gradle.workers.internal.NoIsolationWorkerFactory$1$1.create(NoIsolationWorkerFactory.java:61)
@@ -234,6 +340,13 @@ Caused by: org.jetbrains.kotlin.gradle.tasks.CompilationErrorException: Unresolv
 	at org.gradle.internal.work.DefaultConditionalExecutionQueue$ExecutionRunner.runBatch(DefaultConditionalExecutionQueue.java:163)
 	at org.gradle.internal.work.DefaultConditionalExecutionQueue$ExecutionRunner.run(DefaultConditionalExecutionQueue.java:125)
 	... 2 more
+Caused by: java.lang.OutOfMemoryError: Java heap space
+	at org.gradle.internal.classpath.declarations.NioFileInterceptors.intercept_readAllBytes(NioFileInterceptors.java:191)
+	at com.android.zipflinger.BytesSource.<init>(BytesSource.java:49)
+	at com.android.zipflinger.Sources.from(Sources.java:50)
+	at com.android.zipflinger.Sources.from(Sources.java:33)
+	at com.android.builder.internal.packaging.ApkFlinger$writeFile$1.call(ApkFlinger.kt:194)
+	at com.android.builder.internal.packaging.ApkFlinger$writeFile$1.call(ApkFlinger.kt:191)
 
 
 Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
@@ -242,6 +355,6 @@ You can use '--warning-mode all' to show the individual deprecation warnings and
 
 For more on this, please refer to https://docs.gradle.org/9.8.2/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
 
-BUILD FAILED in 8m 54s
-379 actionable tasks: 379 executed
+BUILD FAILED in 13m 7s
+401 actionable tasks: 401 executed
 Configuration cache entry stored.
