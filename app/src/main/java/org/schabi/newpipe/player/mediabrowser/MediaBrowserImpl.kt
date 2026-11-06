@@ -18,7 +18,7 @@ import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import java.util.function.Consumer
-import org.schabi.newpipe.MainActivity.DEBUG
+import org.schabi.newpipe.MainActivity
 import org.schabi.newpipe.NewPipeDatabase
 import org.schabi.newpipe.R
 import org.schabi.newpipe.database.history.model.StreamHistoryEntry
@@ -73,7 +73,7 @@ class MediaBrowserImpl(
         clientUid: Int,
         rootHints: Bundle?
     ): MediaBrowserServiceCompat.BrowserRoot? {
-        if (DEBUG) {
+        if (MainActivity.DEBUG) {
             Log.d(TAG, "onGetRoot($clientPackageName, $clientUid, $rootHints)")
         }
 
@@ -99,7 +99,7 @@ class MediaBrowserImpl(
 
     //region onLoadChildren
     fun onLoadChildren(parentId: String, result: Result<List<MediaBrowserCompat.MediaItem>>) {
-        if (DEBUG) {
+        if (MainActivity.DEBUG) {
             Log.d(TAG, "onLoadChildren($parentId)")
         }
 
@@ -381,7 +381,7 @@ class MediaBrowserImpl(
         query: String,
         result: Result<List<MediaBrowserCompat.MediaItem>>
     ) {
-        if (DEBUG) {
+        if (MainActivity.DEBUG) {
             Log.d(TAG, "onSearch($query)")
         }
 

@@ -38,7 +38,7 @@ import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.functions.Function
 import java.util.concurrent.TimeUnit
 import org.schabi.newpipe.App
-import org.schabi.newpipe.MainActivity.DEBUG
+import org.schabi.newpipe.MainActivity
 import org.schabi.newpipe.R
 import org.schabi.newpipe.database.feed.model.FeedGroupEntity
 import org.schabi.newpipe.local.feed.service.FeedEventManager.Event.ErrorResultEvent
@@ -73,7 +73,7 @@ class FeedLoadService : Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        if (DEBUG) {
+        if (MainActivity.DEBUG) {
             Log.d(
                 TAG,
                 "onStartCommand() called with: intent = [" + intent + "]," +
