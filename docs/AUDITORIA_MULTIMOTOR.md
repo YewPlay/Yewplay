@@ -154,3 +154,49 @@ A integração é **tecnicamente viável** com esforço real e delimitado: NewTu
   seleção, então o comportamento do app é idêntico ao de antes até o usuário trocar manualmente.
 - **Extrator pinado**: `NewPipeExtractor` permanece no commit `e8f89145` do catálogo; o FlowEngine
   apenas consome `YoutubeParsingHelper` do mesmo artefato, sem alterá-lo.
+
+## Adendo — FASE 9 (auditoria do player): mapa de migração Media3
+
+**Estado atual**: ExoPlayer2 `2.19.1` (7 artefatos) + `androidx.media:media:1.7.1` (media1,
+MediaSessionCompat/MediaBrowserServiceCompat). 46 arquivos com imports `com.google.android.exoplayer2`,
+~308 referências. Upstream NewPipe dev também segue em ExoPlayer2 — não há migração pronta para portar.
+
+**Versão alvo**: Media3 `1.11.1` (estável mais recente no Google Maven).
+
+**Inventário por camada**
+
+1. **Camada mecânica** (mesma API, troca de pacote `exoplayer2.*` → `media3.*`): `Player.java`
+   (59 refs), `datasource/YoutubeHttpDataSource` (21), `helper/PlayerDataSource` (16),
+   `ui/VideoPlayerUi.kt` (13), `resolver/PlaybackResolver` (11), `mediasource/*` (11+),
+   `helper/{PlayerHelper,CacheFactory,LoadController,CustomRenderersFactory,
+   CustomMediaCodecVideoRenderer,AudioReactor,PlayerHolder}`, `datasource/NonUriHlsDataSourceFactory`,
+   UIs (`PlayerUi`, `MainPlayerUi`, `PopupPlayerUi`, `YpPlayerViews`), `ExpandableSurfaceView`,
+   event listeners, `MediaItemTag`/`StreamInfoTag`, `ErrorInfo`, fragments de detalhe.
+2. **Camada arquitetural** (API não existe no Media3, exige redesign real):
+   - `MediaSessionConnector` (ext-mediasession) + `MediaSessionCompat` +
+     `MediaBrowserServiceCompat` → `androidx.media3.session.MediaSession` +
+     `MediaLibraryService`. Arquivos: `PlayerService` (extends MediaBrowserServiceCompat),
+     `mediasession/{MediaSessionPlayerUi,PlayQueueNavigator,SessionConnectorActionProvider}`,
+     `mediabrowser/{MediaBrowserImpl,MediaBrowserPlaybackPreparer,PackageValidator}`,
+     `notification/NotificationUtil` (MediaStyle), `helper/PlayerHolder`.
+   - `PlayQueueNavigator extends TimelineQueueNavigator` — sem equivalente Media3; a navegação
+     da fila passa a `MediaSession.Callback`/comandos customizados.
+   - `R` da ext-mediasession (ícones) e `exoplayer2.ui.R.string` (28 refs) — strings/ícones
+     passam a vir do `media3-ui` (nomes equivalentes) ou de recursos próprios.
+3. **Zona excluída com 1 import**: `us/shandian/giga/util/Utility.java` usa apenas
+   `exoplayer2.util.Util.toByteArray(InputStream)`. Decisão: troca de import para
+   `androidx.media3.common.util.Util` (método idêntico, zero mudança de lógica) — a única
+   alternativa seria duplicar código de IO, o que é pior. Documentada como exceção mínima.
+
+**Decisões**
+
+- **Estratégia incremental com CI verde a cada lote**: (a) FASE 10 adiciona Media3 lado a lado
+  (os dois coexistem no classpath) + `MediaPlaybackCore`/`MediaItemFactory` novos, sem tocar no
+  existente; (b) FASE 11 migra em lotes — datasource/mediasource/resolver/helper → Player/UIs →
+  sessão/notificações → remoção do ExoPlayer2.
+- **MediaPlaybackCore** (novo, independente de engines): contrato `engines → StreamResolver →
+  MediaItemFactory → MediaPlaybackCore → Media3 → UI`. O `PlaybackResolver` atual ganha uma ponte
+  que converte `YpMediaFormat`/`YpVideoInfo` do engine ativo em `MediaItem` Media3; o caminho
+  NewPipe (`StreamInfo`) permanece intacto enquanto o engine padrão é `newpipe`.
+- **Sem fake**: enquanto a sessão Media3 não estiver completa, a camada antiga continua ativa —
+  nenhuma das duas é removida antes da substituta estar funcional e com CI verde.
