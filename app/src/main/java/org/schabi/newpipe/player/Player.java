@@ -76,7 +76,7 @@ import androidx.media3.exoplayer.source.MediaSource;
 import androidx.media3.common.text.CueGroup;
 import androidx.media3.exoplayer.trackselection.DefaultTrackSelector;
 import androidx.media3.exoplayer.trackselection.MappingTrackSelector;
-import androidx.media3.datasource.DefaultBandwidthMeter;
+import androidx.media3.exoplayer.upstream.DefaultBandwidthMeter;
 import androidx.media3.common.VideoSize;
 
 import org.schabi.newpipe.MainActivity;

@@ -97,7 +97,7 @@ public final class NotificationActionData {
                     return new NotificationActionData(ACTION_FAST_REWIND,
                             ctx.getString(androidx.media3.ui.R.string
                                     .exo_controls_rewind_description),
-                            androidx.media3.ui.R.drawable.exo_controls_rewind);
+                            androidx.media3.ui.R.drawable.exo_icon_rewind);
                 }
 
             case NotificationConstants.SMART_FORWARD_NEXT:
@@ -110,7 +110,7 @@ public final class NotificationActionData {
                     return new NotificationActionData(ACTION_FAST_FORWARD,
                             ctx.getString(androidx.media3.ui.R.string
                                     .exo_controls_fastforward_description),
-                            androidx.media3.ui.R.drawable.exo_controls_fastforward);
+                            androidx.media3.ui.R.drawable.exo_icon_fastforward);
                 }
 
             case NotificationConstants.PLAY_PAUSE_BUFFERING:
@@ -167,12 +167,12 @@ public final class NotificationActionData {
                     return new NotificationActionData(ACTION_SHUFFLE,
                             ctx.getString(androidx.media3.ui.R.string
                                     .exo_controls_shuffle_on_description),
-                            androidx.media3.ui.R.drawable.exo_controls_shuffle_on);
+                            androidx.media3.ui.R.drawable.exo_icon_shuffle_on);
                 } else {
                     return new NotificationActionData(ACTION_SHUFFLE,
                             ctx.getString(androidx.media3.ui.R.string
                                     .exo_controls_shuffle_off_description),
-                            androidx.media3.ui.R.drawable.exo_controls_shuffle_off);
+                            androidx.media3.ui.R.drawable.exo_icon_shuffle_off);
                 }
 
             case NotificationConstants.CLOSE:

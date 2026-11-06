@@ -9,7 +9,7 @@ import androidx.media3.exoplayer.source.BaseMediaSource;
 import androidx.media3.exoplayer.source.MediaPeriod;
 import androidx.media3.exoplayer.source.SilenceMediaSource;
 import androidx.media3.exoplayer.source.SinglePeriodTimeline;
-import androidx.media3.datasource.Allocator;
+import androidx.media3.exoplayer.upstream.Allocator;
 import androidx.media3.datasource.TransferListener;
 
 import org.schabi.newpipe.player.mediaitem.ExceptionTag;

@@ -1,0 +1,14 @@
+androidx/media3/datasource/Allocator
+androidx/media3/datasource/BaseDataSource
+androidx/media3/datasource/ByteArrayDataSource
+androidx/media3/datasource/DataSource
+androidx/media3/datasource/DataSourceException
+androidx/media3/datasource/DataSpec
+androidx/media3/datasource/DefaultBandwidthMeter
+androidx/media3/datasource/DefaultDataSource
+androidx/media3/datasource/DefaultHttpDataSource
+androidx/media3/datasource/FileDataSource
+androidx/media3/datasource/HttpDataSource
+androidx/media3/datasource/HttpUtil
+androidx/media3/datasource/TransferListener
+androidx/media3/datasource/cache

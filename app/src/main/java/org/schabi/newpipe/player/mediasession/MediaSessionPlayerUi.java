@@ -16,6 +16,7 @@ import androidx.media3.common.MediaItem;
 import androidx.media3.common.Player.RepeatMode;
 import androidx.media3.session.CommandButton;
 import androidx.media3.session.MediaSession;
+import androidx.media3.session.MediaSession.ControllerInfo;
 import androidx.media3.session.SessionCommand;
 import androidx.media3.session.SessionResult;
 
@@ -41,6 +42,7 @@ import java.util.Optional;
 import java.util.concurrent.CancellationException;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import kotlin.Unit;
 
 /**
  * Bridges the player to a Media3 {@link MediaSession}. The ExoPlayer2
@@ -302,9 +304,11 @@ public class MediaSessionPlayerUi extends PlayerUi
                 future.setException(new CancellationException("unsupported media request"));
                 return future;
             }
-            playbackPreparer.prepareFromMediaId(mediaId, true, success ->
-                    future.setException(new CancellationException(
-                            "handled out-of-band, success=" + success)));
+            playbackPreparer.prepareFromMediaId(mediaId, true, success -> {
+                future.setException(new CancellationException(
+                        "handled out-of-band, success=" + success));
+                return Unit.INSTANCE;
+            });
             return future;
         }
 

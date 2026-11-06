@@ -5,7 +5,7 @@ import androidx.media3.common.Timeline;
 import androidx.media3.exoplayer.source.CompositeMediaSource;
 import androidx.media3.exoplayer.source.MediaPeriod;
 import androidx.media3.exoplayer.source.MediaSource;
-import androidx.media3.datasource.Allocator;
+import androidx.media3.exoplayer.upstream.Allocator;
 
 import org.schabi.newpipe.player.mediaitem.PlaceholderTag;
 import org.schabi.newpipe.player.playqueue.PlayQueueItem;

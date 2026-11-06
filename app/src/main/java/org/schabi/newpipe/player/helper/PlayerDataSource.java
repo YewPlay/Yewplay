@@ -120,8 +120,9 @@ public class PlayerDataSource {
                 .setPlaylistTrackerFactory((dataSourceFactory, loadErrorHandlingPolicy,
                                             playlistParserFactory) ->
                         new DefaultHlsPlaylistTracker(dataSourceFactory, loadErrorHandlingPolicy,
-                                playlistParserFactory,
-                                PLAYLIST_STUCK_TARGET_DURATION_COEFFICIENT));
+                                playlistParserFactory, /* cmcdConfiguration= */ null,
+                                PLAYLIST_STUCK_TARGET_DURATION_COEFFICIENT,
+                                /* downloadExecutorSupplier= */ null));
     }
 
     public DashMediaSource.Factory getLiveDashMediaSourceFactory() {
