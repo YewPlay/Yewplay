@@ -138,6 +138,8 @@ data class SearchActions(
     val onCancel: () -> Unit,
     val onClear: () -> Unit,
     val onFieldFocused: () -> Unit,
+    /** Marks the pending focus request as consumed, so it is not re-applied on recreation. */
+    val onFocusRequestHandled: () -> Unit,
     val onSuggestionClick: (SearchSuggestion) -> Unit,
     val onSuggestionInsert: (SearchSuggestion) -> Unit,
     val onSuggestionLongClick: (SearchSuggestion) -> Unit,
@@ -183,8 +185,11 @@ fun SearchScreen(
                         onAction = actions.onErrorAction,
                         onOpenInBrowser = actions.onOpenInBrowser
                     )
+
                     state.isLoading -> YpSkeletonList()
+
                     state.isEmpty -> YpMessageState(strings.noResults, strings.noResultsDetail)
+
                     else -> Results(state, strings, icons, actions)
                 }
             }
@@ -215,6 +220,9 @@ private fun SearchField(
         if (state.focusRequest > 0) {
             focusRequester.requestFocus()
             keyboard?.show()
+            // One-shot: without this the stale request would re-fire whenever the view is
+            // recreated (e.g. on rotation) and open the keyboard over the screen on top.
+            actions.onFocusRequestHandled()
         }
     }
     LaunchedEffect(state.showSuggestions) {
@@ -403,6 +411,7 @@ private fun Results(
                     onLongClick = { actions.onItemLongClick(item) },
                     moreIcon = icons.more
                 )
+
                 is YpChannelItem -> if (index == 0 && state.featureFirstChannel) {
                     YpFeaturedChannelCard(
                         item = item,
@@ -420,6 +429,7 @@ private fun Results(
                         onToggleSubscription = { actions.onToggleSubscription(item) }
                     )
                 }
+
                 is YpPlaylistItem -> YpPlaylistRow(
                     item = item,
                     onClick = { actions.onItemClick(item) }

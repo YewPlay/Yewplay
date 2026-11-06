@@ -274,3 +274,28 @@ play-from-search/uri (reportam "conteúdo não suportado" à sessão, como no pr
 **Testes**: `FormatSelectorTest` (8 testes unitários do núcleo novo). A verificação da sessão é
 de integração (compilação + lint + smoke manual), pois `MediaSession` exige instrumentação —
 limitação registrada, não contornada com mock falso.
+
+---
+
+## Adendo — hotfix de teclado sobre o player (busca Compose)
+
+**Sintoma reportado no APK pós-FASE 11**: ao abrir um vídeo a partir da busca e girar o
+aparelho, o teclado abria por cima da tela de detalhe/player. Com o IME visível, o Android
+suspende o modo imersivo (barra de status aparecia em paisagem) e o `adjustResize` encolhia a
+janela (player recuado em retrato; barra inferior de controles fora da área em paisagem).
+
+**Causa raiz**: `SearchUiState.focusRequest` é um contador monotônico consumido por
+`LaunchedEffect(state.focusRequest)` no `SearchField`, mas nunca era zerado. O fragmento de
+busca fica RESUMED sob o detalhe (contentores diferentes: `fragment_holder` vs
+`fragment_player_holder`) e seu ViewModel sobrevive a rotações; ao recriar a view (rotação), o
+efeito re-disparava com o valor obsoleto e reabria o teclado com a tela coberta.
+
+**Correção (camada de integração, módulo `feature:search` + `app`)**: consumo one-shot —
+`SearchActions.onFocusRequestHandled` chamado após `requestFocus()`/`keyboard?.show()`, com
+`YpSearchViewModel.onFocusRequestHandled()` zerando o contador. Pedidos futuros incrementam de
+0 e disparam normalmente; rotações com a tela coberta não reabrem mais o teclado.
+
+**Trade-off documentado**: ao girar o aparelho com a própria tela de busca visível, o teclado
+não é mais reaberto automaticamente após a recriação (o campo mantém o texto; um toque o
+reabre). Aceito como efeito menor para eliminar o defeito grave; o estado de foco anterior não
+é rastreável de forma confiável sem reintroduzir o bug.

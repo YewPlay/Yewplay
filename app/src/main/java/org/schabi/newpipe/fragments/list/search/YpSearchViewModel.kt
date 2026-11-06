@@ -200,6 +200,15 @@ class YpSearchViewModel(application: Application) : AndroidViewModel(application
         _state.update { it.copy(focusRequest = it.focusRequest + 1) }
     }
 
+    /**
+     * Marks the pending focus request as consumed by the UI. Without this, the stale request
+     * would re-fire whenever the view is recreated (e.g. on rotation) and the keyboard would
+     * open over the screen on top (e.g. the video detail/player).
+     */
+    fun onFocusRequestHandled() {
+        _state.update { if (it.focusRequest > 0) it.copy(focusRequest = 0) else it }
+    }
+
     private fun initSuggestionObserver(initialQuery: String) {
         suggestionDisposable?.dispose()
         suggestionDisposable = suggestionPublisher
