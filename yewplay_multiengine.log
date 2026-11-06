@@ -1,11 +1,23 @@
 branch: yewplay/multiengine
-sha: 4165a6ffdb14ff08a8b84398fc386710d5cf8229
-outcome: cancelled
-run: https://github.com/YewPlay/Yewplay/actions/runs/42274796960
+sha: e595a48e2fe4a5bd542435d7bf730c61a2a97e80
+outcome: success
+run: https://github.com/YewPlay/Yewplay/actions/runs/42275850953
 
 == errors ==
 
 == warnings ==
+w: file:///home/runner/work/Yewplay/Yewplay/app/build.gradle.kts:155:30: 'fun provideDelegate(thisRef: Any?, property: KProperty<*>): ExistingDomainObjectDelegate<Configuration>' is deprecated. Use 'val element = create(name)' instead. See the Gradle 9.6 upgrading guide.
+w: file:///home/runner/work/Yewplay/Yewplay/app/build.gradle.kts:155:30: 'val <T : Any> NamedDomainObjectContainer<T>.creating: NamedDomainObjectContainerCreatingDelegateProvider<T>' is deprecated. Use 'val element = create(name)' instead. See the Gradle 9.6 upgrading guide.
+w: file:///home/runner/work/Yewplay/Yewplay/app/build.gradle.kts:155:30: 'fun <T> ExistingDomainObjectDelegate<out T>.getValue(receiver: Any?, property: KProperty<*>): T' is deprecated. Use the named() API instead. See the Gradle 9.6 upgrading guide.
+w: file:///home/runner/work/Yewplay/Yewplay/shared/build.gradle.kts:18:35: 'fun <U : Task> RegisteringDomainObjectDelegateProviderWithTypeAndAction<out TaskContainer, U>.provideDelegate(receiver: Any?, property: KProperty<*>): ExistingDomainObjectDelegate<TaskProvider<U>>' is deprecated. Use 'val task = tasks.register<Type>(name) { }' instead. See the Gradle 9.6 upgrading guide.
+w: file:///home/runner/work/Yewplay/Yewplay/shared/build.gradle.kts:18:35: 'fun <T : Any, C : PolymorphicDomainObjectContainer<T>, U : T> C.registering(type: KClass<U>, action: U.() -> Unit): RegisteringDomainObjectDelegateProviderWithTypeAndAction<out C, U>' is deprecated. Use 'val element = register<Type>(name) { }' instead. See the Gradle 9.6 upgrading guide.
+w: file:///home/runner/work/Yewplay/Yewplay/shared/build.gradle.kts:18:35: 'fun <T> ExistingDomainObjectDelegate<out T>.getValue(receiver: Any?, property: KProperty<*>): T' is deprecated. Use the named() API instead. See the Gradle 9.6 upgrading guide.
+w: file:///home/runner/work/Yewplay/Yewplay/shared/build.gradle.kts:132:34: 'fun provideDelegate(thisRef: Any?, property: KProperty<*>): ExistingDomainObjectDelegate<KotlinSourceSet>' is deprecated. Use 'val element = getByName(name)' instead. See the Gradle 9.6 upgrading guide.
+w: file:///home/runner/work/Yewplay/Yewplay/shared/build.gradle.kts:132:34: 'fun <T : Any, U : NamedDomainObjectCollection<T>> U.getting(configuration: T.() -> Unit): NamedDomainObjectCollectionDelegateProvider<T>' is deprecated. Use 'val element = getByName(name) { }' instead. See the Gradle 9.6 upgrading guide.
+w: file:///home/runner/work/Yewplay/Yewplay/shared/build.gradle.kts:132:34: 'fun <T> ExistingDomainObjectDelegate<out T>.getValue(receiver: Any?, property: KProperty<*>): T' is deprecated. Use the named() API instead. See the Gradle 9.6 upgrading guide.
+w: file:///home/runner/work/Yewplay/Yewplay/shared/build.gradle.kts:142:24: 'fun provideDelegate(thisRef: Any?, property: KProperty<*>): ExistingDomainObjectDelegate<KotlinSourceSet>' is deprecated. Use 'val element = getByName(name)' instead. See the Gradle 9.6 upgrading guide.
+w: file:///home/runner/work/Yewplay/Yewplay/shared/build.gradle.kts:142:24: 'fun <T : Any, U : NamedDomainObjectCollection<T>> U.getting(configuration: T.() -> Unit): NamedDomainObjectCollectionDelegateProvider<T>' is deprecated. Use 'val element = getByName(name) { }' instead. See the Gradle 9.6 upgrading guide.
+w: file:///home/runner/work/Yewplay/Yewplay/shared/build.gradle.kts:142:24: 'fun <T> ExistingDomainObjectDelegate<out T>.getValue(receiver: Any?, property: KProperty<*>): T' is deprecated. Use the named() API instead. See the Gradle 9.6 upgrading guide.
 w: ⚠️ Unused Kotlin Source Sets
 w: ⚠️ Unused Kotlin Source Sets
 w: ⚠️ Unused Kotlin Source Sets
@@ -16,10 +28,10 @@ w: ⚠️ Unused Kotlin Source Sets
 w: ⚠️ Unused Kotlin Source Sets
 w: ⚠️ Unused Kotlin Source Sets
 w: Koin compiler plugin: Kotlin 2.4.21 is newer than the newest verified version (2.4.20) — proceeding with the 2.4.20 adapter. If compilation fails, check for a koin-compiler-plugin update. Verified versions: 2.3.20, 2.4.0, 2.4.10, 2.4.20.
-w: file:///home/runner/work/Yewplay/Yewplay/engine/newtube/youtubeapi/src/main/java/com/liskovsoft/googlecommon/common/helpers/RetrofitOkHttpHelper.kt:611:30 Unnecessary safe call on a non-null receiver of type 'HttpUrl.Builder'.
-w: file:///home/runner/work/Yewplay/Yewplay/engine/newtube/youtubeapi/src/main/java/com/liskovsoft/youtubeapi/app/potokennp2/generators/PoTokenV8.kt:107:13 Expression is unused.
 w: file:///home/runner/work/Yewplay/Yewplay/feature/channel/src/commonMain/kotlin/io/github/yewplay/feature/channel/ChannelScreen.kt:403:42 Unnecessary safe call on a non-null receiver of type 'ChannelHeader'.
 w: file:///home/runner/work/Yewplay/Yewplay/feature/channel/src/commonMain/kotlin/io/github/yewplay/feature/channel/ChannelScreen.kt:431:38 Unnecessary safe call on a non-null receiver of type 'ChannelHeader'.
+w: file:///home/runner/work/Yewplay/Yewplay/engine/newtube/youtubeapi/src/main/java/com/liskovsoft/googlecommon/common/helpers/RetrofitOkHttpHelper.kt:611:30 Unnecessary safe call on a non-null receiver of type 'HttpUrl.Builder'.
+w: file:///home/runner/work/Yewplay/Yewplay/engine/newtube/youtubeapi/src/main/java/com/liskovsoft/youtubeapi/app/potokennp2/generators/PoTokenV8.kt:107:13 Expression is unused.
 w: file:///home/runner/work/Yewplay/Yewplay/engine/flow/src/main/java/io/github/aedev/flow/innertube/YouTube.kt:352:17 Redundant creation of Json format. Creating instances for each use can be slow.
 w: file:///home/runner/work/Yewplay/Yewplay/engine/flow/src/main/java/io/github/aedev/flow/innertube/YouTube.kt:363:17 Redundant creation of Json format. Creating instances for each use can be slow.
 w: file:///home/runner/work/Yewplay/Yewplay/engine/flow/src/main/java/io/github/aedev/flow/innertube/YouTube.kt:388:21 Expression is unused.
@@ -138,53 +150,21 @@ w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe
 w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/settings/export/ImportExportManager.kt:109:65 'val FILE_NAME_SERIALIZED_PREFS: String' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
 w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/settings/export/ImportExportManager.kt:143:63 'val FILE_NAME_SERIALIZED_PREFS: String' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
 w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/us/shandian/giga/ui/fragment/YpDownloadsFragment.kt:877:49 'static field ACTION_MEDIA_SCANNER_SCAN_FILE: String' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/engine/EngineManagerTest.kt:151:9 Expression is unused.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/engine/EngineManagerTest.kt:190:9 Expression is unused.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/settings/ImportAllCombinationsTest.kt:86:68 'fun exportHasSerializedPrefs(zipFile: StoredFileHelper): Boolean' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/settings/ImportAllCombinationsTest.kt:87:50 'fun loadSerializedPrefs(zipFile: StoredFileHelper, preferences: SharedPreferences): Unit' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/settings/ImportAllCombinationsTest.kt:100:68 'fun exportHasSerializedPrefs(zipFile: StoredFileHelper): Boolean' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/settings/ImportAllCombinationsTest.kt:102:54 'fun loadSerializedPrefs(zipFile: StoredFileHelper, preferences: SharedPreferences): Unit' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/settings/ImportAllCombinationsTest.kt:110:69 'fun exportHasSerializedPrefs(zipFile: StoredFileHelper): Boolean' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/settings/ImportAllCombinationsTest.kt:112:54 'fun loadSerializedPrefs(zipFile: StoredFileHelper, preferences: SharedPreferences): Unit' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/settings/ImportExportManagerTest.kt:153:53 'fun exportHasSerializedPrefs(zipFile: StoredFileHelper): Boolean' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/settings/ImportExportManagerTest.kt:160:54 'fun exportHasSerializedPrefs(zipFile: StoredFileHelper): Boolean' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/settings/ImportExportManagerTest.kt:173:42 'fun loadSerializedPrefs(zipFile: StoredFileHelper, preferences: SharedPreferences): Unit' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/settings/ImportExportManagerTest.kt:188:46 'fun loadSerializedPrefs(zipFile: StoredFileHelper, preferences: SharedPreferences): Unit' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
 
 == tail ==
-> Task :engine:newtube:sharedutils:lintAnalyzeDebugAndroidTest
-> Task :engine:newtube:sharedutils:lintAnalyzeDebugUnitTest
-> Task :engine:newtube:youtubeapi:preDebugAndroidTestBuild UP-TO-DATE
-> Task :engine:newtube:youtubeapi:generateDebugAndroidTestLintModel
-> Task :engine:newtube:youtubeapi:preDebugUnitTestBuild UP-TO-DATE
-> Task :engine:newtube:sharedutils:lintAnalyzeDebug
-> Task :engine:newtube:youtubeapi:generateDebugUnitTestLintModel
-> Task :engine:newtube:youtubeapi:lintAnalyzeDebugAndroidTest
-> Task :engine:newtube:youtubeapi:lintAnalyzeDebugUnitTest
-> Task :engine:flow:generateDebugLintReportModel
-> Task :engine:newtube:mediaserviceinterfaces:generateDebugLintReportModel
-> Task :engine:newtube:sharedutils:generateDebugLintReportModel
-> Task :engine:newtube:youtubeapi:generateDebugLintReportModel
-> Task :engine:flow:generateDebugUnitTestStubRFile
-> Task :engine:flow:compileDebugUnitTestKotlin NO-SOURCE
-> Task :engine:flow:javaPreCompileDebugUnitTest
-> Task :engine:flow:compileDebugUnitTestJavaWithJavac NO-SOURCE
-> Task :engine:flow:processDebugUnitTestJavaRes NO-SOURCE
-> Task :engine:flow:testDebugUnitTest NO-SOURCE
-> Task :engine:newtube:mediaserviceinterfaces:generateDebugUnitTestStubRFile
-> Task :engine:newtube:mediaserviceinterfaces:compileDebugUnitTestKotlin NO-SOURCE
-> Task :engine:newtube:mediaserviceinterfaces:javaPreCompileDebugUnitTest
-> Task :engine:newtube:mediaserviceinterfaces:compileDebugUnitTestJavaWithJavac NO-SOURCE
-> Task :engine:newtube:mediaserviceinterfaces:processDebugUnitTestJavaRes NO-SOURCE
-> Task :engine:newtube:mediaserviceinterfaces:testDebugUnitTest NO-SOURCE
-> Task :engine:newtube:sharedutils:generateDebugUnitTestStubRFile
-> Task :engine:newtube:sharedutils:compileDebugUnitTestKotlin NO-SOURCE
-> Task :engine:newtube:sharedutils:javaPreCompileDebugUnitTest
-> Task :engine:newtube:sharedutils:compileDebugUnitTestJavaWithJavac NO-SOURCE
-> Task :engine:newtube:sharedutils:processDebugUnitTestJavaRes NO-SOURCE
-> Task :engine:newtube:sharedutils:testDebugUnitTest NO-SOURCE
-> Task :engine:newtube:youtubeapi:generateDebugUnitTestStubRFile
-> Task :engine:newtube:youtubeapi:compileDebugUnitTestKotlin NO-SOURCE
-> Task :engine:newtube:youtubeapi:javaPreCompileDebugUnitTest
-> Task :engine:newtube:youtubeapi:compileDebugUnitTestJavaWithJavac NO-SOURCE
-> Task :engine:newtube:youtubeapi:processDebugUnitTestJavaRes NO-SOURCE
-> Task :engine:newtube:youtubeapi:testDebugUnitTest NO-SOURCE
-
-> Task :app:kspDebugKotlin
-w: [ksp] /home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/database/feed/dao/FeedDAO.kt:178: The DAO function return type (kotlin.collections.List<java.time.OffsetDateTime?>) with the nullable type argument is meaningless because for now Room will never put a null value in a result.
-w: [ksp] /home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/database/feed/dao/FeedDAO.kt:181: The DAO function return type (kotlin.collections.List<java.time.OffsetDateTime?>) with the nullable type argument is meaningless because for now Room will never put a null value in a result.
-
-> Task :engine:newtube:sharedutils:lintReportDebug
-Wrote HTML report to file:///home/runner/work/Yewplay/Yewplay/engine/newtube/sharedutils/build/reports/lint-results-debug.html
-Wrote SARIF report to file:///home/runner/work/Yewplay/Yewplay/engine/newtube/sharedutils/build/reports/lint-results-debug.sarif
 
 > Task :engine:newtube:sharedutils:lintDebug
 > Task :engine:newtube:mediaserviceinterfaces:lintAnalyzeDebug
@@ -194,8 +174,8 @@ Wrote HTML report to file:///home/runner/work/Yewplay/Yewplay/engine/newtube/med
 Wrote SARIF report to file:///home/runner/work/Yewplay/Yewplay/engine/newtube/mediaserviceinterfaces/build/reports/lint-results-debug.sarif
 
 > Task :engine:newtube:mediaserviceinterfaces:lintDebug
-> Task :engine:newtube:youtubeapi:lintAnalyzeDebug
 > Task :app:kaptGenerateStubsDebugKotlin
+> Task :engine:newtube:youtubeapi:lintAnalyzeDebug
 
 > Task :app:kaptDebugKotlin
 warning: The following options were not recognized by any processor: '[room.internal.schemaInput, room.internal.schemaOutput, kapt.kotlin.generated]'
@@ -207,12 +187,6 @@ Wrote HTML report to file:///home/runner/work/Yewplay/Yewplay/engine/flow/build/
 Wrote SARIF report to file:///home/runner/work/Yewplay/Yewplay/engine/flow/build/reports/lint-results-debug.sarif
 
 > Task :engine:flow:lintDebug
-
-> Task :engine:newtube:youtubeapi:lintReportDebug
-Wrote HTML report to file:///home/runner/work/Yewplay/Yewplay/engine/newtube/youtubeapi/build/reports/lint-results-debug.html
-Wrote SARIF report to file:///home/runner/work/Yewplay/Yewplay/engine/newtube/youtubeapi/build/reports/lint-results-debug.sarif
-
-> Task :engine:newtube:youtubeapi:lintDebug
 
 > Task :app:compileDebugKotlin
 w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/App.kt:222:21 Only safe (?.) or non-null asserted (!!.) calls are allowed on a nullable receiver of type 'Thread.UncaughtExceptionHandler?'.
@@ -327,16 +301,67 @@ Note: Recompile with -Xlint:deprecation for details.
 Note: Some input files use unchecked or unsafe operations.
 Note: Recompile with -Xlint:unchecked for details.
 
+> Task :engine:newtube:youtubeapi:lintReportDebug
+Wrote HTML report to file:///home/runner/work/Yewplay/Yewplay/engine/newtube/youtubeapi/build/reports/lint-results-debug.html
+Wrote SARIF report to file:///home/runner/work/Yewplay/Yewplay/engine/newtube/youtubeapi/build/reports/lint-results-debug.sarif
+
+> Task :engine:newtube:youtubeapi:lintDebug
 > Task :app:processDebugJavaRes
-> Task :app:generateDebugLintReportModel
 > Task :app:bundleDebugClassesToCompileJar
 > Task :app:kspDebugUnitTestKotlin
-
-> Task :app:lintAnalyzeDebug
-com.evernote.android.state.lint.registry.StateIssueRegistry in /home/runner/.gradle/caches/9.8.2/transforms/d9a1c29196d2f7ca24f081b2a5330a10/transformed/android-state-1.4.1/jars/lint.jar does not specify a vendor; see IssueRegistry#vendor
-
-> Task :app:mergeDebugJavaResource
+> Task :app:generateDebugLintReportModel
 > Task :app:generateDebugAndroidTestLintModel
 > Task :app:generateDebugUnitTestLintModel
 > Task :app:kaptGenerateStubsDebugUnitTestKotlin
 > Task :app:kaptDebugUnitTestKotlin SKIPPED
+
+> Task :app:lintAnalyzeDebug
+com.evernote.android.state.lint.registry.StateIssueRegistry in /home/runner/.gradle/caches/9.8.2/transforms/cd1b40b3330a4b536a1724a1c2ab9012/transformed/android-state-1.4.1/jars/lint.jar does not specify a vendor; see IssueRegistry#vendor
+
+> Task :app:mergeDebugJavaResource
+
+> Task :app:compileDebugUnitTestKotlin
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/engine/EngineManagerTest.kt:151:9 Expression is unused.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/engine/EngineManagerTest.kt:190:9 Expression is unused.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/settings/ImportAllCombinationsTest.kt:86:68 'fun exportHasSerializedPrefs(zipFile: StoredFileHelper): Boolean' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/settings/ImportAllCombinationsTest.kt:87:50 'fun loadSerializedPrefs(zipFile: StoredFileHelper, preferences: SharedPreferences): Unit' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/settings/ImportAllCombinationsTest.kt:100:68 'fun exportHasSerializedPrefs(zipFile: StoredFileHelper): Boolean' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/settings/ImportAllCombinationsTest.kt:102:54 'fun loadSerializedPrefs(zipFile: StoredFileHelper, preferences: SharedPreferences): Unit' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/settings/ImportAllCombinationsTest.kt:110:69 'fun exportHasSerializedPrefs(zipFile: StoredFileHelper): Boolean' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/settings/ImportAllCombinationsTest.kt:112:54 'fun loadSerializedPrefs(zipFile: StoredFileHelper, preferences: SharedPreferences): Unit' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/settings/ImportExportManagerTest.kt:153:53 'fun exportHasSerializedPrefs(zipFile: StoredFileHelper): Boolean' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/settings/ImportExportManagerTest.kt:160:54 'fun exportHasSerializedPrefs(zipFile: StoredFileHelper): Boolean' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/settings/ImportExportManagerTest.kt:173:42 'fun loadSerializedPrefs(zipFile: StoredFileHelper, preferences: SharedPreferences): Unit' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/settings/ImportExportManagerTest.kt:188:46 'fun loadSerializedPrefs(zipFile: StoredFileHelper, preferences: SharedPreferences): Unit' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
+
+> Task :app:lintAnalyzeDebugAndroidTest
+> Task :app:compileDebugUnitTestJavaWithJavac
+> Task :app:copyRoomSchemas NO-SOURCE
+> Task :app:bundleDebugClassesToRuntimeJar
+> Task :app:processDebugUnitTestJavaRes
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+> Task :app:dexBuilderDebug
+> Task :app:lintAnalyzeDebugUnitTest
+> Task :app:mergeProjectDexDebug
+> Task :app:testDebugUnitTest
+> Task :app:packageDebug
+> Task :app:assembleDebug
+> Task :app:createDebugApkListingFileRedirect
+
+> Task :app:lintReportDebug
+Wrote HTML report to file:///home/runner/work/Yewplay/Yewplay/app/build/reports/lint-results-debug.html
+Wrote SARIF report to file:///home/runner/work/Yewplay/Yewplay/app/build/reports/lint-results-debug.sarif
+
+> Task :app:lintDebug
+
+[Incubating] Problems report is available at: file:///home/runner/work/Yewplay/Yewplay/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/9.8.2/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 11m 34s
+451 actionable tasks: 451 executed
+Configuration cache entry stored.
