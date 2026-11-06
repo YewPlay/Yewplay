@@ -8,6 +8,7 @@ about-libraries = "15.3.0"
 acra = "5.14.2"
 activity = "1.13.0"
 agp = "9.4.1"
+androidx-annotation = "1.9.1"
 appcompat = "1.8.0"
 assertj = "3.27.7"
 autoservice-google = "1.1.1"
@@ -17,15 +18,22 @@ browser = "1.10.0"
 cardview = "1.0.0"
 checkstyle = "13.8.0" # See https://github.com/checkstyle/checkstyle/issues/21175
 coil = "3.6.3"
+commons-io = "2.8.0"
 compose = "1.12.1"
 constraintlayout = "2.2.2"
 core = "1.19.1"
 coroutines = "1.11.0"
+cronet-api = "500.1.0"
+cronet-okhttp = "0.1.2"
 desugar = "2.1.5"
 documentfile = "1.1.0"
 espresso = "3.7.0"
 exoplayer = "2.19.1"
+florianingerl-regex = "1.1.11"
 fragment = "1.9.1"
+gson = "2.13.2"
+j2v8 = "6.2.1"
+json-path = "2.9.0"
 jsoup = "1.23.2"
 junit = "4.13.2"
 junit-ext = "1.3.0"
@@ -49,20 +57,11 @@ mockitoCore = "5.24.0"
 multiplatform = "1.12.2"
 navigation3 = "1.1.2"
 okhttp = "5.5.0"
-# YewPlay MultiEngine — NewTube engine (vendored MediaServiceCore)
-retrofit = "3.0.0"
-gson = "2.13.2"
-json-path = "2.9.0"
-commons-io = "2.8.0"
-cronet-api = "500.1.0"
-cronet-okhttp = "0.1.2"
-florianingerl-regex = "1.1.11"
-j2v8 = "6.2.1"
-androidx-annotation = "1.9.1"
 phoenix = "3.0.0"
 preference = "1.2.1"
 prettytime = "5.0.8.Final"
 recyclerview = "1.4.0"
+retrofit = "3.0.0"
 room = "3.0.3"
 runner = "1.7.0"
 rxandroid = "3.0.2"
@@ -93,6 +92,7 @@ work = "2.11.2" # New versions require minSdk 24
 acra-core = { module = "ch.acra:acra-core", version.ref = "acra" }
 android-desugar = { module = "com.android.tools:desugar_jdk_libs_nio", version.ref = "desugar" }
 androidx-activity = { module = "androidx.activity:activity-compose", version.ref = "activity" }
+androidx-annotation = { module = "androidx.annotation:annotation", version.ref = "androidx-annotation" }
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
 androidx-browser = { module = "androidx.browser:browser", version.ref = "browser" }
 androidx-cardview = { module = "androidx.cardview:cardview", version.ref = "cardview" }
@@ -122,14 +122,18 @@ androidx-webkit = { module = "androidx.webkit:webkit", version.ref = "webkit" }
 androidx-work-runtime = { module = "androidx.work:work-runtime", version.ref = "work" }
 androidx-work-rxjava3 = { module = "androidx.work:work-rxjava3", version.ref = "work" }
 assertj-core = { module = "org.assertj:assertj-core", version.ref = "assertj" }
+chromium-cronet-api = { module = "org.chromium.net:cronet-api", version.ref = "cronet-api" }
 coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" }
 coil-network-okhttp = { module = "io.coil-kt.coil3:coil-network-okhttp", version.ref = "coil" }
+commons-io = { module = "commons-io:commons-io", version.ref = "commons-io" }
 evernote-statesaver-compiler = { module = "com.evernote:android-state-processor", version.ref = "statesaver" }
 evernote-statesaver-core = { module = "com.evernote:android-state", version.ref = "statesaver" }
 facebook-stetho-core = { module = "com.facebook.stetho:stetho", version.ref = "stetho" }
 facebook-stetho-okhttp3 = { module = "com.facebook.stetho:stetho-okhttp3", version.ref = "stetho" }
+florianingerl-regex = { module = "com.github.florianingerl.util:regex", version.ref = "florianingerl-regex" }
 google-android-material = { module = "com.google.android.material:material", version.ref = "material" }
 google-autoservice-annotations = { module = "com.google.auto.service:auto-service-annotations", version.ref = "autoservice-google" }
+google-cronet-okhttp = { module = "com.google.net.cronet:cronet-okhttp", version.ref = "cronet-okhttp" }
 google-exoplayer-core = { module = "com.google.android.exoplayer:exoplayer-core", version.ref = "exoplayer" }
 google-exoplayer-dash = { module = "com.google.android.exoplayer:exoplayer-dash", version.ref = "exoplayer" }
 google-exoplayer-database = { module = "com.google.android.exoplayer:exoplayer-database", version.ref = "exoplayer" }
@@ -138,8 +142,10 @@ google-exoplayer-hls = { module = "com.google.android.exoplayer:exoplayer-hls", 
 google-exoplayer-mediasession = { module = "com.google.android.exoplayer:extension-mediasession", version.ref = "exoplayer" }
 google-exoplayer-smoothstreaming = { module = "com.google.android.exoplayer:exoplayer-smoothstreaming", version.ref = "exoplayer" }
 google-exoplayer-ui = { module = "com.google.android.exoplayer:exoplayer-ui", version.ref = "exoplayer" }
+google-gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 jakewharton-phoenix = { module = "com.jakewharton:process-phoenix", version.ref = "phoenix" }
 jakewharton-rxbinding = { module = "com.jakewharton.rxbinding4:rxbinding", version.ref = "rxbinding" }
+jayway-jsonpath = { module = "com.jayway.jsonpath:json-path", version.ref = "json-path" }
 jetbrains-compose-foundation = { module = "org.jetbrains.compose.foundation:foundation", version.ref = "multiplatform" }
 jetbrains-compose-material3 = { module = "org.jetbrains.compose.material3:material3", version.ref = "material3" }
 jetbrains-compose-preview = { module = "org.jetbrains.compose.ui:ui-tooling-preview", version.ref = "multiplatform" }
@@ -168,14 +174,6 @@ livefront-bridge = { module = "com.github.livefront:bridge", version.ref = "brid
 mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockitoCore" }
 newpipe-extractor = { module = "com.github.TeamNewPipe:NewPipeExtractor", version.ref = "teamnewpipe-newpipe-extractor" }
 newpipe-filepicker = { module = "com.github.TeamNewPipe:NoNonsense-FilePicker", version.ref = "teamnewpipe-filepicker" }
-androidx-annotation = { module = "androidx.annotation:annotation", version.ref = "androidx-annotation" }
-chromium-cronet-api = { module = "org.chromium.net:cronet-api", version.ref = "cronet-api" }
-commons-io = { module = "commons-io:commons-io", version.ref = "commons-io" }
-eclipsesource-j2v8 = { module = "com.eclipsesource.j2v8:j2v8", version.ref = "j2v8" }
-florianingerl-regex = { module = "com.github.florianingerl.util:regex", version.ref = "florianingerl-regex" }
-google-cronet-okhttp = { module = "com.google.net.cronet:cronet-okhttp", version.ref = "cronet-okhttp" }
-google-gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
-jayway-jsonpath = { module = "com.jayway.jsonpath:json-path", version.ref = "json-path" }
 newpipe-nanojson = { module = "com.github.TeamNewPipe:nanojson", version.ref = "teamnewpipe-nanojson" }
 noties-markwon-core = { module = "io.noties.markwon:core", version.ref = "markwon" }
 noties-markwon-linkify = { module = "io.noties.markwon:linkify", version.ref = "markwon" }
@@ -208,7 +206,6 @@ androidx-room = { id = "androidx.room3", version.ref = "room" }
 google-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 jetbrains-compose-multiplatform = { id = "org.jetbrains.compose", version.ref = "multiplatform" }
 jetbrains-kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 jetbrains-kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 jetbrains-kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
