@@ -1,98 +1,17 @@
 branch: yewplay/multiengine
-sha: 2b2c37c5ef66b12160d0c912838dd4f3a3a9f192
+sha: 2cd3f41516cdc34ce93c6adac70d6fa4a1358c94
 outcome: failure
-run: https://github.com/YewPlay/Yewplay/actions/runs/42285735017
+run: https://github.com/YewPlay/Yewplay/actions/runs/42287868759
 
 == errors ==
-/home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/Player.java:79: error: cannot find symbol
-/home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/helper/PlayerDataSource.java:17: error: package androidx.media3.exoplayer.smoothstreaming does not exist
-/home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/helper/PlayerDataSource.java:18: error: package androidx.media3.exoplayer.smoothstreaming does not exist
-/home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/resolver/PlaybackResolver.java:20: error: package androidx.media3.exoplayer.smoothstreaming does not exist
-/home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/resolver/PlaybackResolver.java:21: error: package androidx.media3.exoplayer.smoothstreaming.manifest does not exist
-/home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/resolver/PlaybackResolver.java:22: error: package androidx.media3.exoplayer.smoothstreaming.manifest does not exist
-/home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/mediasource/FailedMediaSource.java:12: error: cannot find symbol
-/home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/mediasource/FailedMediaSource.java:145: error: cannot find symbol
-/home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/resolver/PlaybackResolver.java:365: error: cannot find symbol
-/home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/helper/PlayerDataSource.java:113: error: package SsMediaSource does not exist
-/home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/helper/PlayerDataSource.java:164: error: package SsMediaSource does not exist
-/home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/mediasession/MediaSessionPlayerUi.java:293: error: cannot find symbol
-/home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/mediasession/MediaSessionPlayerUi.java:315: error: cannot find symbol
-/home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/mediasession/MediaSessionPlayerUi.java:330: error: cannot find symbol
-/home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/mediasource/PlaceholderMediaSource.java:8: error: cannot find symbol
-/home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/mediasource/PlaceholderMediaSource.java:35: error: cannot find symbol
-/home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/Player.java:293: error: package DefaultBandwidthMeter does not exist
 /home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/helper/PlayerDataSource.java:120: error: incompatible types: incompatible parameter types in lambda expression
-/home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/helper/PlayerDataSource.java:122: error: no suitable constructor found for DefaultHlsPlaylistTracker(HlsDataSourceFactory,LoadErrorHandlingPolicy,HlsPlaylistParserFactory,double)
-/home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/helper/PlayerDataSource.java:165: error: package SsMediaSource does not exist
-/home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/helper/PlayerDataSource.java:166: error: package DefaultSsChunkSource does not exist
-/home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/resolver/PlaybackResolver.java:382: error: cannot find symbol
-/home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/resolver/PlaybackResolver.java:386: error: cannot find symbol
-/home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/mediasession/MediaSessionPlayerUi.java:306: error: incompatible types: bad return type in lambda expression
-/home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/notification/NotificationActionData.java:100: error: cannot find symbol
-/home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/notification/NotificationActionData.java:113: error: cannot find symbol
-/home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/notification/NotificationActionData.java:170: error: cannot find symbol
-/home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/notification/NotificationActionData.java:175: error: cannot find symbol
 > Task :app:compileDebugJavaWithJavac FAILED
 * What went wrong:
 Execution failed for task ':app:compileDebugJavaWithJavac' (registered by plugin 'com.android.internal.application').
-  /home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/Player.java:79: error: cannot find symbol
-  /home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/mediasource/FailedMediaSource.java:12: error: cannot find symbol
-  /home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/mediasource/FailedMediaSource.java:145: error: cannot find symbol
-  /home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/resolver/PlaybackResolver.java:365: error: cannot find symbol
-  /home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/mediasession/MediaSessionPlayerUi.java:293: error: cannot find symbol
-  /home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/mediasession/MediaSessionPlayerUi.java:315: error: cannot find symbol
-  /home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/mediasession/MediaSessionPlayerUi.java:330: error: cannot find symbol
-  /home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/mediasource/PlaceholderMediaSource.java:8: error: cannot find symbol
-  /home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/mediasource/PlaceholderMediaSource.java:35: error: cannot find symbol
-  /home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/resolver/PlaybackResolver.java:382: error: cannot find symbol
-  /home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/resolver/PlaybackResolver.java:386: error: cannot find symbol
-  /home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/notification/NotificationActionData.java:100: error: cannot find symbol
-  /home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/notification/NotificationActionData.java:113: error: cannot find symbol
-  /home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/notification/NotificationActionData.java:170: error: cannot find symbol
-  /home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/notification/NotificationActionData.java:175: error: cannot find symbol
-  /home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/helper/PlayerDataSource.java:17: error: package androidx.media3.exoplayer.smoothstreaming does not exist
-  /home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/helper/PlayerDataSource.java:18: error: package androidx.media3.exoplayer.smoothstreaming does not exist
-  /home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/resolver/PlaybackResolver.java:20: error: package androidx.media3.exoplayer.smoothstreaming does not exist
-  /home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/resolver/PlaybackResolver.java:21: error: package androidx.media3.exoplayer.smoothstreaming.manifest does not exist
-  /home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/resolver/PlaybackResolver.java:22: error: package androidx.media3.exoplayer.smoothstreaming.manifest does not exist
-  /home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/helper/PlayerDataSource.java:113: error: package SsMediaSource does not exist
-  /home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/helper/PlayerDataSource.java:164: error: package SsMediaSource does not exist
-  /home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/Player.java:293: error: package DefaultBandwidthMeter does not exist
-  /home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/helper/PlayerDataSource.java:165: error: package SsMediaSource does not exist
-  /home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/helper/PlayerDataSource.java:166: error: package DefaultSsChunkSource does not exist
   /home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/helper/PlayerDataSource.java:120: error: incompatible types: incompatible parameter types in lambda expression
-  /home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/mediasession/MediaSessionPlayerUi.java:306: error: incompatible types: bad return type in lambda expression
-  /home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/helper/PlayerDataSource.java:122: error: no suitable constructor found for DefaultHlsPlaylistTracker(HlsDataSourceFactory,LoadErrorHandlingPolicy,HlsPlaylistParserFactory,double)
 org.gradle.api.tasks.TaskExecutionException: Execution failed for task ':app:compileDebugJavaWithJavac' (registered by plugin 'com.android.internal.application').
-/home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/Player.java:79: error: cannot find symbol
-/home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/helper/PlayerDataSource.java:17: error: package androidx.media3.exoplayer.smoothstreaming does not exist
-/home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/helper/PlayerDataSource.java:18: error: package androidx.media3.exoplayer.smoothstreaming does not exist
-/home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/resolver/PlaybackResolver.java:20: error: package androidx.media3.exoplayer.smoothstreaming does not exist
-/home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/resolver/PlaybackResolver.java:21: error: package androidx.media3.exoplayer.smoothstreaming.manifest does not exist
-/home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/resolver/PlaybackResolver.java:22: error: package androidx.media3.exoplayer.smoothstreaming.manifest does not exist
-/home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/mediasource/FailedMediaSource.java:12: error: cannot find symbol
-/home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/mediasource/FailedMediaSource.java:145: error: cannot find symbol
-/home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/resolver/PlaybackResolver.java:365: error: cannot find symbol
-/home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/helper/PlayerDataSource.java:113: error: package SsMediaSource does not exist
-/home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/helper/PlayerDataSource.java:164: error: package SsMediaSource does not exist
-/home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/mediasession/MediaSessionPlayerUi.java:293: error: cannot find symbol
-/home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/mediasession/MediaSessionPlayerUi.java:315: error: cannot find symbol
-/home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/mediasession/MediaSessionPlayerUi.java:330: error: cannot find symbol
-/home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/mediasource/PlaceholderMediaSource.java:8: error: cannot find symbol
-/home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/mediasource/PlaceholderMediaSource.java:35: error: cannot find symbol
-/home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/Player.java:293: error: package DefaultBandwidthMeter does not exist
 /home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/helper/PlayerDataSource.java:120: error: incompatible types: incompatible parameter types in lambda expression
-/home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/helper/PlayerDataSource.java:122: error: no suitable constructor found for DefaultHlsPlaylistTracker(HlsDataSourceFactory,LoadErrorHandlingPolicy,HlsPlaylistParserFactory,double)
-/home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/helper/PlayerDataSource.java:165: error: package SsMediaSource does not exist
-/home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/helper/PlayerDataSource.java:166: error: package DefaultSsChunkSource does not exist
-/home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/resolver/PlaybackResolver.java:382: error: cannot find symbol
-/home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/resolver/PlaybackResolver.java:386: error: cannot find symbol
-/home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/mediasession/MediaSessionPlayerUi.java:306: error: incompatible types: bad return type in lambda expression
-/home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/notification/NotificationActionData.java:100: error: cannot find symbol
-/home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/notification/NotificationActionData.java:113: error: cannot find symbol
-/home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/notification/NotificationActionData.java:170: error: cannot find symbol
-/home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/notification/NotificationActionData.java:175: error: cannot find symbol
-BUILD FAILED in 10m 19s
+BUILD FAILED in 10m 23s
 
 == warnings ==
 w: file:///home/runner/work/Yewplay/Yewplay/app/build.gradle.kts:155:30: 'fun provideDelegate(thisRef: Any?, property: KProperty<*>): ExistingDomainObjectDelegate<Configuration>' is deprecated. Use 'val element = create(name)' instead. See the Gradle 9.6 upgrading guide.
@@ -210,62 +129,62 @@ warning: unknown enum constant Level.FULL
 warning: unknown enum constant Level.FULL
 
 == tail ==
+  warning: unknown enum constant Level.FULL
+    reason: class file for com.google.j2objc.annotations.ReflectionSupport$Level not found
+  Note: Some input files use or override a deprecated API.
+  Note: Recompile with -Xlint:deprecation for details.
+  Note: Some input files use unchecked or unsafe operations.
+  Note: Recompile with -Xlint:unchecked for details.
+  Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
+  1 error
+  1 warning
+
+* Try:
+> Check your code and dependencies to fix the compilation error(s)
+> Run with --scan to get full insights from a Build Scan (powered by Develocity).
+
+* Exception is:
+org.gradle.api.tasks.TaskExecutionException: Execution failed for task ':app:compileDebugJavaWithJavac' (registered by plugin 'com.android.internal.application').
+	at org.gradle.api.internal.tasks.execution.DefaultTaskNodeExecutor.lambda$doExecute$1(DefaultTaskNodeExecutor.java:367)
+	at org.gradle.internal.Try$Failure.ifSuccessfulOrElse(Try.java:288)
+	at org.gradle.api.internal.tasks.execution.DefaultTaskNodeExecutor.doExecute(DefaultTaskNodeExecutor.java:365)
+	at org.gradle.api.internal.tasks.execution.DefaultTaskNodeExecutor.executeTrackingTaskIdentity(DefaultTaskNodeExecutor.java:332)
+	at org.gradle.api.internal.tasks.execution.DefaultTaskNodeExecutor.executeFinalizingProperties(DefaultTaskNodeExecutor.java:318)
+	at org.gradle.api.internal.tasks.execution.DefaultTaskNodeExecutor.executeSkippingWithNoActions(DefaultTaskNodeExecutor.java:289)
+	at org.gradle.api.internal.tasks.execution.DefaultTaskNodeExecutor.executeSkippingOnlyIf(DefaultTaskNodeExecutor.java:272)
+	at org.gradle.api.internal.tasks.execution.DefaultTaskNodeExecutor.executeCatchingFailures(DefaultTaskNodeExecutor.java:228)
+	at org.gradle.api.internal.tasks.execution.DefaultTaskNodeExecutor.executeWithFallbackOperationId(DefaultTaskNodeExecutor.java:197)
+	at org.gradle.api.internal.tasks.execution.DefaultTaskNodeExecutor.executeWithLifecycle(DefaultTaskNodeExecutor.java:171)
+	at org.gradle.api.internal.tasks.execution.DefaultTaskNodeExecutor.access$000(DefaultTaskNodeExecutor.java:67)
+	at org.gradle.api.internal.tasks.execution.DefaultTaskNodeExecutor$1.run(DefaultTaskNodeExecutor.java:136)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$1.execute(DefaultBuildOperationRunner.java:30)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$1.execute(DefaultBuildOperationRunner.java:27)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:67)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:60)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:167)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:60)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.run(DefaultBuildOperationRunner.java:48)
+	at org.gradle.api.internal.tasks.execution.DefaultTaskNodeExecutor.execute(DefaultTaskNodeExecutor.java:133)
+	at org.gradle.execution.plan.LocalTaskNode.execute(LocalTaskNode.java:229)
+	at org.gradle.execution.DefaultBuildWorkExecutor.lambda$executePlan$0(DefaultBuildWorkExecutor.java:153)
+	at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.lambda$execute$0(DefaultPlanExecutor.java:476)
+	at org.gradle.internal.operations.CurrentBuildOperationRef.with(CurrentBuildOperationRef.java:85)
+	at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.execute(DefaultPlanExecutor.java:475)
+	at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.run(DefaultPlanExecutor.java:392)
+	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:65)
+	at org.gradle.internal.concurrent.AbstractManagedExecutor$1.run(AbstractManagedExecutor.java:47)
+Caused by: org.gradle.api.internal.tasks.compile.CompilationFailedException: Compilation failed; see the compiler output below.
+/home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/helper/PlayerDataSource.java:120: error: incompatible types: incompatible parameter types in lambda expression
+                .setPlaylistTrackerFactory((dataSourceFactory, loadErrorHandlingPolicy,
                                            ^
-/home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/helper/PlayerDataSource.java:122: error: no suitable constructor found for DefaultHlsPlaylistTracker(HlsDataSourceFactory,LoadErrorHandlingPolicy,HlsPlaylistParserFactory,double)
-                        new DefaultHlsPlaylistTracker(dataSourceFactory, loadErrorHandlingPolicy,
-                        ^
-    constructor DefaultHlsPlaylistTracker.DefaultHlsPlaylistTracker(HlsDataSourceFactory,LoadErrorHandlingPolicy,HlsPlaylistParserFactory,CmcdConfiguration,Supplier<ReleasableExecutor>) is not applicable
-      (actual and formal argument lists differ in length)
-    constructor DefaultHlsPlaylistTracker.DefaultHlsPlaylistTracker(HlsDataSourceFactory,LoadErrorHandlingPolicy,HlsPlaylistParserFactory,CmcdConfiguration,double,Supplier<ReleasableExecutor>) is not applicable
-      (actual and formal argument lists differ in length)
-/home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/helper/PlayerDataSource.java:165: error: package SsMediaSource does not exist
-        return new SsMediaSource.Factory(
-                                ^
-/home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/helper/PlayerDataSource.java:166: error: package DefaultSsChunkSource does not exist
-                new DefaultSsChunkSource.Factory(cachelessDataSourceFactory),
-                                        ^
-/home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/resolver/PlaybackResolver.java:382: error: cannot find symbol
-        final SsManifest smoothStreamingManifest;
-              ^
-  symbol:   class SsManifest
-  location: interface PlaybackResolver
-/home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/resolver/PlaybackResolver.java:386: error: cannot find symbol
-            smoothStreamingManifest = new SsManifestParser().parse(manifestUri,
-                                          ^
-  symbol:   class SsManifestParser
-  location: interface PlaybackResolver
 warning: unknown enum constant Level.FULL
   reason: class file for com.google.j2objc.annotations.ReflectionSupport$Level not found
-/home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/mediasession/MediaSessionPlayerUi.java:306: error: incompatible types: bad return type in lambda expression
-                    future.setException(new CancellationException(
-                                       ^
-    boolean cannot be converted to Unit
-/home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/notification/NotificationActionData.java:100: error: cannot find symbol
-                            androidx.media3.ui.R.drawable.exo_controls_rewind);
-                                                         ^
-  symbol:   variable exo_controls_rewind
-  location: class drawable
-/home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/notification/NotificationActionData.java:113: error: cannot find symbol
-                            androidx.media3.ui.R.drawable.exo_controls_fastforward);
-                                                         ^
-  symbol:   variable exo_controls_fastforward
-  location: class drawable
-/home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/notification/NotificationActionData.java:170: error: cannot find symbol
-                            androidx.media3.ui.R.drawable.exo_controls_shuffle_on);
-                                                         ^
-  symbol:   variable exo_controls_shuffle_on
-  location: class drawable
-/home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/notification/NotificationActionData.java:175: error: cannot find symbol
-                            androidx.media3.ui.R.drawable.exo_controls_shuffle_off);
-                                                         ^
-  symbol:   variable exo_controls_shuffle_off
-  location: class drawable
 Note: Some input files use or override a deprecated API.
 Note: Recompile with -Xlint:deprecation for details.
 Note: Some input files use unchecked or unsafe operations.
 Note: Recompile with -Xlint:unchecked for details.
 Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
-28 errors
+1 error
 1 warning
 	at org.gradle.api.internal.tasks.compile.JdkJavaCompiler.execute(JdkJavaCompiler.java:88)
 	at org.gradle.api.internal.tasks.compile.JdkJavaCompiler.execute(JdkJavaCompiler.java:49)
@@ -398,7 +317,7 @@ Note: Some messages have been simplified; recompile with -Xdiags:verbose to get 
 	at org.gradle.internal.execution.steps.IdentifyStep.execute(IdentifyStep.java:38)
 	at org.gradle.internal.execution.impl.DefaultExecutionEngine$1.execute(DefaultExecutionEngine.java:68)
 	at org.gradle.api.internal.tasks.execution.DefaultTaskNodeExecutor.doExecute(DefaultTaskNodeExecutor.java:364)
-	... 55 more
+	... 25 more
 
 
 Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
@@ -407,6 +326,6 @@ You can use '--warning-mode all' to show the individual deprecation warnings and
 
 For more on this, please refer to https://docs.gradle.org/9.8.2/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
 
-BUILD FAILED in 10m 19s
+BUILD FAILED in 10m 23s
 429 actionable tasks: 429 executed
 Configuration cache entry stored.
