@@ -58,6 +58,11 @@ configure<ApplicationExtension> {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    testOptions {
+        // EngineManager logs via android.util.Log; pure JVM unit tests stub it out.
+        unitTests.isReturnDefaultValues = true
+    }
+
     buildTypes {
         debug {
             isDebuggable = true

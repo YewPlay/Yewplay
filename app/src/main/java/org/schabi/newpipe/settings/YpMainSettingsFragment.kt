@@ -114,6 +114,12 @@ class YpMainSettingsFragment : Fragment() {
                         R.string.settings_category_downloads_title,
                         R.string.yp_settings_downloads_summary,
                         DownloadSettingsFragment::class
+                    ),
+                    entry(
+                        R.drawable.yp_ic_database,
+                        R.string.yp_settings_engine_title,
+                        R.string.yp_settings_engine_summary,
+                        EngineSettingsFragment::class
                     )
                 )
             ),

@@ -1,0 +1,95 @@
+# Auditoria Técnica — YewPlay MultiEngine + AndroidX Media3
+
+**Data:** 2026-11-06 · **Base:** `yewplay/dev` @ `7252042b` · **Branch de trabalho:** `yewplay/multiengine`
+
+---
+
+## 1. Arquitetura atual do YewPlay
+
+- **App**: fork NewPipe 0.29.1, GPL-3.0. Módulos KMP: `core/{data,designsystem,model}`, `feature/*` (9 módulos), `shared`, `app`, `desktopApp`, `iosApp`.
+- **Extração**: `NewPipeExtractor` (commit `e8f89145`, via JitPack) — YouTube, SoundCloud, PeerTube, Bandcamp, media.ccc.de. Toda extração passa por `util/ExtractorHelper.java` (RxJava3 `Single`s) e `NewPipe.getService(id)`.
+- **Reprodução**: **ExoPlayer 2.19.1 legado** (`com.google.android.exoplayer`, 8 artefatos incl. extension-mediasession). Superfície: **46 arquivos / 308 referências** ao pacote exoplayer2 — `player/Player.java` (motor), `playqueue`, `mediasource`, `resolver`, `datasource`, `notification`, `mediasession`, `helper`.
+- **UI**: Kotlin+Compose (migração concluída) + Views legadas (detalhe, settings host, RouterActivity).
+- **Downloads**: `us/shandian/giga` (gerenciador próprio) — streaming progressivo HTTP, independente do player.
+
+## 2. Arquitetura do NewTube (aleixrodriala/newtube)
+
+- **"SmartTube para celulares"**, Java, **MIT**, ativo (push 2026-10-29).
+- Monorepo com submódulos: **`MediaServiceCore`** ("Unofficial Java API for YouTube") + `SharedModules`, mais módulos de UI (`smarttubetv`, `sabr-media3`, `doubletapplayerview-media3`).
+- **MediaServiceCore** (o motor em si):
+  - `mediaserviceinterfaces/` — contratos limpos: `MediaItemService`, `ContentService`, `CommentsService`, `SignInService` + modelos (`MediaItem`, `MediaFormat`, `MediaSubtitle`, `MediaGroup`…).
+  - `youtubeapi/` (~1070 arquivos, pacote `com.liskovsoft.youtubeapi`) — implementação InnerTube: retrofit2 + gson + json-path + commons-io. Biblioteca Android (`com.android.library`), Java 17, minSdk herdável.
+- **É um motor de extração real e independente** (não usa NewPipeExtractor). Baseado na API interna do YouTube (InnerTube), mesma linhagem SmartTube.
+
+## 3. Arquitetura do FlowTube (Flow-Tube/Flow)
+
+- Kotlin, **GPL-3.0**, muito ativo (push 2026-11-06), app monomódulo (~2060 arquivos Kotlin).
+- **Dois mecanismos de extração**:
+  1. Pacote próprio `innertube/` (143 arquivos: `InnerTube.kt`, `YouTube.kt`, `models/`, `pages/`) — cliente InnerTube em Kotlin com **ktor client + kotlinx.serialization** (linhagem OuterTune/InnerTune).
+  2. `NewPipeExtractor v0.26.5` como dependência (uso complementar — o pacote innertube importa `org.schabi`).
+- **Player: AndroidX Media3 1.11.0 já em produção** (session, ui, exoplayer, hls, dash, datasource-okhttp, muxer) — referência de arquitetura para a nossa migração.
+- Acoplamento do pacote `innertube` ao app: ~20 imports externos (`FlowApplication`, `PlayerPreferences`, `data.model.*`, `utils.*`, `player.sabr.proto`). Não é uma biblioteca pronta — exigiria vendor + adaptação.
+
+## 4. Componentes aproveitáveis
+
+| Origem | Componente | Como aproveitar |
+|---|---|---|
+| NewTube | `MediaServiceCore` (mediaserviceinterfaces + youtubeapi) | Dependência JitPack → adaptador `NewTubeEngine` |
+| FlowTube | Pacote `innertube/` (GPL-3.0) | Vendor seletivo → adaptador `FlowEngine` |
+| FlowTube | Arquitetura Media3 (PlayerManager, service, resolver) | Referência de design para `MediaPlaybackCore` |
+| YewPlay | NewPipeExtractor + ExtractorHelper | `NewPipeEngine` (preservado, sem tocar internals) |
+
+## 5. Componentes incompatíveis
+
+- **NewTube UI** (`smarttubetv`, leanback/TV patterns): incompatível com a identidade YewPlay — fora.
+- **FlowTube app inteiro**: 2060 arquivos acoplados (sync P2P, widgets, discord, TV) — não copiar.
+- **ExoPlayer2 × Media3**: API surfaces diferentes; coexistência temporária possível mas a meta é substituir (regra: não misturar indevidamente).
+- **`SharedModules` (submódulo do MediaServiceCore)**: necessário no build — JitPack inicializa submódulos, mas é o principal risco de integração (mitigação: fallback para vendor do módulo).
+
+## 6. Dependências necessárias
+
+- `com.github.aleixrodriala.MediaServiceCore:youtubeapi:<commit>` (traz retrofit2, gson, json-path, commons-io).
+- Vendor `innertube/` do FlowTube: ktor-client-okhttp + kotlinx-serialization-json (kotlinx.serialization já existe no projeto).
+- Media3 (fase 10+): `media3-exoplayer`, `media3-session`, `media3-ui` (parcial), `media3-exoplayer-hls`, `media3-exoplayer-dash`, `media3-datasource-okhttp`, `media3-common` — versão única centralizada no catalog.
+
+## 7. Conflitos de bibliotecas
+
+- **gson** (MediaServiceCore) × **kotlinx.serialization** (FlowTube/YewPlay): coexistem sem conflito (serializadores distintos).
+- **okhttp**: já presente (extractor/downloader); alinhar versões no catalog.
+- **exoplayer2 × media3**: pacotes diferentes (`com.google.android.exoplayer2` × `androidx.media3`) — não conflitam no classpath; conflito é arquitetural (dois players). Remoção do exo2 só após paridade Media3 comprovada.
+- **gson × NewPipeExtractor**: extractor usa nanojson — sem conflito.
+
+## 8. Compatibilidade de licenças
+
+| Componente | Licença | Compatível com GPL-3.0? |
+|---|---|---|
+| YewPlay/NewPipe | GPL-3.0 | — (base) |
+| NewPipeExtractor | GPL-3.0 | ✅ mesma |
+| MediaServiceCore (NewTube) | **MIT** | ✅ com atribuição |
+| FlowTube innertube | GPL-3.0 | ✅ mesma (manter copyright aedev) |
+| AndroidX Media3 | Apache-2.0 | ✅ |
+
+Ações: manter cabeçalhos de copyright nos arquivos vendidos; registrar origem em `docs/` e no THIRD_PARTY/notices se houver.
+
+## 9. Estratégia de integração
+
+1. **Contrato único** `ExtractionEngine` (Kotlin, coroutines) no app: `search`, `getStreamInfo`, `getChannelInfo`, `getPlaylistInfo`, `suggestions`, `capabilities`.
+2. **Modelos padronizados** (`engine/model`): `YpStream`, `YpVideoInfo`, `YpChannelInfo`, `YpMediaFormat`, `YpSubtitle`… Cada motor converte seus tipos.
+3. **EngineManager**: registry + seleção persistida (SharedPreferences) + capabilities + fallback configurável (opt-in, sem loop, sem mudar preferência do usuário).
+4. **Motores**: `NewPipeEngine` (adapta o extractor existente — internals intocados), `NewTubeEngine` (MediaServiceCore), `FlowEngine` (innertube vendido).
+5. **UI**: nova seção *Configurações → Motor de Extração* (Compose, padrão YpPreferences); telas consomem modelos padronizados via adaptadores — sem condicionais de motor espalhadas.
+6. Sem remoção do NewPipeExtractor; NewPipeEngine segue padrão e sempre disponível.
+
+## 10. Plano de migração Media3
+
+- **Escala**: 46 arquivos / 308 refs exoplayer2; núcleo em `player/Player.java` (~1600 linhas), playqueue, mediasource, datasource, notification, mediasession.
+- **Estratégia**: camada nova `player/media3/` (`MediaPlaybackCore`, `MediaItemFactory`, `MediaSourceFactory`) construída ao lado; `Player.java` passa a delegar para o núcleo Media3 **somente** quando a paridade (queue, resolver, recuperação de erro, background, notificação) estiver comprovada por build+testes; exo2 removido ao final.
+- **MediaSession**: substituir `extension-mediasession` (exo2) por `media3-session` + `MediaSessionService` (player service atual adaptado).
+- **Manter**: identidade do chrome Compose (já migrado), gestos, queue semantics, downloads giga (independentes do player).
+- **Riscos**: `extension-mediasession` exo2 → reescrita da ponte de sessão; `PlayerDataSource`/`resolver` custom (headers por stream) → portar para `media3-datasource-okhttp` + `ResolvingDataSource`; seekbar preview (storyboard) → adaptar ao modelo Media3.
+
+---
+
+### Conclusão da auditoria
+
+A integração é **tecnicamente viável** com esforço real e delimitado: NewTube entra como biblioteca (risco baixo/médio — build JitPack com submódulo), FlowTube entra como vendor seletivo do pacote `innertube` (risco médio — ~20 acoplamentos a resolver), Media3 migra por camada paralela (risco controlado, sem tocar no motor de extração).

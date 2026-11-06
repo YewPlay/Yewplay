@@ -28,6 +28,9 @@ import net.newpipe.app.theme.MotionDurations
 import org.acra.ACRA.init
 import org.acra.ACRA.isACRASenderServiceProcess
 import org.acra.config.CoreConfigurationBuilder
+import org.schabi.newpipe.engine.EngineManager
+import org.schabi.newpipe.engine.SharedPreferencesEnginePrefs
+import org.schabi.newpipe.engine.impl.NewPipeEngine
 import org.schabi.newpipe.error.ReCaptchaActivity
 import org.schabi.newpipe.extractor.NewPipe
 import org.schabi.newpipe.extractor.downloader.Downloader
@@ -107,6 +110,10 @@ open class App :
         BridgeStateSaverInitializer.init(this)
         StateSaver.init(this)
         initNotificationChannels()
+
+        EngineManager
+            .init(SharedPreferencesEnginePrefs(this))
+            .register(NewPipeEngine())
 
         ServiceHelper.initServices(this)
 
