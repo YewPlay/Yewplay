@@ -230,7 +230,8 @@ class MainActivity : AppCompatActivity() {
         toolbar = Toolbar(androidx.appcompat.view.ContextThemeWrapper(this, R.style.ToolbarTheme))
             .apply {
                 id = R.id.toolbar
-                setGravity(Gravity.CENTER_VERTICAL)
+                // AppCompat centers the title vertically by default; the legacy XML gravity
+                // (center_vertical) has no programmatic counterpart and is redundant
                 minimumHeight = actionBarSize
                 setBackgroundColor(resolveAttrColor(androidx.appcompat.R.attr.colorPrimary))
                 layoutParams = LinearLayout.LayoutParams(
