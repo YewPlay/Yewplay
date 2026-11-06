@@ -300,8 +300,6 @@ dependencies {
     implementation(libs.google.exoplayer.ui)
 
     // Manager for complex RecyclerView layouts
-    implementation(libs.lisawray.groupie.core)
-    implementation(libs.lisawray.groupie.viewbinding)
 
     // Image loading
     implementation(libs.coil.compose)

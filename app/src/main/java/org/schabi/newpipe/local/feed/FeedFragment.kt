@@ -270,7 +270,7 @@ class FeedFragment : BaseFragment() {
     }
 
     private fun handleLoaded(state: FeedState.LoadedState) {
-        val list = state.items.map { it.streamWithState }
+        val list = state.items
         val dayAgo = OffsetDateTime.now().minusDays(1)
         recentUploaders.value = list.mapNotNull { item ->
             item.stream.uploaderUrl.takeIf { item.stream.uploadDate?.isAfter(dayAgo) == true }

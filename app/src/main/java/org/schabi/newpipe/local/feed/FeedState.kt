@@ -2,7 +2,7 @@ package org.schabi.newpipe.local.feed
 
 import androidx.annotation.StringRes
 import java.time.OffsetDateTime
-import org.schabi.newpipe.local.feed.item.StreamItem
+import org.schabi.newpipe.database.stream.StreamWithState
 
 sealed class FeedState {
     data class ProgressState(
@@ -12,7 +12,7 @@ sealed class FeedState {
     ) : FeedState()
 
     data class LoadedState(
-        val items: List<StreamItem>,
+        val items: List<StreamWithState>,
         val oldestUpdate: OffsetDateTime?,
         val notLoadedCount: Long,
         val itemsErrors: List<Throwable>
