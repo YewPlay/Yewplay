@@ -25,6 +25,8 @@ import org.schabi.newpipe.engine.model.YpVideoInfo
 import org.schabi.newpipe.extractor.NewPipe
 import org.schabi.newpipe.extractor.ServiceList
 import org.schabi.newpipe.extractor.channel.ChannelInfo
+import org.schabi.newpipe.extractor.channel.tabs.ChannelTabInfo
+import org.schabi.newpipe.extractor.linkhandler.ListLinkHandler
 import org.schabi.newpipe.extractor.playlist.PlaylistInfo
 import org.schabi.newpipe.extractor.search.SearchInfo
 import org.schabi.newpipe.extractor.stream.AudioStream
@@ -60,9 +62,9 @@ class NewPipeEngine : ExtractionEngine {
         )
     )
 
-    private val youtube get() = ServiceList.YouTube
+    private val youtube get() = NewPipe.getService(ServiceList.YouTube.serviceId)
 
-    override fun checkAvailability(): EngineState = if (runCatching { NewPipe.getServiceById(youtube.serviceId) }.isSuccess) {
+    override fun checkAvailability(): EngineState = if (runCatching { youtube }.isSuccess) {
         EngineState.AVAILABLE
     } else {
         EngineState.UNAVAILABLE
@@ -70,7 +72,7 @@ class NewPipeEngine : ExtractionEngine {
 
     override suspend fun search(query: String, filter: SearchFilter, pageKey: String?): YpSearchPage = withContext(Dispatchers.IO) {
         try {
-            val service = NewPipe.getServiceById(youtube.serviceId)
+            val service = youtube
             val handler = service.searchQHFactory.fromQuery(query, listOf(filter.toContentFilter()), "")
             if (pageKey == null) {
                 val info = SearchInfo.getInfo(service, handler)
@@ -95,7 +97,7 @@ class NewPipeEngine : ExtractionEngine {
 
     override suspend fun suggestions(query: String): List<String> = withContext(Dispatchers.IO) {
         try {
-            NewPipe.getServiceById(youtube.serviceId)
+            youtube
                 .suggestionExtractor
                 .suggestionList(query)
         } catch (e: Exception) {
@@ -105,7 +107,7 @@ class NewPipeEngine : ExtractionEngine {
 
     override suspend fun getVideoInfo(url: String): YpVideoInfo = withContext(Dispatchers.IO) {
         try {
-            StreamInfo.getInfo(NewPipe.getServiceById(youtube.serviceId), url).toYpVideoInfo()
+            StreamInfo.getInfo(youtube, url).toYpVideoInfo()
         } catch (e: Exception) {
             throw EngineException("video info failed: ${e.message}", e, descriptor.id)
         }
@@ -113,14 +115,30 @@ class NewPipeEngine : ExtractionEngine {
 
     override suspend fun getChannelInfo(url: String, pageKey: String?): YpChannelInfo = withContext(Dispatchers.IO) {
         try {
-            val service = NewPipe.getServiceById(youtube.serviceId)
+            val service = youtube
             if (pageKey == null) {
-                ChannelInfo.getInfo(service, url).toYpChannelInfo()
+                // ChannelInfo in this extractor carries metadata only; the items
+                // live in channel tabs, so the first tab is fetched as page one.
+                val info = ChannelInfo.getInfo(service, url)
+                val firstTab = info.tabs.firstOrNull()
+                val tabInfo = firstTab?.let { ChannelTabInfo.getInfo(service, it) }
+                YpChannelInfo(
+                    url = info.url,
+                    name = info.name,
+                    avatarUrl = info.avatars.lastOrNull()?.url,
+                    description = info.description ?: "",
+                    subscriberCount = info.subscriberCount,
+                    items = tabInfo?.relatedItems?.filterIsInstance<StreamInfoItem>()
+                        ?.map { it.toYpMediaItem() }.orEmpty(),
+                    nextPageKey = encodeChannelPageKey(firstTab?.url, tabInfo?.nextPage?.url)
+                )
             } else {
-                val more = ChannelInfo.getMoreItems(
+                val (tabUrl, pageUrl) = decodeChannelPageKey(pageKey)
+                val tabHandler = ListLinkHandler(tabUrl, tabUrl, tabUrl, emptyList(), "")
+                val more = ChannelTabInfo.getMoreItems(
                     service,
-                    url,
-                    org.schabi.newpipe.extractor.Page(pageKey)
+                    tabHandler,
+                    org.schabi.newpipe.extractor.Page(pageUrl)
                 )
                 YpChannelInfo(
                     url = url,
@@ -129,7 +147,7 @@ class NewPipeEngine : ExtractionEngine {
                     description = "",
                     subscriberCount = -1,
                     items = more.items.filterIsInstance<StreamInfoItem>().map { it.toYpMediaItem() },
-                    nextPageKey = more.nextPage?.url
+                    nextPageKey = encodeChannelPageKey(tabUrl, more.nextPage?.url)
                 )
             }
         } catch (e: Exception) {
@@ -137,9 +155,19 @@ class NewPipeEngine : ExtractionEngine {
         }
     }
 
+    // A channel page key must carry the tab handler alongside the continuation
+    // URL; both are URLs, joined by a newline (never present in URLs).
+    private fun encodeChannelPageKey(tabUrl: String?, pageUrl: String?): String? = if (tabUrl == null || pageUrl == null) null else "$tabUrl\n$pageUrl"
+
+    private fun decodeChannelPageKey(pageKey: String): Pair<String, String> {
+        val parts = pageKey.split("\n", limit = 2)
+        require(parts.size == 2) { "malformed channel page key" }
+        return parts[0] to parts[1]
+    }
+
     override suspend fun getPlaylistInfo(url: String, pageKey: String?): YpPlaylistInfo = withContext(Dispatchers.IO) {
         try {
-            val service = NewPipe.getServiceById(youtube.serviceId)
+            val service = youtube
             if (pageKey == null) {
                 PlaylistInfo.getInfo(service, url).toYpPlaylistInfo()
             } else {
@@ -240,11 +268,10 @@ class NewPipeEngine : ExtractionEngine {
             uploadDate = textualUploadDate,
             formats = formats,
             subtitles = subtitles?.map { sub ->
-                val locale = sub.languageTag
                 YpSubtitleTrack(
-                    url = sub.url,
-                    languageCode = locale?.toString() ?: "",
-                    displayName = locale?.displayLanguage ?: locale?.toString() ?: "",
+                    url = sub.url ?: "",
+                    languageCode = sub.languageTag ?: "",
+                    displayName = sub.displayLanguageName ?: sub.languageTag ?: "",
                     isAutoGenerated = sub.isAutoGenerated
                 )
             } ?: emptyList(),
@@ -253,7 +280,7 @@ class NewPipeEngine : ExtractionEngine {
     }
 
     private fun VideoStream.toYpFormat(muxed: Boolean, audioOnly: Boolean, videoOnly: Boolean) = YpMediaFormat(
-        url = url,
+        url = url ?: manifestUrl ?: "",
         mimeType = format?.mimeType ?: "video/mp4",
         qualityLabel = resolution ?: "",
         height = height,
@@ -265,22 +292,12 @@ class NewPipeEngine : ExtractionEngine {
     )
 
     private fun AudioStream.toYpAudioFormat() = YpMediaFormat(
-        url = url,
+        url = url ?: manifestUrl ?: "",
         mimeType = format?.mimeType ?: "audio/mp4",
         qualityLabel = "${bitrate / 1000}kbps",
         bitrate = bitrate,
         muxed = false,
         isAudioOnly = true
-    )
-
-    private fun ChannelInfo.toYpChannelInfo() = YpChannelInfo(
-        url = url,
-        name = name,
-        avatarUrl = avatars.lastOrNull()?.url,
-        description = description ?: "",
-        subscriberCount = subscriberCount,
-        items = relatedItems.filterIsInstance<StreamInfoItem>().map { it.toYpMediaItem() },
-        nextPageKey = nextPage?.url
     )
 
     private fun PlaylistInfo.toYpPlaylistInfo() = YpPlaylistInfo(
