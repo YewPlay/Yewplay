@@ -143,3 +143,14 @@ A integração é **tecnicamente viável** com esforço real e delimitado: NewTu
   Busca de vídeos/canais/playlists via `YouTube.videoSearch` (params protobuf do próprio Flow);
   músicas via `YouTube.search(FILTER_SONG)`; streams via `FlowYewPlayFacade.resolveStreams`;
   legendas via `PlayerResponse.captions`; paginação por continuation tokens opacos.
+
+## Adendo — FASE 8 (preservação NewPipe): verificação
+
+- **Zonas protegidas intactas**: comparação `main...yewplay/multiengine` (API compare) não mostra
+  nenhuma alteração em extrator/parsers, núcleo do player/ExoPlayer, `us/shandian/giga` (downloads)
+  nem banco de dados. Todas as mudanças estão em `engine/`, `app/.../engine/`, settings e docs.
+- **Engine padrão**: `EngineManager` continua com `newpipe` como padrão na ausência de preferência
+  persistida (coberto por `EngineManagerTest`); nenhuma tela consome engines fora da tela de
+  seleção, então o comportamento do app é idêntico ao de antes até o usuário trocar manualmente.
+- **Extrator pinado**: `NewPipeExtractor` permanece no commit `e8f89145` do catálogo; o FlowEngine
+  apenas consome `YoutubeParsingHelper` do mesmo artefato, sem alterá-lo.
