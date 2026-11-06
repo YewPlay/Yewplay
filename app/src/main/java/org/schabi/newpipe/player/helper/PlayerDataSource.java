@@ -118,11 +118,12 @@ public class PlayerDataSource {
         return new HlsMediaSource.Factory(cachelessDataSourceFactory)
                 .setAllowChunklessPreparation(true)
                 .setPlaylistTrackerFactory((dataSourceFactory, loadErrorHandlingPolicy,
-                                            playlistParserFactory) ->
+                                            playlistParserFactory, cmcdConfiguration,
+                                            downloadExecutorSupplier) ->
                         new DefaultHlsPlaylistTracker(dataSourceFactory, loadErrorHandlingPolicy,
-                                playlistParserFactory, /* cmcdConfiguration= */ null,
+                                playlistParserFactory, cmcdConfiguration,
                                 PLAYLIST_STUCK_TARGET_DURATION_COEFFICIENT,
-                                /* downloadExecutorSupplier= */ null));
+                                downloadExecutorSupplier));
     }
 
     public DashMediaSource.Factory getLiveDashMediaSourceFactory() {
