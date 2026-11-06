@@ -1,15 +1,15 @@
 branch: yewplay/multiengine
-sha: 0fbfc6a9b64f4f17f474127c077acdb18add0d5a
+sha: 034a1188a438efae523ddbb1d16ceffa6b0ca074
 outcome: failure
-run: https://github.com/YewPlay/Yewplay/actions/runs/42253336295
+run: https://github.com/YewPlay/Yewplay/actions/runs/42254836714
 
 == errors ==
-/home/runner/work/Yewplay/Yewplay/app/src/debug/AndroidManifest.xml Error:
 > Task :app:processDebugMainManifest FAILED
+/home/runner/work/Yewplay/Yewplay/app/src/debug/AndroidManifest.xml Error:
 * What went wrong:
 Execution failed for task ':app:processDebugMainManifest' (registered by plugin 'com.android.internal.application').
 org.gradle.api.tasks.TaskExecutionException: Execution failed for task ':app:processDebugMainManifest' (registered by plugin 'com.android.internal.application').
-BUILD FAILED in 4m 31s
+BUILD FAILED in 3m 31s
 
 == warnings ==
 w: file:///home/runner/work/Yewplay/Yewplay/app/build.gradle.kts:155:30: 'fun provideDelegate(thisRef: Any?, property: KProperty<*>): ExistingDomainObjectDelegate<Configuration>' is deprecated. Use 'val element = create(name)' instead. See the Gradle 9.6 upgrading guide.
@@ -47,23 +47,23 @@ w: Koin compiler plugin: Kotlin 2.4.21 is newer than the newest verified version
 > Task :engine:newtube:sharedutils:processDebugManifest
 > Task :engine:newtube:youtubeapi:extractDeepLinksDebug
 > Task :engine:newtube:youtubeapi:processDebugManifest
-> Task :app:mergeDebugResources
-> Task :engine:newtube:sharedutils:bundleLibCompileToJarDebug
-> Task :engine:newtube:mediaserviceinterfaces:compileDebugKotlin NO-SOURCE
 
-> Task :app:processDebugMainManifest
+> Task :engine:newtube:sharedutils:compileDebugJavaWithJavac
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+> Task :app:processDebugMainManifest FAILED
 /home/runner/work/Yewplay/Yewplay/app/src/debug/AndroidManifest.xml Error:
-	uses-sdk:minSdkVersion 23 cannot be smaller than version 24 declared in library [org.chromium.net:cronet-api:500.1.0] /home/runner/.gradle/caches/9.8.2/transforms/fb17f62998264eee206513766590988c/transformed/cronet-api-500.1.0/AndroidManifest.xml as the library might be using APIs not available in 23
+	uses-sdk:minSdkVersion 23 cannot be smaller than version 24 declared in library [org.chromium.net:cronet-common:500.1.0] /home/runner/.gradle/caches/9.8.2/transforms/8e3c5413c6fd7a301ee2945040ed1ce1/transformed/cronet-common-500.1.0/AndroidManifest.xml as the library might be using APIs not available in 23
 	Suggestion: use a compatible library with a minSdk of at most 23,
 		or increase this project's minSdk version to at least 24,
-		or use tools:overrideLibrary="com.google.net.cronet.granular.cronet_api" to force usage (may lead to runtime failures)
+		or use tools:overrideLibrary="com.google.net.cronet.granular.cronet_common" to force usage (may lead to runtime failures)
 
 See https://developer.android.com/r/studio-ui/build/manifest-merger for more information about the manifest merger.
 
 
-> Task :app:processDebugMainManifest FAILED
-> Task :app:dataBindingGenBaseClassesDebug
-> Task :engine:newtube:mediaserviceinterfaces:compileDebugJavaWithJavac
+> Task :shared:compileAndroidMain
+> Task :app:mergeDebugResources
 
 > Task :shared:compileAndroidMain
 w: Koin compiler plugin: Kotlin 2.4.21 is newer than the newest verified version (2.4.20) — proceeding with the 2.4.20 adapter. If compilation fails, check for a koin-compiler-plugin update. Verified versions: 2.3.20, 2.4.0, 2.4.10, 2.4.20.
@@ -74,10 +74,10 @@ FAILURE: Build failed with an exception.
 
 * What went wrong:
 Execution failed for task ':app:processDebugMainManifest' (registered by plugin 'com.android.internal.application').
-> Manifest merger failed : uses-sdk:minSdkVersion 23 cannot be smaller than version 24 declared in library [org.chromium.net:cronet-api:500.1.0] /home/runner/.gradle/caches/9.8.2/transforms/fb17f62998264eee206513766590988c/transformed/cronet-api-500.1.0/AndroidManifest.xml as the library might be using APIs not available in 23
+> Manifest merger failed : uses-sdk:minSdkVersion 23 cannot be smaller than version 24 declared in library [org.chromium.net:cronet-common:500.1.0] /home/runner/.gradle/caches/9.8.2/transforms/8e3c5413c6fd7a301ee2945040ed1ce1/transformed/cronet-common-500.1.0/AndroidManifest.xml as the library might be using APIs not available in 23
   	Suggestion: use a compatible library with a minSdk of at most 23,
   		or increase this project's minSdk version to at least 24,
-  		or use tools:overrideLibrary="com.google.net.cronet.granular.cronet_api" to force usage (may lead to runtime failures)
+  		or use tools:overrideLibrary="com.google.net.cronet.granular.cronet_common" to force usage (may lead to runtime failures)
 
 * Try:
 > Run with --info or --debug option to get more log output.
@@ -114,10 +114,10 @@ org.gradle.api.tasks.TaskExecutionException: Execution failed for task ':app:pro
 	at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.run(DefaultPlanExecutor.java:392)
 	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:65)
 	at org.gradle.internal.concurrent.AbstractManagedExecutor$1.run(AbstractManagedExecutor.java:47)
-Caused by: java.lang.RuntimeException: Manifest merger failed : uses-sdk:minSdkVersion 23 cannot be smaller than version 24 declared in library [org.chromium.net:cronet-api:500.1.0] /home/runner/.gradle/caches/9.8.2/transforms/fb17f62998264eee206513766590988c/transformed/cronet-api-500.1.0/AndroidManifest.xml as the library might be using APIs not available in 23
+Caused by: java.lang.RuntimeException: Manifest merger failed : uses-sdk:minSdkVersion 23 cannot be smaller than version 24 declared in library [org.chromium.net:cronet-common:500.1.0] /home/runner/.gradle/caches/9.8.2/transforms/8e3c5413c6fd7a301ee2945040ed1ce1/transformed/cronet-common-500.1.0/AndroidManifest.xml as the library might be using APIs not available in 23
 	Suggestion: use a compatible library with a minSdk of at most 23,
 		or increase this project's minSdk version to at least 24,
-		or use tools:overrideLibrary="com.google.net.cronet.granular.cronet_api" to force usage (may lead to runtime failures)
+		or use tools:overrideLibrary="com.google.net.cronet.granular.cronet_common" to force usage (may lead to runtime failures)
 	at com.android.build.gradle.internal.tasks.manifest.ManifestHelperKt.mergeManifests(ManifestHelper.kt:132)
 	at com.android.build.gradle.internal.tasks.manifest.ManifestHelperKt.mergeManifests$default(ManifestHelper.kt:44)
 	at com.android.build.gradle.tasks.ProcessApplicationManifest.doTaskAction(ProcessApplicationManifest.kt:154)
@@ -233,6 +233,6 @@ You can use '--warning-mode all' to show the individual deprecation warnings and
 
 For more on this, please refer to https://docs.gradle.org/9.8.2/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
 
-BUILD FAILED in 4m 31s
-121 actionable tasks: 121 executed
+BUILD FAILED in 3m 31s
+118 actionable tasks: 118 executed
 Configuration cache entry stored.
