@@ -1,7 +1,7 @@
 branch: yewplay/dev
-sha: f2cf735fb5e4c2a03a3f336519114b82d6599710
+sha: 923e2e913e6e445fe8437475325b6aab1151828a
 outcome: success
-run: https://github.com/YewPlay/Yewplay/actions/runs/42144507591
+run: https://github.com/YewPlay/Yewplay/actions/runs/42146512004
 
 == errors ==
 
@@ -287,10 +287,10 @@ Note: Recompile with -Xlint:unchecked for details.
 
 > Task :app:copyRoomSchemas NO-SOURCE
 > Task :app:processDebugJavaRes
-> Task :app:bundleDebugClassesToCompileJar
 > Task :app:generateDebugLintReportModel
-> Task :app:generateDebugUnitTestLintModel
+> Task :app:bundleDebugClassesToCompileJar
 > Task :app:generateDebugAndroidTestLintModel
+> Task :app:generateDebugUnitTestLintModel
 > Task :app:mergeDebugJavaResource
 
 > Task :app:lintAnalyzeDebug
@@ -318,6 +318,6 @@ You can use '--warning-mode all' to show the individual deprecation warnings and
 
 For more on this, please refer to https://docs.gradle.org/9.8.2/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
 
-BUILD SUCCESSFUL in 5m 2s
+BUILD SUCCESSFUL in 4m 4s
 257 actionable tasks: 257 executed
 Configuration cache entry stored.
