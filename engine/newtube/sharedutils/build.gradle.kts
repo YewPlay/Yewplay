@@ -47,6 +47,10 @@ dependencies {
     implementation(libs.squareup.okhttp.logging)
     implementation(libs.google.gson)
     implementation(libs.chromium.cronet.api)
+    implementation(libs.brotli.dec)
+    implementation(libs.dnsjava)
+    implementation(libs.jakewharton.disklrucache)
+    implementation(libs.localebro.okhttpprofiler)
     implementation(libs.reactivex.rxjava)
     implementation(libs.reactivex.rxandroid)
 }

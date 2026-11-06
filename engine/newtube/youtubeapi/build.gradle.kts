@@ -44,6 +44,7 @@ dependencies {
     implementation(libs.squareup.retrofit.converter.gson)
     implementation(libs.google.gson)
     implementation(libs.jayway.jsonpath)
+    implementation(libs.brotli.dec)
     implementation(libs.chromium.cronet.api)
     implementation(libs.google.cronet.okhttp)
     implementation(libs.reactivex.rxjava)
