@@ -1,11 +1,11 @@
 branch: yewplay/multiengine
-sha: e7c8850a53e3227447ecffc3b596a6eae9ea6e23
+sha: 80d1a45a9ffee25450c80ab9005503959045686c
 outcome: failure
-run: https://github.com/YewPlay/Yewplay/actions/runs/42238730246
+run: https://github.com/YewPlay/Yewplay/actions/runs/42240138325
 
 == errors ==
 * What went wrong:
-BUILD FAILED in 1m 42s
+BUILD FAILED in 1m 43s
 
 == warnings ==
 w: file:///home/runner/work/Yewplay/Yewplay/app/build.gradle.kts:155:30: 'fun provideDelegate(thisRef: Any?, property: KProperty<*>): ExistingDomainObjectDelegate<Configuration>' is deprecated. Use 'val element = create(name)' instead. See the Gradle 9.6 upgrading guide.
@@ -31,42 +31,6 @@ w: ⚠️ Unused Kotlin Source Sets
 w: ⚠️ Unused Kotlin Source Sets
 
 == tail ==
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:60)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.run(DefaultBuildOperationRunner.java:48)
-	at org.gradle.kotlin.dsl.execution.Interpreter$ProgramHost.eval(Interpreter.kt:527)
-	at org.gradle.kotlin.dsl.execution.Interpreter.eval(Interpreter.kt:223)
-	at org.gradle.kotlin.dsl.provider.StandardKotlinScriptEvaluator.evaluate(KotlinScriptEvaluator.kt:133)
-	at org.gradle.kotlin.dsl.provider.KotlinScriptPluginFactory.create$lambda$0(KotlinScriptPluginFactory.kt:61)
-	at org.gradle.kotlin.dsl.provider.KotlinScriptPlugin.apply(KotlinScriptPlugin.kt:35)
-	at org.gradle.configuration.BuildOperationScriptPlugin$1.run(BuildOperationScriptPlugin.java:68)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$1.execute(DefaultBuildOperationRunner.java:30)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$1.execute(DefaultBuildOperationRunner.java:27)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:67)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:60)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:167)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:60)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner.run(DefaultBuildOperationRunner.java:48)
-	at org.gradle.configuration.BuildOperationScriptPlugin.lambda$apply$0(BuildOperationScriptPlugin.java:65)
-	at org.gradle.internal.code.DefaultUserCodeApplicationContext.apply(DefaultUserCodeApplicationContext.java:44)
-	at org.gradle.configuration.BuildOperationScriptPlugin.apply(BuildOperationScriptPlugin.java:65)
-	at org.gradle.api.internal.project.DefaultProjectState.lambda$applyToMutableState$0(DefaultProjectState.java:222)
-	at org.gradle.api.internal.project.DefaultProjectState.lambda$fromMutableState$0(DefaultProjectState.java:229)
-	at org.gradle.api.internal.project.DefaultProjectState.runWithModelLock(DefaultProjectState.java:252)
-	at org.gradle.api.internal.project.DefaultProjectState.fromMutableState(DefaultProjectState.java:229)
-	at org.gradle.api.internal.project.DefaultProjectState.applyToMutableState(DefaultProjectState.java:221)
-	at org.gradle.configuration.project.BuildScriptProcessor.execute(BuildScriptProcessor.java:46)
-	at org.gradle.configuration.project.BuildScriptProcessor.execute(BuildScriptProcessor.java:27)
-	at org.gradle.configuration.project.ConfigureActionsProjectEvaluator.evaluate(ConfigureActionsProjectEvaluator.java:35)
-	at org.gradle.configuration.project.LifecycleProjectEvaluator$EvaluateProject.lambda$run$0(LifecycleProjectEvaluator.java:109)
-	at org.gradle.api.internal.project.DefaultProjectState.lambda$applyToMutableState$0(DefaultProjectState.java:222)
-	at org.gradle.api.internal.project.DefaultProjectState.lambda$fromMutableState$0(DefaultProjectState.java:229)
-	at org.gradle.api.internal.project.DefaultProjectState.runWithModelLock(DefaultProjectState.java:252)
-	at org.gradle.api.internal.project.DefaultProjectState.fromMutableState(DefaultProjectState.java:229)
-	at org.gradle.api.internal.project.DefaultProjectState.applyToMutableState(DefaultProjectState.java:221)
-	at org.gradle.configuration.project.LifecycleProjectEvaluator$EvaluateProject.run(LifecycleProjectEvaluator.java:100)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$1.execute(DefaultBuildOperationRunner.java:30)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$1.execute(DefaultBuildOperationRunner.java:27)
-	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:67)
 	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:60)
 	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:167)
 	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:60)
@@ -216,10 +180,46 @@ w: ⚠️ Unused Kotlin Source Sets
 	at org.gradle.launcher.daemon.server.DaemonStateCoordinator.lambda$runCommand$0(DaemonStateCoordinator.java:321)
 	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:65)
 	at org.gradle.internal.concurrent.AbstractManagedExecutor$1.run(AbstractManagedExecutor.java:47)
-Caused by: org.gradle.plugin.management.internal.InvalidPluginRequestException: The request for this plugin could not be satisfied because the plugin is already on the classpath with an unknown version, so compatibility cannot be checked.
-	at org.gradle.plugin.use.resolve.internal.AlreadyOnClasspathPluginResolver.resolve(AlreadyOnClasspathPluginResolver.java:88)
-	at org.gradle.plugin.use.internal.DefaultPluginRequestApplicator.resolvePluginRequest(DefaultPluginRequestApplicator.java:190)
-	... 196 more
+Caused by: org.gradle.api.internal.plugins.PluginApplicationException: Failed to apply plugin 'org.jetbrains.kotlin.android'.
+	at org.gradle.api.internal.plugins.DefaultPluginManager.doApply(DefaultPluginManager.java:177)
+	at org.gradle.api.internal.plugins.DefaultPluginManager.apply(DefaultPluginManager.java:139)
+	at org.gradle.plugin.use.resolve.internal.ClassPathPluginResolution.applyTo(ClassPathPluginResolution.java:49)
+	at org.gradle.plugin.use.internal.DefaultPluginRequestApplicator$ApplyAction.apply(DefaultPluginRequestApplicator.java:161)
+	... 197 more
+Caused by: org.gradle.api.InvalidUserCodeException: ⛔ Failed to apply plugin 'org.jetbrains.kotlin.android'
+The 'org.jetbrains.kotlin.android' plugin is no longer required for Kotlin support since AGP 9.0.
+Solution: Remove the 'org.jetbrains.kotlin.android' plugin from this project's build file: engine/newtube/sharedutils/build.gradle.kts.
+See https://kotl.in/gradle/agp-built-in-kotlin for more details.
+	at org.jetbrains.kotlin.gradle.plugin.diagnostics.RenderReportedDiagnosticsKt.createAnExceptionForFatalDiagnostic(renderReportedDiagnostics.kt:69)
+	at org.jetbrains.kotlin.gradle.plugin.diagnostics.KotlinToolingDiagnosticsCollector.handleDiagnostic(KotlinToolingDiagnosticsCollector.kt:100)
+	at org.jetbrains.kotlin.gradle.plugin.diagnostics.KotlinToolingDiagnosticsCollector.handleDiagnostic$default(KotlinToolingDiagnosticsCollector.kt:77)
+	at org.jetbrains.kotlin.gradle.plugin.diagnostics.KotlinToolingDiagnosticsCollector.report(KotlinToolingDiagnosticsCollector.kt:56)
+	at org.jetbrains.kotlin.gradle.plugin.diagnostics.KotlinToolingDiagnosticsCollector.report$default(KotlinToolingDiagnosticsCollector.kt:49)
+	at org.jetbrains.kotlin.gradle.plugin.diagnostics.KotlinToolingDiagnosticsCollectorKt.reportDiagnostic(KotlinToolingDiagnosticsCollector.kt:119)
+	at org.jetbrains.kotlin.gradle.internal.diagnostics.AgpWithBuiltInKotlinAppliedCheck.runAgpWithBuiltInKotlinIfAppliedCheck(AgpWithBuiltInKotlinAppliedCheck.kt:31)
+	at org.jetbrains.kotlin.gradle.internal.diagnostics.AgpWithBuiltInKotlinAppliedCheck.runAgpWithBuiltInKotlinIfAppliedCheck$default(AgpWithBuiltInKotlinAppliedCheck.kt:22)
+	at org.jetbrains.kotlin.gradle.plugin.KotlinBasePluginWrapper.apply(KotlinPluginWrapper.kt:303)
+	at org.jetbrains.kotlin.gradle.plugin.KotlinAndroidPluginWrapper.apply(PluginWrappers.kt:28)
+	at org.jetbrains.kotlin.gradle.plugin.KotlinAndroidPluginWrapper.apply(PluginWrappers.kt:22)
+	at org.gradle.api.internal.plugins.ImperativeOnlyPluginTarget.applyImperative(ImperativeOnlyPluginTarget.java:54)
+	at org.gradle.api.internal.plugins.RuleBasedPluginTarget.applyImperative(RuleBasedPluginTarget.java:52)
+	at org.gradle.api.internal.plugins.DefaultPluginManager.addPlugin(DefaultPluginManager.java:191)
+	at org.gradle.api.internal.plugins.DefaultPluginManager.access$200(DefaultPluginManager.java:53)
+	at org.gradle.api.internal.plugins.DefaultPluginManager$AddPluginBuildOperation.run(DefaultPluginManager.java:286)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$1.execute(DefaultBuildOperationRunner.java:30)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$1.execute(DefaultBuildOperationRunner.java:27)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:67)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner$2.execute(DefaultBuildOperationRunner.java:60)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:167)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.execute(DefaultBuildOperationRunner.java:60)
+	at org.gradle.internal.operations.DefaultBuildOperationRunner.run(DefaultBuildOperationRunner.java:48)
+	at org.gradle.api.internal.plugins.DefaultPluginManager.lambda$doApply$0(DefaultPluginManager.java:170)
+	at org.gradle.internal.code.DefaultUserCodeApplicationContext.apply(DefaultUserCodeApplicationContext.java:44)
+	at org.gradle.api.internal.plugins.DefaultPluginManager.doApply(DefaultPluginManager.java:169)
+	... 200 more
+Caused by: java.lang.Throwable
+	at org.jetbrains.kotlin.gradle.internal.diagnostics.AgpWithBuiltInKotlinAppliedCheck.runAgpWithBuiltInKotlinIfAppliedCheck(AgpWithBuiltInKotlinAppliedCheck.kt:34)
+	... 219 more
 
 
 Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
@@ -228,6 +228,6 @@ You can use '--warning-mode all' to show the individual deprecation warnings and
 
 For more on this, please refer to https://docs.gradle.org/9.8.2/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
 
-BUILD FAILED in 1m 42s
+BUILD FAILED in 1m 43s
 3 actionable tasks: 3 executed
 Configuration cache entry stored.
