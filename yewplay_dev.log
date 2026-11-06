@@ -1,7 +1,7 @@
 branch: yewplay/dev
-sha: 38bc2c2b0764ca094d0fd3b32a535bcb8e22819c
+sha: cba11ce9405f5783d882bb4e585643104e0b6ac9
 outcome: success
-run: https://github.com/YewPlay/Yewplay/actions/runs/42138434078
+run: https://github.com/YewPlay/Yewplay/actions/runs/42140058826
 
 == errors ==
 
@@ -149,22 +149,22 @@ w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/us/shandian/giga/u
 > Task :feature:search:bundleAndroidMainLocalLintAar
 > Task :feature:settings:extractAndroidMainAnnotations
 > Task :feature:settings:mergeAndroidMainJavaResource
+> Task :app:mergeLibDexDebug
 > Task :feature:settings:syncAndroidMainLibJars
 > Task :feature:settings:bundleAndroidMainLocalLintAar
 > Task :feature:subscriptions:extractAndroidMainAnnotations
-> Task :feature:subscriptions:mergeAndroidMainJavaResource
-> Task :feature:subscriptions:syncAndroidMainLibJars
-> Task :feature:subscriptions:bundleAndroidMainLocalLintAar
 > Task :core:designsystem:createFullJarAndroidMain
+> Task :feature:subscriptions:mergeAndroidMainJavaResource
 > Task :feature:channel:createFullJarAndroidMain
 > Task :feature:downloads:createFullJarAndroidMain
 > Task :feature:home:createFullJarAndroidMain
+> Task :feature:subscriptions:syncAndroidMainLibJars
 > Task :feature:library:createFullJarAndroidMain
+> Task :feature:subscriptions:bundleAndroidMainLocalLintAar
 > Task :feature:playlist:createFullJarAndroidMain
-> Task :feature:search:createFullJarAndroidMain
 > Task :feature:settings:createFullJarAndroidMain
+> Task :feature:search:createFullJarAndroidMain
 > Task :feature:subscriptions:createFullJarAndroidMain
-> Task :app:mergeLibDexDebug
 > Task :shared:lintAnalyzeAndroidHostTest
 
 > Task :app:kspDebugKotlin
@@ -288,9 +288,9 @@ Note: Recompile with -Xlint:unchecked for details.
 > Task :app:copyRoomSchemas NO-SOURCE
 > Task :app:processDebugJavaRes
 > Task :app:bundleDebugClassesToCompileJar
-> Task :app:generateDebugAndroidTestLintModel
 > Task :app:generateDebugLintReportModel
 > Task :app:generateDebugUnitTestLintModel
+> Task :app:generateDebugAndroidTestLintModel
 > Task :app:mergeDebugJavaResource
 
 > Task :app:lintAnalyzeDebug
@@ -318,6 +318,6 @@ You can use '--warning-mode all' to show the individual deprecation warnings and
 
 For more on this, please refer to https://docs.gradle.org/9.8.2/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
 
-BUILD SUCCESSFUL in 6m 23s
+BUILD SUCCESSFUL in 4m 5s
 257 actionable tasks: 257 executed
 Configuration cache entry stored.
