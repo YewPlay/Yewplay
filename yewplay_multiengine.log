@@ -1,34 +1,15 @@
 branch: yewplay/multiengine
-sha: eabfe9cd6cc447878e3b8fc25ae74940bf7530a0
+sha: 0fbfc6a9b64f4f17f474127c077acdb18add0d5a
 outcome: failure
-run: https://github.com/YewPlay/Yewplay/actions/runs/42251669824
+run: https://github.com/YewPlay/Yewplay/actions/runs/42253336295
 
 == errors ==
-/home/runner/work/Yewplay/Yewplay/engine/newtube/sharedutils/src/main/java/com/liskovsoft/sharedutils/okhttp/PublicDnsResolver.java:102: error: incompatible types: org.xbill.DNS.Record[] cannot be converted to okhttp3.Dns.Record[]
-/home/runner/work/Yewplay/Yewplay/engine/newtube/sharedutils/src/main/java/com/liskovsoft/sharedutils/okhttp/PublicDnsResolver.java:107: error: incompatible types: Record cannot be converted to ARecord
-/home/runner/work/Yewplay/Yewplay/engine/newtube/sharedutils/src/main/java/com/liskovsoft/sharedutils/okhttp/PublicDnsResolver.java:108: error: incompatible types: Record cannot be converted to ARecord
-/home/runner/work/Yewplay/Yewplay/engine/newtube/sharedutils/src/main/java/com/liskovsoft/sharedutils/okhttp/PublicDnsResolver.java:109: error: incompatible types: Record cannot be converted to AAAARecord
-/home/runner/work/Yewplay/Yewplay/engine/newtube/sharedutils/src/main/java/com/liskovsoft/sharedutils/okhttp/PublicDnsResolver.java:110: error: incompatible types: Record cannot be converted to AAAARecord
-> Task :engine:newtube:sharedutils:compileDebugJavaWithJavac FAILED
-> Task :app:processDebugMainManifest FAILED
 /home/runner/work/Yewplay/Yewplay/app/src/debug/AndroidManifest.xml Error:
-* What went wrong:
-Execution failed for task ':engine:newtube:sharedutils:compileDebugJavaWithJavac' (registered by plugin 'com.android.internal.library').
-  /home/runner/work/Yewplay/Yewplay/engine/newtube/sharedutils/src/main/java/com/liskovsoft/sharedutils/okhttp/PublicDnsResolver.java:102: error: incompatible types: org.xbill.DNS.Record[] cannot be converted to okhttp3.Dns.Record[]
-  /home/runner/work/Yewplay/Yewplay/engine/newtube/sharedutils/src/main/java/com/liskovsoft/sharedutils/okhttp/PublicDnsResolver.java:107: error: incompatible types: Record cannot be converted to ARecord
-  /home/runner/work/Yewplay/Yewplay/engine/newtube/sharedutils/src/main/java/com/liskovsoft/sharedutils/okhttp/PublicDnsResolver.java:108: error: incompatible types: Record cannot be converted to ARecord
-  /home/runner/work/Yewplay/Yewplay/engine/newtube/sharedutils/src/main/java/com/liskovsoft/sharedutils/okhttp/PublicDnsResolver.java:109: error: incompatible types: Record cannot be converted to AAAARecord
-  /home/runner/work/Yewplay/Yewplay/engine/newtube/sharedutils/src/main/java/com/liskovsoft/sharedutils/okhttp/PublicDnsResolver.java:110: error: incompatible types: Record cannot be converted to AAAARecord
-org.gradle.api.tasks.TaskExecutionException: Execution failed for task ':engine:newtube:sharedutils:compileDebugJavaWithJavac' (registered by plugin 'com.android.internal.library').
-/home/runner/work/Yewplay/Yewplay/engine/newtube/sharedutils/src/main/java/com/liskovsoft/sharedutils/okhttp/PublicDnsResolver.java:102: error: incompatible types: org.xbill.DNS.Record[] cannot be converted to okhttp3.Dns.Record[]
-/home/runner/work/Yewplay/Yewplay/engine/newtube/sharedutils/src/main/java/com/liskovsoft/sharedutils/okhttp/PublicDnsResolver.java:107: error: incompatible types: Record cannot be converted to ARecord
-/home/runner/work/Yewplay/Yewplay/engine/newtube/sharedutils/src/main/java/com/liskovsoft/sharedutils/okhttp/PublicDnsResolver.java:108: error: incompatible types: Record cannot be converted to ARecord
-/home/runner/work/Yewplay/Yewplay/engine/newtube/sharedutils/src/main/java/com/liskovsoft/sharedutils/okhttp/PublicDnsResolver.java:109: error: incompatible types: Record cannot be converted to AAAARecord
-/home/runner/work/Yewplay/Yewplay/engine/newtube/sharedutils/src/main/java/com/liskovsoft/sharedutils/okhttp/PublicDnsResolver.java:110: error: incompatible types: Record cannot be converted to AAAARecord
+> Task :app:processDebugMainManifest FAILED
 * What went wrong:
 Execution failed for task ':app:processDebugMainManifest' (registered by plugin 'com.android.internal.application').
 org.gradle.api.tasks.TaskExecutionException: Execution failed for task ':app:processDebugMainManifest' (registered by plugin 'com.android.internal.application').
-BUILD FAILED in 4m 54s
+BUILD FAILED in 4m 31s
 
 == warnings ==
 w: file:///home/runner/work/Yewplay/Yewplay/app/build.gradle.kts:155:30: 'fun provideDelegate(thisRef: Any?, property: KProperty<*>): ExistingDomainObjectDelegate<Configuration>' is deprecated. Use 'val element = create(name)' instead. See the Gradle 9.6 upgrading guide.
@@ -55,40 +36,48 @@ w: ⚠️ Unused Kotlin Source Sets
 w: Koin compiler plugin: Kotlin 2.4.21 is newer than the newest verified version (2.4.20) — proceeding with the 2.4.20 adapter. If compilation fails, check for a koin-compiler-plugin update. Verified versions: 2.3.20, 2.4.0, 2.4.10, 2.4.20.
 
 == tail ==
-	at org.gradle.internal.execution.steps.LoadPreviousExecutionStateStep.executeMutable(LoadPreviousExecutionStateStep.java:36)
-	at org.gradle.internal.execution.steps.LoadPreviousExecutionStateStep.executeMutable(LoadPreviousExecutionStateStep.java:23)
-	at org.gradle.internal.execution.steps.MutableStep.execute(MutableStep.java:26)
-	at org.gradle.internal.execution.steps.HandleStaleOutputsStep.executeMutable(HandleStaleOutputsStep.java:77)
-	at org.gradle.internal.execution.steps.HandleStaleOutputsStep.executeMutable(HandleStaleOutputsStep.java:43)
-	at org.gradle.internal.execution.steps.MutableStep.execute(MutableStep.java:26)
-	at org.gradle.internal.execution.steps.AssignMutableWorkspaceStep.lambda$executeMutable$0(AssignMutableWorkspaceStep.java:34)
-	at org.gradle.api.internal.tasks.execution.TaskExecution$4.withWorkspace(TaskExecution.java:314)
-	at org.gradle.internal.execution.steps.AssignMutableWorkspaceStep.executeMutable(AssignMutableWorkspaceStep.java:30)
-	at org.gradle.internal.execution.steps.AssignMutableWorkspaceStep.executeMutable(AssignMutableWorkspaceStep.java:21)
-	at org.gradle.internal.execution.steps.MutableStep.execute(MutableStep.java:26)
-	at org.gradle.internal.execution.steps.ChoosePipelineStep.execute(ChoosePipelineStep.java:40)
-	at org.gradle.internal.execution.steps.ChoosePipelineStep.execute(ChoosePipelineStep.java:23)
-	at org.gradle.internal.execution.steps.ExecuteWorkBuildOperationFiringStep.lambda$execute$2(ExecuteWorkBuildOperationFiringStep.java:67)
-	at org.gradle.internal.execution.steps.ExecuteWorkBuildOperationFiringStep.execute(ExecuteWorkBuildOperationFiringStep.java:67)
-	at org.gradle.internal.execution.steps.ExecuteWorkBuildOperationFiringStep.execute(ExecuteWorkBuildOperationFiringStep.java:39)
-	at org.gradle.internal.execution.steps.IdentityCacheStep.execute(IdentityCacheStep.java:46)
-	at org.gradle.internal.execution.steps.IdentityCacheStep.execute(IdentityCacheStep.java:34)
-	at org.gradle.internal.execution.steps.IdentifyStep.execute(IdentifyStep.java:56)
-	at org.gradle.internal.execution.steps.IdentifyStep.execute(IdentifyStep.java:38)
-	at org.gradle.internal.execution.impl.DefaultExecutionEngine$1.execute(DefaultExecutionEngine.java:68)
-	at org.gradle.api.internal.tasks.execution.DefaultTaskNodeExecutor.doExecute(DefaultTaskNodeExecutor.java:364)
-	... 25 more
+> Task :feature:library:processAndroidMainManifest
+> Task :feature:playlist:processAndroidMainManifest
+> Task :feature:search:processAndroidMainManifest
+> Task :feature:settings:processAndroidMainManifest
+> Task :feature:subscriptions:processAndroidMainManifest
+> Task :engine:newtube:mediaserviceinterfaces:extractDeepLinksDebug
+> Task :engine:newtube:mediaserviceinterfaces:processDebugManifest
+> Task :engine:newtube:sharedutils:extractDeepLinksDebug
+> Task :engine:newtube:sharedutils:processDebugManifest
+> Task :engine:newtube:youtubeapi:extractDeepLinksDebug
+> Task :engine:newtube:youtubeapi:processDebugManifest
+> Task :app:mergeDebugResources
+> Task :engine:newtube:sharedutils:bundleLibCompileToJarDebug
+> Task :engine:newtube:mediaserviceinterfaces:compileDebugKotlin NO-SOURCE
 
-==============================================================================
+> Task :app:processDebugMainManifest
+/home/runner/work/Yewplay/Yewplay/app/src/debug/AndroidManifest.xml Error:
+	uses-sdk:minSdkVersion 23 cannot be smaller than version 24 declared in library [org.chromium.net:cronet-api:500.1.0] /home/runner/.gradle/caches/9.8.2/transforms/fb17f62998264eee206513766590988c/transformed/cronet-api-500.1.0/AndroidManifest.xml as the library might be using APIs not available in 23
+	Suggestion: use a compatible library with a minSdk of at most 23,
+		or increase this project's minSdk version to at least 24,
+		or use tools:overrideLibrary="com.google.net.cronet.granular.cronet_api" to force usage (may lead to runtime failures)
 
-2: Task failed with an exception.
------------
+See https://developer.android.com/r/studio-ui/build/manifest-merger for more information about the manifest merger.
+
+
+> Task :app:processDebugMainManifest FAILED
+> Task :app:dataBindingGenBaseClassesDebug
+> Task :engine:newtube:mediaserviceinterfaces:compileDebugJavaWithJavac
+
+> Task :shared:compileAndroidMain
+w: Koin compiler plugin: Kotlin 2.4.21 is newer than the newest verified version (2.4.20) — proceeding with the 2.4.20 adapter. If compilation fails, check for a koin-compiler-plugin update. Verified versions: 2.3.20, 2.4.0, 2.4.10, 2.4.20.
+
+[Incubating] Problems report is available at: file:///home/runner/work/Yewplay/Yewplay/build/reports/problems/problems-report.html
+
+FAILURE: Build failed with an exception.
+
 * What went wrong:
 Execution failed for task ':app:processDebugMainManifest' (registered by plugin 'com.android.internal.application').
-> Manifest merger failed : uses-sdk:minSdkVersion 23 cannot be smaller than version 24 declared in library [com.google.net.cronet:cronet-okhttp:0.1.2] /home/runner/.gradle/caches/9.8.2/transforms/8bea0c51ff41f5f8c0ddf1651a69d07d/transformed/cronet-okhttp-0.1.2/AndroidManifest.xml as the library might be using APIs not available in 23
+> Manifest merger failed : uses-sdk:minSdkVersion 23 cannot be smaller than version 24 declared in library [org.chromium.net:cronet-api:500.1.0] /home/runner/.gradle/caches/9.8.2/transforms/fb17f62998264eee206513766590988c/transformed/cronet-api-500.1.0/AndroidManifest.xml as the library might be using APIs not available in 23
   	Suggestion: use a compatible library with a minSdk of at most 23,
   		or increase this project's minSdk version to at least 24,
-  		or use tools:overrideLibrary="com.google.net.cronet.okhttptransport" to force usage (may lead to runtime failures)
+  		or use tools:overrideLibrary="com.google.net.cronet.granular.cronet_api" to force usage (may lead to runtime failures)
 
 * Try:
 > Run with --info or --debug option to get more log output.
@@ -125,21 +114,16 @@ org.gradle.api.tasks.TaskExecutionException: Execution failed for task ':app:pro
 	at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.run(DefaultPlanExecutor.java:392)
 	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:65)
 	at org.gradle.internal.concurrent.AbstractManagedExecutor$1.run(AbstractManagedExecutor.java:47)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
-	at java.base/java.lang.Thread.run(Thread.java:1583)
-Caused by: java.lang.RuntimeException: Manifest merger failed : uses-sdk:minSdkVersion 23 cannot be smaller than version 24 declared in library [com.google.net.cronet:cronet-okhttp:0.1.2] /home/runner/.gradle/caches/9.8.2/transforms/8bea0c51ff41f5f8c0ddf1651a69d07d/transformed/cronet-okhttp-0.1.2/AndroidManifest.xml as the library might be using APIs not available in 23
+Caused by: java.lang.RuntimeException: Manifest merger failed : uses-sdk:minSdkVersion 23 cannot be smaller than version 24 declared in library [org.chromium.net:cronet-api:500.1.0] /home/runner/.gradle/caches/9.8.2/transforms/fb17f62998264eee206513766590988c/transformed/cronet-api-500.1.0/AndroidManifest.xml as the library might be using APIs not available in 23
 	Suggestion: use a compatible library with a minSdk of at most 23,
 		or increase this project's minSdk version to at least 24,
-		or use tools:overrideLibrary="com.google.net.cronet.okhttptransport" to force usage (may lead to runtime failures)
+		or use tools:overrideLibrary="com.google.net.cronet.granular.cronet_api" to force usage (may lead to runtime failures)
 	at com.android.build.gradle.internal.tasks.manifest.ManifestHelperKt.mergeManifests(ManifestHelper.kt:132)
 	at com.android.build.gradle.internal.tasks.manifest.ManifestHelperKt.mergeManifests$default(ManifestHelper.kt:44)
 	at com.android.build.gradle.tasks.ProcessApplicationManifest.doTaskAction(ProcessApplicationManifest.kt:154)
 	at com.android.build.gradle.internal.tasks.NonIncrementalTask$taskAction$$inlined$recordTaskAction$1.invoke(BaseTask.kt:72)
 	at com.android.build.gradle.internal.tasks.Blocks.recordSpan(Blocks.java:51)
 	at com.android.build.gradle.internal.tasks.NonIncrementalTask.taskAction(NonIncrementalTask.kt:71)
-	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
 	at org.gradle.internal.reflect.JavaMethod.invoke(JavaMethod.java:125)
 	at org.gradle.api.internal.project.taskfactory.StandardTaskAction.doExecute(StandardTaskAction.java:58)
 	at org.gradle.api.internal.project.taskfactory.StandardTaskAction.execute(StandardTaskAction.java:51)
@@ -195,7 +179,6 @@ Caused by: java.lang.RuntimeException: Manifest merger failed : uses-sdk:minSdkV
 	at org.gradle.internal.execution.steps.MutableStep.execute(MutableStep.java:26)
 	at org.gradle.internal.execution.steps.SkipUpToDateStep.executeBecause(SkipUpToDateStep.java:75)
 	at org.gradle.internal.execution.steps.SkipUpToDateStep.lambda$execute$2(SkipUpToDateStep.java:53)
-	at java.base/java.util.Optional.orElseGet(Optional.java:364)
 	at org.gradle.internal.execution.steps.SkipUpToDateStep.execute(SkipUpToDateStep.java:53)
 	at org.gradle.internal.execution.steps.SkipUpToDateStep.execute(SkipUpToDateStep.java:35)
 	at org.gradle.internal.execution.steps.legacy.MarkSnapshottingInputsFinishedStep.execute(MarkSnapshottingInputsFinishedStep.java:37)
@@ -233,7 +216,6 @@ Caused by: java.lang.RuntimeException: Manifest merger failed : uses-sdk:minSdkV
 	at org.gradle.internal.execution.steps.ChoosePipelineStep.execute(ChoosePipelineStep.java:40)
 	at org.gradle.internal.execution.steps.ChoosePipelineStep.execute(ChoosePipelineStep.java:23)
 	at org.gradle.internal.execution.steps.ExecuteWorkBuildOperationFiringStep.lambda$execute$2(ExecuteWorkBuildOperationFiringStep.java:67)
-	at java.base/java.util.Optional.orElseGet(Optional.java:364)
 	at org.gradle.internal.execution.steps.ExecuteWorkBuildOperationFiringStep.execute(ExecuteWorkBuildOperationFiringStep.java:67)
 	at org.gradle.internal.execution.steps.ExecuteWorkBuildOperationFiringStep.execute(ExecuteWorkBuildOperationFiringStep.java:39)
 	at org.gradle.internal.execution.steps.IdentityCacheStep.execute(IdentityCacheStep.java:46)
@@ -242,9 +224,8 @@ Caused by: java.lang.RuntimeException: Manifest merger failed : uses-sdk:minSdkV
 	at org.gradle.internal.execution.steps.IdentifyStep.execute(IdentifyStep.java:38)
 	at org.gradle.internal.execution.impl.DefaultExecutionEngine$1.execute(DefaultExecutionEngine.java:68)
 	at org.gradle.api.internal.tasks.execution.DefaultTaskNodeExecutor.doExecute(DefaultTaskNodeExecutor.java:364)
-	... 28 more
+	... 25 more
 
-==============================================================================
 
 Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
 
@@ -252,6 +233,6 @@ You can use '--warning-mode all' to show the individual deprecation warnings and
 
 For more on this, please refer to https://docs.gradle.org/9.8.2/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
 
-BUILD FAILED in 4m 54s
-119 actionable tasks: 119 executed
+BUILD FAILED in 4m 31s
+121 actionable tasks: 121 executed
 Configuration cache entry stored.
