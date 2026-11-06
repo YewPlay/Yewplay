@@ -80,8 +80,15 @@ import org.schabi.newpipe.player.helper.PlayerHolder
 import org.schabi.newpipe.player.playqueue.PlayQueue
 import org.schabi.newpipe.settings.UpdateSettingsFragment
 import org.schabi.newpipe.settings.migration.MigrationManager
-import org.schabi.newpipe.util.Constants
 import org.schabi.newpipe.util.DeviceUtils
+import org.schabi.newpipe.util.KEY_LINK_TYPE
+import org.schabi.newpipe.util.KEY_MAIN_PAGE_CHANGE
+import org.schabi.newpipe.util.KEY_OPEN_SEARCH
+import org.schabi.newpipe.util.KEY_SEARCH_STRING
+import org.schabi.newpipe.util.KEY_SERVICE_ID
+import org.schabi.newpipe.util.KEY_THEME_CHANGE
+import org.schabi.newpipe.util.KEY_TITLE
+import org.schabi.newpipe.util.KEY_URL
 import org.schabi.newpipe.util.Localization
 import org.schabi.newpipe.util.NavigationHelper
 import org.schabi.newpipe.util.PermissionHelper
@@ -176,13 +183,13 @@ class MainActivity : AppCompatActivity() {
             NotificationWorker.initialize(this)
         }
         if (!UpdateSettingsFragment.wasUserAskedForConsent(this) &&
-            !App.getInstance().isFirstRun &&
-            ReleaseVersionUtil.isReleaseApk()
+            !App.instance.isFirstRun &&
+            ReleaseVersionUtil.isReleaseApk
         ) {
             UpdateSettingsFragment.askForConsentToUpdateChecks(this)
         }
 
-        // ReleaseVersionUtil.isReleaseApk() will be true only for main official build
+        // ReleaseVersionUtil.isReleaseApk will be true only for main official build
         // We want every release build (nightly, nightly-refactor) to show the popup
         if (!DEBUG) {
             showKeepAndroidDialog()
@@ -223,7 +230,7 @@ class MainActivity : AppCompatActivity() {
         toolbar = Toolbar(androidx.appcompat.view.ContextThemeWrapper(this, R.style.ToolbarTheme))
             .apply {
                 id = R.id.toolbar
-                gravity = Gravity.CENTER_VERTICAL
+                setGravity(Gravity.CENTER_VERTICAL)
                 minimumHeight = actionBarSize
                 setBackgroundColor(resolveAttrColor(androidx.appcompat.R.attr.colorPrimary))
                 layoutParams = LinearLayout.LayoutParams(
@@ -296,7 +303,7 @@ class MainActivity : AppCompatActivity() {
     override fun onPostCreate(savedInstanceState: Bundle?) {
         super.onPostCreate(savedInstanceState)
 
-        val app = App.getInstance()
+        val app = App.instance
 
         if (sharedPreferences.getBoolean(app.getString(R.string.update_app_key), false) &&
             sharedPreferences.getBoolean(app.getString(R.string.update_check_consent_key), false)
@@ -335,19 +342,19 @@ class MainActivity : AppCompatActivity() {
         Localization.initPrettyTime(Localization.resolvePrettyTime())
         super.onResume()
 
-        if (sharedPreferences.getBoolean(Constants.KEY_THEME_CHANGE, false)) {
+        if (sharedPreferences.getBoolean(KEY_THEME_CHANGE, false)) {
             if (DEBUG) {
                 Log.d(TAG, "Theme has changed, recreating activity...")
             }
-            sharedPreferences.edit().putBoolean(Constants.KEY_THEME_CHANGE, false).apply()
+            sharedPreferences.edit().putBoolean(KEY_THEME_CHANGE, false).apply()
             ActivityCompat.recreate(this)
         }
 
-        if (sharedPreferences.getBoolean(Constants.KEY_MAIN_PAGE_CHANGE, false)) {
+        if (sharedPreferences.getBoolean(KEY_MAIN_PAGE_CHANGE, false)) {
             if (DEBUG) {
                 Log.d(TAG, "main page has changed, recreating main fragment...")
             }
-            sharedPreferences.edit().putBoolean(Constants.KEY_MAIN_PAGE_CHANGE, false).apply()
+            sharedPreferences.edit().putBoolean(KEY_MAIN_PAGE_CHANGE, false).apply()
             NavigationHelper.openMainActivity(this)
         }
     }
@@ -528,7 +535,7 @@ class MainActivity : AppCompatActivity() {
             Log.d(TAG, "initFragments() called")
         }
         StateSaver.clearStateFiles()
-        if (intent != null && intent.hasExtra(Constants.KEY_LINK_TYPE)) {
+        if (intent != null && intent.hasExtra(KEY_LINK_TYPE)) {
             // When user watch a video inside popup and then tries to open the video in main
             // player while the app is closed he will see a blank fragment on place of kiosk.
             // Let's open it first
@@ -744,12 +751,12 @@ class MainActivity : AppCompatActivity() {
                 Log.d(TAG, "handleIntent() called with: intent = [$intent]")
             }
 
-            if (intent.hasExtra(Constants.KEY_LINK_TYPE)) {
-                val url = intent.getStringExtra(Constants.KEY_URL)
-                val serviceId = intent.getIntExtra(Constants.KEY_SERVICE_ID, 0)
-                val title = intent.getStringExtra(Constants.KEY_TITLE) ?: ""
+            if (intent.hasExtra(KEY_LINK_TYPE)) {
+                val url = intent.getStringExtra(KEY_URL)
+                val serviceId = intent.getIntExtra(KEY_SERVICE_ID, 0)
+                val title = intent.getStringExtra(KEY_TITLE) ?: ""
 
-                val linkType = intent.getSerializableExtra(Constants.KEY_LINK_TYPE)
+                val linkType = intent.getSerializableExtra(KEY_LINK_TYPE)
                     as StreamingService.LinkType
                 when (linkType) {
                     StreamingService.LinkType.STREAM -> {
@@ -794,9 +801,9 @@ class MainActivity : AppCompatActivity() {
                     else -> { // LinkType.NONE: nothing to open
                     }
                 }
-            } else if (intent.hasExtra(Constants.KEY_OPEN_SEARCH)) {
-                val searchString = intent.getStringExtra(Constants.KEY_SEARCH_STRING) ?: ""
-                val serviceId = intent.getIntExtra(Constants.KEY_SERVICE_ID, 0)
+            } else if (intent.hasExtra(KEY_OPEN_SEARCH)) {
+                val searchString = intent.getStringExtra(KEY_SEARCH_STRING) ?: ""
+                val serviceId = intent.getIntExtra(KEY_SERVICE_ID, 0)
                 NavigationHelper.openSearchFragment(
                     supportFragmentManager,
                     serviceId,
@@ -822,7 +829,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun openMiniPlayerUponPlayerStarted() {
-        if (intent.getSerializableExtra(Constants.KEY_LINK_TYPE) == StreamingService.LinkType.STREAM) {
+        if (intent.getSerializableExtra(KEY_LINK_TYPE) == StreamingService.LinkType.STREAM) {
             // handleIntent() already takes care of opening video detail fragment
             // due to an intent containing a STREAM link
             return
