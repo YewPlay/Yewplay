@@ -89,7 +89,9 @@ abstract class VideoPlayerUi(
         views.controlsView.setContent {
             YpTheme(
                 themeKey = YpThemePrefs.themeKey(context),
-                nightThemeKey = YpThemePrefs.nightThemeKey(context)
+                nightThemeKey = YpThemePrefs.nightThemeKey(context),
+                // the chrome floats over the video surface: no opaque background here
+                opaqueBackground = false
             ) {
                 val state by chromeState.collectAsState()
                 YpPlayerChrome(
