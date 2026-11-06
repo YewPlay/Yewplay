@@ -31,6 +31,7 @@ import org.acra.config.CoreConfigurationBuilder
 import org.schabi.newpipe.engine.EngineManager
 import org.schabi.newpipe.engine.SharedPreferencesEnginePrefs
 import org.schabi.newpipe.engine.impl.NewPipeEngine
+import org.schabi.newpipe.engine.impl.NewTubeEngine
 import org.schabi.newpipe.error.ReCaptchaActivity
 import org.schabi.newpipe.extractor.NewPipe
 import org.schabi.newpipe.extractor.downloader.Downloader
@@ -114,6 +115,7 @@ open class App :
         EngineManager
             .init(SharedPreferencesEnginePrefs(this))
             .register(NewPipeEngine())
+            .register(NewTubeEngine(this))
 
         ServiceHelper.initServices(this)
 

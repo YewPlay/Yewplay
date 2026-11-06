@@ -247,6 +247,9 @@ dependencies {
     implementation(libs.newpipe.extractor)
     implementation(libs.newpipe.filepicker)
 
+    // YewPlay MultiEngine — NewTube engine (vendored MediaServiceCore, MIT)
+    implementation(projects.engine.newtube.youtubeapi)
+
     // Checkstyle
     checkstyle(libs.puppycrawl.checkstyle)
     debugImplementation(libs.leakcanary)

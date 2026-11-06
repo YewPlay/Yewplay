@@ -93,3 +93,24 @@ Ações: manter cabeçalhos de copyright nos arquivos vendidos; registrar origem
 ### Conclusão da auditoria
 
 A integração é **tecnicamente viável** com esforço real e delimitado: NewTube entra como biblioteca (risco baixo/médio — build JitPack com submódulo), FlowTube entra como vendor seletivo do pacote `innertube` (risco médio — ~20 acoplamentos a resolver), Media3 migra por camada paralela (risco controlado, sem tocar no motor de extração).
+
+---
+
+## Adendo — FASE 6 (NewTube): decisão de integração por vendor
+
+- **JitPack descartado**: o build do `aleixrodriala/newtube` falha no JitPack
+  (`publishToMavenLocal` inexistente; submódulos git não resolvidos). Log consultado em
+  2026-11-06. Alternativa por fork próprio foi rejeitada para não criar dependência externa frágil.
+- **Vendor em `engine/newtube/`** (MIT, atribuição mantida nos fontes):
+  - `mediaserviceinterfaces` + `youtubeapi` de `aleixrodriala/MediaServiceCore` @ `52fecea0`
+    (NewTube é fork de yuliskov/SmartTube; copyright yuliskov 2020-present, MIT).
+  - `sharedutils` de `yuliskov/SharedModules` @ master (2026-11), MIT.
+- **Adaptações mínimas** (nenhuma no código-fonte): builds Groovy → `build.gradle.kts` do padrão
+  YewPlay; remoção do atributo `package` do manifest do sharedutils (obrigatório desde AGP 8);
+  j2v8 consumido do Maven Central (`com.eclipsesource.j2v8:j2v8:6.2.1`) em vez do módulo local
+  com 116 MB de `.so`; nanojson resolvido pelo fork TeamNewPipe já presente no app
+  (mesmo pacote `com.grack.nanojson`, evita classe duplicada no dex).
+- **Tamanho**: o j2v8 (V8) adiciona dezenas de MB ao APK, mas é exigido em runtime pelos
+  resolvedores sig/nsig/poToken do youtubeapi — sem ele o motor não reproduz.
+- **Inicialização**: `GlobalPreferences.instance(context)` é obrigatório antes do primeiro uso
+  (`MediaServiceData` lança `IllegalStateException` sem ele); feito lazy no `NewTubeEngine`.

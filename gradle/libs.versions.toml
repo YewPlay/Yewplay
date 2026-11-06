@@ -49,6 +49,16 @@ mockitoCore = "5.24.0"
 multiplatform = "1.12.2"
 navigation3 = "1.1.2"
 okhttp = "5.5.0"
+# YewPlay MultiEngine — NewTube engine (vendored MediaServiceCore)
+retrofit = "3.0.0"
+gson = "2.13.2"
+json-path = "2.9.0"
+commons-io = "2.8.0"
+cronet-api = "500.1.0"
+cronet-okhttp = "0.1.2"
+florianingerl-regex = "1.1.11"
+j2v8 = "6.2.1"
+androidx-annotation = "1.9.1"
 phoenix = "3.0.0"
 preference = "1.2.1"
 prettytime = "5.0.8.Final"
@@ -149,6 +159,7 @@ koin-annotations = { module = "io.insert-koin:koin-annotations", version.ref = "
 koin-compose-navigation3 = { module = "io.insert-koin:koin-compose-navigation3", version.ref = "koin" }
 koin-compose-viewmodel = { module = "io.insert-koin:koin-compose-viewmodel", version.ref = "koin" }
 kotlin-test-core = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
+kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 kotlinx-coroutines-rx3 = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-rx3", version.ref = "kotlinx-coroutines-rx3" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization-json" }
@@ -157,6 +168,14 @@ livefront-bridge = { module = "com.github.livefront:bridge", version.ref = "brid
 mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockitoCore" }
 newpipe-extractor = { module = "com.github.TeamNewPipe:NewPipeExtractor", version.ref = "teamnewpipe-newpipe-extractor" }
 newpipe-filepicker = { module = "com.github.TeamNewPipe:NoNonsense-FilePicker", version.ref = "teamnewpipe-filepicker" }
+androidx-annotation = { module = "androidx.annotation:annotation", version.ref = "androidx-annotation" }
+chromium-cronet-api = { module = "org.chromium.net:cronet-api", version.ref = "cronet-api" }
+commons-io = { module = "commons-io:commons-io", version.ref = "commons-io" }
+eclipsesource-j2v8 = { module = "com.eclipsesource.j2v8:j2v8", version.ref = "j2v8" }
+florianingerl-regex = { module = "com.github.florianingerl.util:regex", version.ref = "florianingerl-regex" }
+google-cronet-okhttp = { module = "com.google.net.cronet:cronet-okhttp", version.ref = "cronet-okhttp" }
+google-gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
+jayway-jsonpath = { module = "com.jayway.jsonpath:json-path", version.ref = "json-path" }
 newpipe-nanojson = { module = "com.github.TeamNewPipe:nanojson", version.ref = "teamnewpipe-nanojson" }
 noties-markwon-core = { module = "io.noties.markwon:core", version.ref = "markwon" }
 noties-markwon-linkify = { module = "io.noties.markwon:linkify", version.ref = "markwon" }
@@ -172,6 +191,10 @@ squareup-leakcanary-plumber = { module = "com.squareup.leakcanary:plumber-androi
 squareup-leakcanary-watcher = { module = "com.squareup.leakcanary:leakcanary-object-watcher-android", version.ref = "leakcanary" }
 squareup-okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
 squareup-okhttp-brotli = { module = "com.squareup.okhttp3:okhttp-brotli", version.ref = "okhttp" }
+squareup-okhttp-dnsoverhttps = { module = "com.squareup.okhttp3:okhttp-dnsoverhttps", version.ref = "okhttp" }
+squareup-okhttp-logging = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okhttp" }
+squareup-retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+squareup-retrofit-converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
 touchlab-kermit = { module = "co.touchlab:kermit", version.ref = "kermit" }
 zacsweers-autoservice-compiler = { module = "dev.zacsweers.autoservice:auto-service-ksp", version.ref = "autoservice-zacsweers" }
 
@@ -180,10 +203,12 @@ about-libraries = { id = "com.mikepenz.aboutlibraries.plugin", version.ref = "ab
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-legacy-kapt = { id = "com.android.legacy-kapt", version.ref = "agp" } # Needed for statesaver
 android-library = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
+android-library-classic = { id = "com.android.library", version.ref = "agp" }
 androidx-room = { id = "androidx.room3", version.ref = "room" }
 google-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 jetbrains-compose-multiplatform = { id = "org.jetbrains.compose", version.ref = "multiplatform" }
 jetbrains-kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 jetbrains-kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 jetbrains-kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
