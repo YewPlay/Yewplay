@@ -308,6 +308,17 @@ dependencies {
     implementation(libs.google.exoplayer.smoothstreaming)
     implementation(libs.google.exoplayer.ui)
 
+    // Media3 (FASE 10): central playback infrastructure. Added side-by-side with
+    // ExoPlayer2 during the migration; ExoPlayer2 is removed at the end of FASE 11.
+    implementation(libs.androidx.media3.common)
+    implementation(libs.androidx.media3.database)
+    implementation(libs.androidx.media3.datasource)
+    implementation(libs.androidx.media3.exoplayer)
+    implementation(libs.androidx.media3.exoplayer.dash)
+    implementation(libs.androidx.media3.exoplayer.hls)
+    implementation(libs.androidx.media3.session)
+    implementation(libs.androidx.media3.ui)
+
     // Manager for complex RecyclerView layouts
 
     // Image loading
