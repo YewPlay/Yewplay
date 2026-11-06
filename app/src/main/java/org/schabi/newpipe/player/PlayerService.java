@@ -26,13 +26,13 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v4.media.MediaBrowserCompat;
 import android.support.v4.media.session.MediaSessionCompat;
+import android.support.v4.media.session.PlaybackStateCompat;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ServiceCompat;
 import androidx.media.MediaBrowserServiceCompat;
-import androidx.media3.session.MediaSession;
 
 import org.schabi.newpipe.ktx.BundleKt;
 import org.schabi.newpipe.player.mediabrowser.MediaBrowserImpl;
@@ -63,10 +63,10 @@ public final class PlayerService extends MediaBrowserServiceCompat {
     private MediaBrowserImpl mediaBrowserImpl;
     private MediaBrowserPlaybackPreparer mediaBrowserPlaybackPreparer;
 
-    // The Media3 session is created by MediaSessionPlayerUi together with the player (it needs
-    // the player's Media3 player instance) and registered here through onMediaSessionStarted().
-    @Nullable
-    private MediaSession mediaSession;
+    // Created once in onCreate() as per
+    // https://developer.android.com/training/cars/media#browser_workflow and reused with every
+    // player instance, since the service's session token can only be set once.
+    private MediaSessionCompat mediaSession;
 
     @Nullable
     private Player player;
@@ -92,12 +92,25 @@ public final class PlayerService extends MediaBrowserServiceCompat {
         ThemeHelper.setTheme(this);
 
         mediaBrowserImpl = new MediaBrowserImpl(this, this::notifyChildrenChanged);
-        mediaBrowserPlaybackPreparer = new MediaBrowserPlaybackPreparer(this);
 
-        // Note: the Media3 session is not created here, because it needs the player's Media3
-        // player instance, which is created on demand (see the comment below about not creating
-        // the player just to serve media queries). MediaSessionPlayerUi registers the session
-        // through onMediaSessionStarted() as soon as a player exists.
+        // see https://developer.android.com/training/cars/media#browser_workflow
+        // The session is created once and lives with the service: the service's session token can
+        // only be set once (MediaBrowserServiceCompat throws otherwise), while players (and their
+        // Media3 player instances) are created and destroyed on demand. MediaSessionPlayerUi
+        // bridges the current player to this session on every initPlayer().
+        mediaSession = new MediaSessionCompat(this, "MediaSessionPlayerServ");
+        setSessionToken(mediaSession.getSessionToken());
+
+        mediaBrowserPlaybackPreparer = new MediaBrowserPlaybackPreparer(
+                this,
+                this::setMediaSessionError,
+                this::clearMediaSessionError,
+                playWhenReady -> {
+                    if (player != null) {
+                        player.onPrepare();
+                    }
+                }
+        );
 
         // Note: you might be tempted to create the player instance and call startForeground here,
         // but be aware that the Android system might start the service just to perform media
@@ -200,10 +213,7 @@ public final class PlayerService extends MediaBrowserServiceCompat {
         cleanup();
 
         mediaBrowserPlaybackPreparer.dispose();
-        if (mediaSession != null) {
-            mediaSession.release();
-            mediaSession = null;
-        }
+        mediaSession.release();
         mediaBrowserImpl.dispose();
     }
 
@@ -218,10 +228,7 @@ public final class PlayerService extends MediaBrowserServiceCompat {
         }
 
         // Should already be handled by MediaSessionPlayerUi.destroyPlayer(), but just to be sure.
-        if (mediaSession != null) {
-            mediaSession.release();
-            mediaSession = null;
-        }
+        mediaSession.setActive(false);
 
         // Should already be handled by NotificationUtil.cancelNotificationAndStopForeground() in
         // NotificationPlayerUi, but let's make sure that the foreground service is stopped.
@@ -316,15 +323,39 @@ public final class PlayerService extends MediaBrowserServiceCompat {
         }
     }
     /**
-     * Called by {@link MediaSessionPlayerUi} when a Media3 session is created for the current
-     * player. The platform token is exposed to media1 browsers (e.g. Android Auto) through this
-     * service, so they keep working unchanged.
-     *
-     * @param session the Media3 session created by the player UI
+     * @return the service-lifetime media session, bridged to the current player by
+     * {@link MediaSessionPlayerUi} and exposed to media browsers (e.g. Android Auto) through
+     * this service's session token
      */
-    public void onMediaSessionStarted(@NonNull final MediaSession session) {
-        mediaSession = session;
-        setSessionToken(MediaSessionCompat.Token.fromToken(session.getPlatformToken()));
+    @NonNull
+    public MediaSessionCompat getMediaSession() {
+        return mediaSession;
+    }
+
+    /**
+     * Publishes an error playback state to the media session (used by the playback preparer to
+     * surface failures to media browsers, e.g. Android Auto).
+     *
+     * @param errorMessage the user-readable error message
+     * @param errorCode    an error code from {@link PlaybackStateCompat}
+     */
+    private void setMediaSessionError(@NonNull final CharSequence errorMessage,
+                                      final int errorCode) {
+        mediaSession.setPlaybackState(new PlaybackStateCompat.Builder()
+                .setState(PlaybackStateCompat.STATE_ERROR,
+                        PlaybackStateCompat.PLAYBACK_POSITION_UNKNOWN, 0f)
+                .setErrorMessage(errorCode, errorMessage)
+                .build());
+    }
+
+    /**
+     * Clears a session error published through {@link #setMediaSessionError}. The next playback
+     * state pushed by {@link MediaSessionPlayerUi} replaces the error state, exactly like the
+     * ExoPlayer2 connector rebuilt the state on any player event.
+     */
+    private void clearMediaSessionError() {
+        // no-op by design: MediaSessionPlayerUi re-pushes the full playback state on every
+        // player event, so a stale error never survives the next event
     }
 
     @NonNull

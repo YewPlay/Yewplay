@@ -1,29 +1,40 @@
 package org.schabi.newpipe.player.mediasession;
 
+import static android.support.v4.media.session.PlaybackStateCompat.ACTION_FAST_FORWARD;
+import static android.support.v4.media.session.PlaybackStateCompat.ACTION_PAUSE;
+import static android.support.v4.media.session.PlaybackStateCompat.ACTION_PLAY;
+import static android.support.v4.media.session.PlaybackStateCompat.ACTION_PLAY_FROM_MEDIA_ID;
+import static android.support.v4.media.session.PlaybackStateCompat.ACTION_PLAY_PAUSE;
+import static android.support.v4.media.session.PlaybackStateCompat.ACTION_PREPARE_FROM_MEDIA_ID;
+import static android.support.v4.media.session.PlaybackStateCompat.ACTION_REWIND;
+import static android.support.v4.media.session.PlaybackStateCompat.ACTION_SEEK_TO;
+import static android.support.v4.media.session.PlaybackStateCompat.ACTION_SET_REPEAT_MODE;
+import static android.support.v4.media.session.PlaybackStateCompat.ACTION_SET_SHUFFLE_MODE;
+import static android.support.v4.media.session.PlaybackStateCompat.ACTION_SKIP_TO_NEXT;
+import static android.support.v4.media.session.PlaybackStateCompat.ACTION_SKIP_TO_PREVIOUS;
+import static android.support.v4.media.session.PlaybackStateCompat.ACTION_SKIP_TO_QUEUE_ITEM;
+import static org.schabi.newpipe.MainActivity.DEBUG;
 import static org.schabi.newpipe.player.notification.NotificationConstants.ACTION_RECREATE_NOTIFICATION;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.SystemClock;
+import android.support.v4.media.MediaDescriptionCompat;
+import android.support.v4.media.MediaMetadataCompat;
 import android.support.v4.media.session.MediaSessionCompat;
-import android.view.KeyEvent;
+import android.support.v4.media.session.PlaybackStateCompat;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.media3.common.ForwardingPlayer;
-import androidx.media3.common.MediaItem;
+import androidx.media.session.MediaButtonReceiver;
 import androidx.media3.common.Player.RepeatMode;
-import androidx.media3.session.CommandButton;
-import androidx.media3.session.MediaSession;
-import androidx.media3.session.MediaSession.ControllerInfo;
-import androidx.media3.session.SessionCommand;
-import androidx.media3.session.SessionResult;
-
-import com.google.common.collect.ImmutableList;
-import com.google.common.util.concurrent.Futures;
-import com.google.common.util.concurrent.ListenableFuture;
-import com.google.common.util.concurrent.SettableFuture;
+import androidx.media3.common.util.Util;
+import androidx.media3.exoplayer.ExoPlayer;
 
 import org.schabi.newpipe.R;
 import org.schabi.newpipe.extractor.stream.StreamInfo;
@@ -32,38 +43,46 @@ import org.schabi.newpipe.player.PlayerService;
 import org.schabi.newpipe.player.mediabrowser.MediaBrowserPlaybackPreparer;
 import org.schabi.newpipe.player.notification.NotificationActionData;
 import org.schabi.newpipe.player.notification.NotificationConstants;
+import org.schabi.newpipe.player.playqueue.PlayQueue;
 import org.schabi.newpipe.player.playqueue.PlayQueueItem;
 import org.schabi.newpipe.player.ui.PlayerUi;
 import org.schabi.newpipe.player.ui.VideoPlayerUi;
+import org.schabi.newpipe.util.StreamTypeUtil;
+import org.schabi.newpipe.util.image.ImageStrategy;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.concurrent.CancellationException;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import kotlin.Unit;
 
 /**
- * Bridges the player to a Media3 {@link MediaSession}. The ExoPlayer2
- * {@code MediaSessionConnector} does not exist in Media3, so this class owns the session:
- * metadata and queue are published natively from the timeline (every MediaItem built by
- * {@code MediaItemTag.asMediaItem()} already carries title/artist/artwork), skip commands are
- * routed through a {@link ForwardingPlayer}, custom notification actions become
- * {@link CommandButton}s of the session custom layout, and media-browser play requests are
- * dispatched out-of-band through the normal intent pipeline.
+ * Bridges the current player to the service-lifetime {@link MediaSessionCompat}. The ExoPlayer2
+ * {@code MediaSessionConnector} does not exist in Media3, and a Media3 session cannot replace it
+ * here: {@code MediaBrowserServiceCompat.setSessionToken()} can only be called once per service,
+ * while players (and any session bound to their Media3 player instance) are created and destroyed
+ * on every playback. So the session lives in {@link PlayerService} (token set once) and this
+ * class pushes playback state, metadata and queue to it, and routes controller commands back to
+ * the current player — the same contract the connector provided, including the floating queue
+ * window, the custom notification actions and the hardware-media-buttons setting.
  */
 public class MediaSessionPlayerUi extends PlayerUi
         implements SharedPreferences.OnSharedPreferenceChangeListener {
     private static final String TAG = "MediaSessUi";
+    private static final int MAX_QUEUE_SIZE = 10;
+
+    private static final long BASE_ACTIONS = ACTION_PLAY_PAUSE | ACTION_PLAY | ACTION_PAUSE
+            | ACTION_SEEK_TO | ACTION_SKIP_TO_NEXT | ACTION_SKIP_TO_PREVIOUS
+            | ACTION_SKIP_TO_QUEUE_ITEM | ACTION_FAST_FORWARD | ACTION_REWIND
+            | ACTION_SET_REPEAT_MODE | ACTION_SET_SHUFFLE_MODE
+            | ACTION_PREPARE_FROM_MEDIA_ID | ACTION_PLAY_FROM_MEDIA_ID;
 
     @NonNull
-    private final PlayerService service;
+    private final MediaSessionCompat mediaSession;
     @NonNull
     private final MediaBrowserPlaybackPreparer playbackPreparer;
-
-    @Nullable
-    private MediaSession mediaSession;
 
     private final String ignoreHardwareMediaButtonsKey;
     private boolean shouldIgnoreHardwareMediaButtons = false;
@@ -71,12 +90,175 @@ public class MediaSessionPlayerUi extends PlayerUi
     // used to check whether any notification action changed, before sending costly updates
     private List<NotificationActionData> prevNotificationActions = List.of();
 
+    @Nullable
+    private ExoPlayer attachedExoPlayer;
+
+    private final androidx.media3.common.Player.Listener exoPlayerListener =
+            new androidx.media3.common.Player.Listener() {
+                @Override
+                public void onEvents(@NonNull final androidx.media3.common.Player exoPlayer,
+                                     @NonNull final androidx.media3.common.Player.Events events) {
+                    if (events.containsAny(androidx.media3.common.Player.EVENT_TIMELINE_CHANGED,
+                            androidx.media3.common.Player.EVENT_MEDIA_ITEM_TRANSITION)) {
+                        pushMetadata();
+                        pushQueueWindow();
+                    }
+                    if (events.containsAny(androidx.media3.common.Player.EVENT_PLAYBACK_STATE_CHANGED,
+                            androidx.media3.common.Player.EVENT_PLAY_WHEN_READY_CHANGED,
+                            androidx.media3.common.Player.EVENT_IS_PLAYING_CHANGED,
+                            androidx.media3.common.Player.EVENT_POSITION_DISCONTINUITY,
+                            androidx.media3.common.Player.EVENT_PLAYBACK_PARAMETERS_CHANGED)) {
+                        pushPlaybackState();
+                    }
+                    if (events.containsAny(androidx.media3.common.Player.EVENT_REPEAT_MODE_CHANGED,
+                            androidx.media3.common.Player.EVENT_SHUFFLE_MODE_ENABLED_CHANGED)) {
+                        pushRepeatShuffle();
+                    }
+                }
+            };
+
+    private final MediaSessionCompat.Callback sessionCallback = new MediaSessionCompat.Callback() {
+        @Override
+        public void onPlay() {
+            player.play();
+            // hide the player controls even if the play command came from the media session
+            player.UIs().get(VideoPlayerUi.class).ifPresent(ui -> ui.hideControls(0, 0));
+        }
+
+        @Override
+        public void onPause() {
+            player.pause();
+        }
+
+        @Override
+        public void onSkipToNext() {
+            player.playNext();
+        }
+
+        @Override
+        public void onSkipToPrevious() {
+            player.playPrevious();
+        }
+
+        @Override
+        public void onSeekTo(final long pos) {
+            player.seekTo(pos);
+        }
+
+        @Override
+        public void onFastForward() {
+            player.fastForward();
+        }
+
+        @Override
+        public void onRewind() {
+            player.fastRewind();
+        }
+
+        @Override
+        public void onSkipToQueueItem(final long id) {
+            if (player.getPlayQueue() != null) {
+                final PlayQueueItem item = player.getPlayQueue().getItem((int) id);
+                if (item != null) {
+                    player.selectQueueItem(item);
+                }
+            }
+        }
+
+        @Override
+        public void onPrepare(final boolean playWhenReady) {
+            playbackPreparer.onPrepare(playWhenReady);
+        }
+
+        @Override
+        public void onPrepareFromMediaId(final String mediaId, final Bundle extras) {
+            playbackPreparer.onPrepareFromMediaId(mediaId, false, extras);
+        }
+
+        @Override
+        public void onPlayFromMediaId(final String mediaId, final Bundle extras) {
+            playbackPreparer.onPrepareFromMediaId(mediaId, true, extras);
+        }
+
+        @Override
+        public void onPrepareFromSearch(final String query, final Bundle extras) {
+            playbackPreparer.onPrepareFromSearch(query, false, extras);
+        }
+
+        @Override
+        public void onPlayFromSearch(final String query, final Bundle extras) {
+            playbackPreparer.onPrepareFromSearch(query, true, extras);
+        }
+
+        @Override
+        public void onPrepareFromUri(final android.net.Uri uri, final Bundle extras) {
+            playbackPreparer.onPrepareFromUri(uri, false, extras);
+        }
+
+        @Override
+        public void onPlayFromUri(final android.net.Uri uri, final Bundle extras) {
+            playbackPreparer.onPrepareFromUri(uri, true, extras);
+        }
+
+        @Override
+        public void onCustomAction(final String action, final Bundle extras) {
+            // custom notification actions are delivered as broadcasts, as before (this is what
+            // SessionConnectorActionProvider did through the ExoPlayer2 connector)
+            if (action != null && !action.isEmpty()) {
+                context.sendBroadcast(new Intent(action));
+            }
+        }
+
+        @Override
+        public void onSetRepeatMode(@PlaybackStateCompat.RepeatMode final int repeatMode) {
+            final ExoPlayer exoPlayer = player.getExoPlayer();
+            if (exoPlayer == null) {
+                return;
+            }
+            final int exoRepeatMode;
+            switch (repeatMode) {
+                case PlaybackStateCompat.REPEAT_MODE_ONE:
+                    exoRepeatMode = androidx.media3.common.Player.REPEAT_MODE_ONE;
+                    break;
+                case PlaybackStateCompat.REPEAT_MODE_ALL:
+                case PlaybackStateCompat.REPEAT_MODE_GROUP:
+                    exoRepeatMode = androidx.media3.common.Player.REPEAT_MODE_ALL;
+                    break;
+                case PlaybackStateCompat.REPEAT_MODE_NONE:
+                case PlaybackStateCompat.REPEAT_MODE_INVALID:
+                default:
+                    exoRepeatMode = androidx.media3.common.Player.REPEAT_MODE_OFF;
+                    break;
+            }
+            exoPlayer.setRepeatMode(exoRepeatMode);
+        }
+
+        @Override
+        public void onSetShuffleMode(@PlaybackStateCompat.ShuffleMode final int shuffleMode) {
+            final ExoPlayer exoPlayer = player.getExoPlayer();
+            if (exoPlayer != null) {
+                exoPlayer.setShuffleModeEnabled(shuffleMode
+                        == PlaybackStateCompat.SHUFFLE_MODE_ALL);
+            }
+        }
+
+        @Override
+        public boolean onMediaButtonEvent(@NonNull final Intent mediaButtonIntent) {
+            // returning true stops all further event processing of the system, see the
+            // ignore_hardware_media_buttons setting
+            if (shouldIgnoreHardwareMediaButtons) {
+                return true;
+            }
+            return super.onMediaButtonEvent(mediaButtonIntent);
+        }
+    };
+
 
     public MediaSessionPlayerUi(@NonNull final Player player,
                                 @NonNull final PlayerService service,
                                 @NonNull final MediaBrowserPlaybackPreparer playbackPreparer) {
         super(player);
-        this.service = service;
+        this.mediaSession = service.getMediaSession();
         this.playbackPreparer = playbackPreparer;
         this.ignoreHardwareMediaButtonsKey =
                 context.getString(R.string.ignore_hardware_media_buttons_key);
@@ -87,11 +269,14 @@ public class MediaSessionPlayerUi extends PlayerUi
         super.initPlayer();
         destroyPlayer(); // release previously used resources
 
-        mediaSession = new MediaSession.Builder(context, getForwardingPlayer())
-                .setCallback(new YpMediaSessionCallback())
-                .build();
-        // expose the session to media1 browsers (e.g. Android Auto) through the service
-        service.onMediaSessionStarted(mediaSession);
+        mediaSession.setActive(true);
+        mediaSession.setCallback(sessionCallback);
+
+        final ExoPlayer exoPlayer = player.getExoPlayer();
+        if (exoPlayer != null) {
+            attachedExoPlayer = exoPlayer;
+            exoPlayer.addListener(exoPlayerListener);
+        }
 
         // listen to changes to ignore_hardware_media_buttons_key
         updateShouldIgnoreHardwareMediaButtons(player.getPrefs());
@@ -100,17 +285,30 @@ public class MediaSessionPlayerUi extends PlayerUi
         // force updating media session actions by resetting the previous ones
         prevNotificationActions = List.of();
         updateMediaSessionActions();
+        pushMetadata();
+        pushQueueWindow();
+        pushRepeatShuffle();
+        pushPlaybackState();
     }
 
     @Override
     public void destroyPlayer() {
         super.destroyPlayer();
         player.getPrefs().unregisterOnSharedPreferenceChangeListener(this);
-        if (mediaSession != null) {
-            mediaSession.release();
-            mediaSession = null;
+        if (attachedExoPlayer != null) {
+            attachedExoPlayer.removeListener(exoPlayerListener);
+            attachedExoPlayer = null;
         }
+        mediaSession.setCallback(null);
+        mediaSession.setActive(false);
         prevNotificationActions = List.of();
+    }
+
+    @Override
+    public void onThumbnailLoaded(@Nullable final Bitmap bitmap) {
+        super.onThumbnailLoaded(bitmap);
+        // the thumbnail is now loaded: push the metadata again so it contains the album art
+        pushMetadata();
     }
 
 
@@ -128,112 +326,185 @@ public class MediaSessionPlayerUi extends PlayerUi
     }
 
 
-    /**
-     * Handles media button intents delivered straight to the service (see the manifest), which
-     * never reach the session's platform callback. System-originated media buttons go through the
-     * session directly and are gated by {@link #shouldIgnoreHardwareMediaButtons} in the
-     * session callback.
-     *
-     * @param intent the media button intent, must contain an {@link Intent#EXTRA_KEY_EVENT} extra
-     */
-    public void handleMediaButtonIntent(@NonNull final Intent intent) {
-        if (shouldIgnoreHardwareMediaButtons) {
-            return;
-        }
-        final KeyEvent keyEvent = intent.getParcelableExtra(Intent.EXTRA_KEY_EVENT);
-        if (keyEvent == null || keyEvent.getAction() != KeyEvent.ACTION_DOWN) {
-            return;
-        }
-        switch (keyEvent.getKeyCode()) {
-            case KeyEvent.KEYCODE_MEDIA_PLAY:
-                player.play();
-                break;
-            case KeyEvent.KEYCODE_MEDIA_PAUSE:
-                player.pause();
-                break;
-            case KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE:
-                if (player.isPlaying()) {
-                    player.pause();
-                } else {
-                    player.play();
-                }
-                break;
-            case KeyEvent.KEYCODE_MEDIA_NEXT:
-                player.playNext();
-                break;
-            case KeyEvent.KEYCODE_MEDIA_PREVIOUS:
-                player.playPrevious();
-                break;
-            case KeyEvent.KEYCODE_MEDIA_FAST_FORWARD:
-                player.fastForward();
-                break;
-            case KeyEvent.KEYCODE_MEDIA_REWIND:
-                player.fastRewind();
-                break;
-            default:
-                break;
-        }
+    public void handleMediaButtonIntent(final Intent intent) {
+        MediaButtonReceiver.handleIntent(mediaSession, intent);
     }
 
     public Optional<MediaSessionCompat.Token> getSessionToken() {
-        return Optional.ofNullable(mediaSession)
-                .map(session -> MediaSessionCompat.Token.fromToken(session.getPlatformToken()));
+        return Optional.of(mediaSession.getSessionToken());
     }
 
 
-    private ForwardingPlayer getForwardingPlayer() {
-        // ForwardingPlayer means that all media session actions called on this player are
-        // forwarded directly to the connected media3 player, except for the overridden methods.
-        // So override play and pause since our player adds more functionality to them over
-        // the bare player, and route skip commands to the play queue (this is what the
-        // ExoPlayer2-era PlayQueueNavigator did through the connector's QueueNavigator).
-        return new ForwardingPlayer(player.getExoPlayer()) {
-            @Override
-            public void play() {
-                player.play();
-                // hide the player controls even if the play command came from the media session
-                player.UIs().get(VideoPlayerUi.class).ifPresent(ui -> ui.hideControls(0, 0));
-            }
+    private void pushPlaybackState() {
+        if (!mediaSession.isActive()) {
+            return;
+        }
+        final ExoPlayer exoPlayer = player.getExoPlayer();
+        if (exoPlayer == null) {
+            return;
+        }
 
-            @Override
-            public void pause() {
-                player.pause();
-            }
+        final int state;
+        switch (exoPlayer.getPlaybackState()) {
+            case ExoPlayer.STATE_BUFFERING:
+                state = exoPlayer.getPlayWhenReady()
+                        ? PlaybackStateCompat.STATE_BUFFERING : PlaybackStateCompat.STATE_PAUSED;
+                break;
+            case ExoPlayer.STATE_READY:
+                state = exoPlayer.isPlaying()
+                        ? PlaybackStateCompat.STATE_PLAYING : PlaybackStateCompat.STATE_PAUSED;
+                break;
+            case ExoPlayer.STATE_ENDED:
+                state = PlaybackStateCompat.STATE_STOPPED;
+                break;
+            case ExoPlayer.STATE_IDLE:
+            default:
+                state = PlaybackStateCompat.STATE_NONE;
+                break;
+        }
 
-            @Override
-            public void seekToNext() {
-                player.playNext();
-            }
+        final PlaybackStateCompat.Builder builder = new PlaybackStateCompat.Builder()
+                .setActions(BASE_ACTIONS)
+                .setState(state, exoPlayer.getCurrentPosition(),
+                        exoPlayer.getPlaybackParameters().speed, SystemClock.elapsedRealtime())
+                .setBufferedPosition(exoPlayer.getBufferedPosition())
+                .setActiveQueueItemId(Optional.ofNullable(player.getPlayQueue())
+                        .map(queue -> (long) queue.getIndex())
+                        .orElse(-1L));
 
-            @Override
-            public void seekToNextMediaItem() {
-                player.playNext();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            // on Android 13+ the system derives the notification's custom actions from the custom
+            // playback state actions (this is what the connector's custom action providers did)
+            for (final NotificationActionData data : prevNotificationActions) {
+                builder.addCustomAction(new PlaybackStateCompat.CustomAction.Builder(
+                        data.action(), data.name(), data.icon()).build());
             }
+        }
 
-            @Override
-            public void seekToPrevious() {
-                player.playPrevious();
-            }
-
-            @Override
-            public void seekToPreviousMediaItem() {
-                player.playPrevious();
-            }
-
-            @Override
-            public void seekToDefaultPosition(final int mediaItemIndex) {
-                // legacy skipToQueueItem arrives here (see MediaSessionLegacyStub)
-                if (player.getPlayQueue() != null) {
-                    final PlayQueueItem item = player.getPlayQueue().getItem(mediaItemIndex);
-                    if (item != null) {
-                        player.selectQueueItem(item);
-                        return;
-                    }
-                }
-                super.seekToDefaultPosition(mediaItemIndex);
-            }
-        };
+        mediaSession.setPlaybackState(builder.build());
     }
+
+    private void pushMetadata() {
+        if (!mediaSession.isActive()) {
+            return;
+        }
+        if (DEBUG) {
+            Log.d(TAG, "pushMetadata called");
+        }
+
+        // set title and artist
+        final MediaMetadataCompat.Builder builder = new MediaMetadataCompat.Builder()
+                .putString(MediaMetadataCompat.METADATA_KEY_TITLE, player.getVideoTitle())
+                .putString(MediaMetadataCompat.METADATA_KEY_ARTIST, player.getUploaderName());
+
+        // set duration (-1 for livestreams or if unknown, see the METADATA_KEY_DURATION docs)
+        final long duration = player.getCurrentStreamInfo()
+                .filter(info -> !StreamTypeUtil.isLiveStream(info.getStreamType()))
+                .map(info -> info.getDuration() * 1000L)
+                .orElse(-1L);
+        builder.putLong(MediaMetadataCompat.METADATA_KEY_DURATION, duration);
+
+        // set album art, unless the user asked not to, or there is no thumbnail available
+        final boolean showThumbnail = player.getPrefs().getBoolean(
+                context.getString(R.string.show_thumbnail_key), true);
+        Optional.ofNullable(player.getThumbnail())
+                .filter(bitmap -> showThumbnail)
+                .ifPresent(bitmap -> {
+                    builder.putBitmap(MediaMetadataCompat.METADATA_KEY_ALBUM_ART, bitmap);
+                    builder.putBitmap(MediaMetadataCompat.METADATA_KEY_DISPLAY_ICON, bitmap);
+                });
+
+        mediaSession.setMetadata(builder.build());
+    }
+
+    private void pushRepeatShuffle() {
+        if (!mediaSession.isActive()) {
+            return;
+        }
+        final ExoPlayer exoPlayer = player.getExoPlayer();
+        if (exoPlayer == null) {
+            return;
+        }
+        final int sessionRepeatMode;
+        switch (exoPlayer.getRepeatMode()) {
+            case androidx.media3.common.Player.REPEAT_MODE_ONE:
+                sessionRepeatMode = PlaybackStateCompat.REPEAT_MODE_ONE;
+                break;
+            case androidx.media3.common.Player.REPEAT_MODE_ALL:
+                sessionRepeatMode = PlaybackStateCompat.REPEAT_MODE_ALL;
+                break;
+            case androidx.media3.common.Player.REPEAT_MODE_OFF:
+            default:
+                sessionRepeatMode = PlaybackStateCompat.REPEAT_MODE_NONE;
+                break;
+        }
+        mediaSession.setRepeatMode(sessionRepeatMode);
+        mediaSession.setShuffleMode(exoPlayer.getShuffleModeEnabled()
+                ? PlaybackStateCompat.SHUFFLE_MODE_ALL : PlaybackStateCompat.SHUFFLE_MODE_NONE);
+    }
+
+    private void pushQueueWindow() {
+        if (!mediaSession.isActive()) {
+            return;
+        }
+        final int windowCount = Optional.ofNullable(player.getPlayQueue())
+                .map(PlayQueue::size)
+                .orElse(0);
+        if (windowCount == 0) {
+            mediaSession.setQueue(Collections.emptyList());
+            return;
+        }
+
+        // Yes this is almost a copypasta, got a problem with that? =\
+        final int currentWindowIndex = player.getPlayQueue().getIndex();
+        final int queueSize = Math.min(MAX_QUEUE_SIZE, windowCount);
+        final int startIndex = Util.constrainValue(currentWindowIndex - ((queueSize - 1) / 2), 0,
+                windowCount - queueSize);
+
+        final List<MediaSessionCompat.QueueItem> queue = new ArrayList<>();
+        for (int i = startIndex; i < startIndex + queueSize; i++) {
+            queue.add(new MediaSessionCompat.QueueItem(getQueueMetadata(i), i));
+        }
+        mediaSession.setQueue(queue);
+    }
+
+    @Nullable
+    private MediaDescriptionCompat getQueueMetadata(final int index) {
+        if (player.getPlayQueue() == null) {
+            return null;
+        }
+        final PlayQueueItem item = player.getPlayQueue().getItem(index);
+        if (item == null) {
+            return null;
+        }
+
+        final MediaDescriptionCompat.Builder descBuilder = new MediaDescriptionCompat.Builder()
+                .setMediaId(String.valueOf(index))
+                .setTitle(item.getTitle())
+                .setSubtitle(item.getUploader());
+
+        // set additional metadata for A2DP/AVRCP (Audio/Video Bluetooth profiles)
+        final Bundle additionalMetadata = new Bundle();
+        additionalMetadata.putString(MediaMetadataCompat.METADATA_KEY_TITLE, item.getTitle());
+        additionalMetadata.putString(MediaMetadataCompat.METADATA_KEY_ARTIST, item.getUploader());
+        additionalMetadata
+                .putLong(MediaMetadataCompat.METADATA_KEY_DURATION, item.getDuration() * 1000);
+        additionalMetadata.putLong(MediaMetadataCompat.METADATA_KEY_TRACK_NUMBER, index + 1L);
+        additionalMetadata
+                .putLong(MediaMetadataCompat.METADATA_KEY_NUM_TRACKS, player.getPlayQueue().size());
+        descBuilder.setExtras(additionalMetadata);
+
+        try {
+            descBuilder.setIconUri(Uri.parse(
+                    ImageStrategy.choosePreferredImage(item.getThumbnails())));
+        } catch (final Throwable e) {
+            // no thumbnail available at all, or the user disabled image loading,
+            // or the obtained url is not a valid `Uri`
+        }
+
+        return descBuilder.build();
+    }
+
 
     private void updateMediaSessionActions() {
         // On Android 13+ (or Android T or API 33+) the actions in the player notification can't be
@@ -249,9 +520,8 @@ public class MediaSessionPlayerUi extends PlayerUi
             return;
         }
 
-        final MediaSession session = mediaSession;
-        if (session == null) {
-            // mediaSession will be released after destroyPlayer is called
+        if (!mediaSession.isActive()) {
+            // mediaSession will be inactive after destroyPlayer is called
             return;
         }
 
@@ -269,73 +539,8 @@ public class MediaSessionPlayerUi extends PlayerUi
         // avoid costly notification actions update, if nothing changed from last time
         if (!newNotificationActions.equals(prevNotificationActions)) {
             prevNotificationActions = newNotificationActions;
-            session.setCustomLayout(newNotificationActions.stream()
-                    .map(data -> new CommandButton.Builder()
-                            .setSessionCommand(new SessionCommand(data.action(), Bundle.EMPTY))
-                            .setDisplayName(data.name())
-                            .setIconResId(data.icon())
-                            .build())
-                    .collect(ImmutableList.toImmutableList()));
-        }
-    }
-
-    private final class YpMediaSessionCallback implements MediaSession.Callback {
-        /**
-         * Play requests from media browsers (e.g. Android Auto tapping a browsed item) are NOT
-         * resolved by handing MediaItems back to the session: stream resolution is asynchronous
-         * and goes through the normal intent pipeline (NavigationHelper), exactly as it did with
-         * the ExoPlayer2 connector's PlaybackPreparer. Completing the future exceptionally makes
-         * Media3 ignore the in-band request without side effects (see MediaSessionLegacyStub:
-         * "Do nothing, the session is free to ignore these requests").
-         */
-        @NonNull
-        @Override
-        public ListenableFuture<MediaSession.MediaItemsWithStartPosition> onSetMediaItems(
-                @NonNull final MediaSession session,
-                @NonNull final ControllerInfo controller,
-                @NonNull final List<MediaItem> mediaItems,
-                final int startIndex,
-                final long startPositionMs) {
-            final SettableFuture<MediaSession.MediaItemsWithStartPosition> future =
-                    SettableFuture.create();
-            final String mediaId = mediaItems.isEmpty() ? null : mediaItems.get(0).mediaId;
-            if (mediaId == null || mediaId.isEmpty()) {
-                // play-from-search and play-from-uri stay unsupported, as before
-                future.setException(new CancellationException("unsupported media request"));
-                return future;
-            }
-            playbackPreparer.prepareFromMediaId(mediaId, true, success -> {
-                future.setException(new CancellationException(
-                        "handled out-of-band, success=" + success));
-                return Unit.INSTANCE;
-            });
-            return future;
-        }
-
-        @NonNull
-        @Override
-        public ListenableFuture<SessionResult> onCustomCommand(
-                @NonNull final MediaSession session,
-                @NonNull final ControllerInfo controller,
-                @NonNull final SessionCommand customCommand,
-                @NonNull final Bundle args) {
-            // custom notification actions are delivered as broadcasts, as before (this is what
-            // SessionConnectorActionProvider did through the ExoPlayer2 connector)
-            final String action = customCommand.customAction;
-            if (action != null && !action.isEmpty()) {
-                context.sendBroadcast(new Intent(action));
-            }
-            return Futures.immediateFuture(new SessionResult(SessionResult.RESULT_SUCCESS));
-        }
-
-        @Override
-        public boolean onMediaButtonEvent(
-                @NonNull final MediaSession session,
-                @NonNull final ControllerInfo controllerInfo,
-                @NonNull final Intent intent) {
-            // returning true stops all further event processing of the system, see the
-            // ignore_hardware_media_buttons setting
-            return shouldIgnoreHardwareMediaButtons;
+            // publish the new custom actions as part of the playback state
+            pushPlaybackState();
         }
     }
 
