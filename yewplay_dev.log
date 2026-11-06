@@ -1,23 +1,11 @@
 branch: yewplay/dev
-sha: 8a537e61bb7efec3ca2d839d987ab229b59f69f1
+sha: f2cf735fb5e4c2a03a3f336519114b82d6599710
 outcome: success
-run: https://github.com/YewPlay/Yewplay/actions/runs/42142081087
+run: https://github.com/YewPlay/Yewplay/actions/runs/42144507591
 
 == errors ==
 
 == warnings ==
-w: file:///home/runner/work/Yewplay/Yewplay/app/build.gradle.kts:150:30: 'fun provideDelegate(thisRef: Any?, property: KProperty<*>): ExistingDomainObjectDelegate<Configuration>' is deprecated. Use 'val element = create(name)' instead. See the Gradle 9.6 upgrading guide.
-w: file:///home/runner/work/Yewplay/Yewplay/app/build.gradle.kts:150:30: 'val <T : Any> NamedDomainObjectContainer<T>.creating: NamedDomainObjectContainerCreatingDelegateProvider<T>' is deprecated. Use 'val element = create(name)' instead. See the Gradle 9.6 upgrading guide.
-w: file:///home/runner/work/Yewplay/Yewplay/app/build.gradle.kts:150:30: 'fun <T> ExistingDomainObjectDelegate<out T>.getValue(receiver: Any?, property: KProperty<*>): T' is deprecated. Use the named() API instead. See the Gradle 9.6 upgrading guide.
-w: file:///home/runner/work/Yewplay/Yewplay/shared/build.gradle.kts:18:35: 'fun <U : Task> RegisteringDomainObjectDelegateProviderWithTypeAndAction<out TaskContainer, U>.provideDelegate(receiver: Any?, property: KProperty<*>): ExistingDomainObjectDelegate<TaskProvider<U>>' is deprecated. Use 'val task = tasks.register<Type>(name) { }' instead. See the Gradle 9.6 upgrading guide.
-w: file:///home/runner/work/Yewplay/Yewplay/shared/build.gradle.kts:18:35: 'fun <T : Any, C : PolymorphicDomainObjectContainer<T>, U : T> C.registering(type: KClass<U>, action: U.() -> Unit): RegisteringDomainObjectDelegateProviderWithTypeAndAction<out C, U>' is deprecated. Use 'val element = register<Type>(name) { }' instead. See the Gradle 9.6 upgrading guide.
-w: file:///home/runner/work/Yewplay/Yewplay/shared/build.gradle.kts:18:35: 'fun <T> ExistingDomainObjectDelegate<out T>.getValue(receiver: Any?, property: KProperty<*>): T' is deprecated. Use the named() API instead. See the Gradle 9.6 upgrading guide.
-w: file:///home/runner/work/Yewplay/Yewplay/shared/build.gradle.kts:132:34: 'fun provideDelegate(thisRef: Any?, property: KProperty<*>): ExistingDomainObjectDelegate<KotlinSourceSet>' is deprecated. Use 'val element = getByName(name)' instead. See the Gradle 9.6 upgrading guide.
-w: file:///home/runner/work/Yewplay/Yewplay/shared/build.gradle.kts:132:34: 'fun <T : Any, U : NamedDomainObjectCollection<T>> U.getting(configuration: T.() -> Unit): NamedDomainObjectCollectionDelegateProvider<T>' is deprecated. Use 'val element = getByName(name) { }' instead. See the Gradle 9.6 upgrading guide.
-w: file:///home/runner/work/Yewplay/Yewplay/shared/build.gradle.kts:132:34: 'fun <T> ExistingDomainObjectDelegate<out T>.getValue(receiver: Any?, property: KProperty<*>): T' is deprecated. Use the named() API instead. See the Gradle 9.6 upgrading guide.
-w: file:///home/runner/work/Yewplay/Yewplay/shared/build.gradle.kts:142:24: 'fun provideDelegate(thisRef: Any?, property: KProperty<*>): ExistingDomainObjectDelegate<KotlinSourceSet>' is deprecated. Use 'val element = getByName(name)' instead. See the Gradle 9.6 upgrading guide.
-w: file:///home/runner/work/Yewplay/Yewplay/shared/build.gradle.kts:142:24: 'fun <T : Any, U : NamedDomainObjectCollection<T>> U.getting(configuration: T.() -> Unit): NamedDomainObjectCollectionDelegateProvider<T>' is deprecated. Use 'val element = getByName(name) { }' instead. See the Gradle 9.6 upgrading guide.
-w: file:///home/runner/work/Yewplay/Yewplay/shared/build.gradle.kts:142:24: 'fun <T> ExistingDomainObjectDelegate<out T>.getValue(receiver: Any?, property: KProperty<*>): T' is deprecated. Use the named() API instead. See the Gradle 9.6 upgrading guide.
 w: ⚠️ Unused Kotlin Source Sets
 w: ⚠️ Unused Kotlin Source Sets
 w: ⚠️ Unused Kotlin Source Sets
@@ -103,25 +91,25 @@ w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe
 w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/PopupPlayerUi.kt:339:13 'class SubtitleView : FrameLayout' is deprecated. Deprecated in Java.
 w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/PopupPlayerUi.kt:409:59 'static field SOFT_INPUT_ADJUST_RESIZE: Int' is deprecated. Deprecated in Java.
 w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/PopupPlayerUi.kt:487:44 'static field SOFT_INPUT_ADJUST_RESIZE: Int' is deprecated. Deprecated in Java.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:351:81 'interface Player : Any' is deprecated. Deprecated in Java.
 w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:353:81 'interface Player : Any' is deprecated. Deprecated in Java.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:658:73 'interface Player : Any' is deprecated. Deprecated in Java.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:659:73 'interface Player : Any' is deprecated. Deprecated in Java.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:674:66 'class PlaybackParameters : Any, Bundleable' is deprecated. Deprecated in Java.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:784:79 'field resolution: String!' is deprecated. Deprecated in Java.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:787:27 'field resolution: String!' is deprecated. Deprecated in Java.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:830:53 'field resolution: String!' is deprecated. Deprecated in Java.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:864:80 'field resolution: String!' is deprecated. Deprecated in Java.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:876:53 'class Tracks : Any, Bundleable' is deprecated. Deprecated in Java.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:879:66 'class C : Any' is deprecated. Deprecated in Java.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:880:43 'class C : Any' is deprecated. Deprecated in Java.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:888:41 'class C : Any' is deprecated. Deprecated in Java.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:923:56 'class C : Any' is deprecated. Deprecated in Java.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:940:34 Unnecessary safe call on a non-null receiver of type 'Format'.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:973:48 'class C : Any' is deprecated. Deprecated in Java.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:983:36 'class Cue : Any, Bundleable' is deprecated. Deprecated in Java.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:993:62 'class CaptionStyleCompat : Any' is deprecated. Deprecated in Java.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:1090:48 'class VideoSize : Any, Bundleable' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:355:81 'interface Player : Any' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:660:73 'interface Player : Any' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:661:73 'interface Player : Any' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:676:66 'class PlaybackParameters : Any, Bundleable' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:786:79 'field resolution: String!' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:789:27 'field resolution: String!' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:832:53 'field resolution: String!' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:866:80 'field resolution: String!' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:878:53 'class Tracks : Any, Bundleable' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:881:66 'class C : Any' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:882:43 'class C : Any' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:890:41 'class C : Any' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:925:56 'class C : Any' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:942:34 Unnecessary safe call on a non-null receiver of type 'Format'.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:975:48 'class C : Any' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:985:36 'class Cue : Any, Bundleable' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:995:62 'class CaptionStyleCompat : Any' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:1092:48 'class VideoSize : Any, Bundleable' is deprecated. Deprecated in Java.
 w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/YpPlayerViews.kt:49:23 'class SubtitleView : FrameLayout' is deprecated. Deprecated in Java.
 w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/YpPlayerViews.kt:49:38 'constructor(p0: Context): SubtitleView' is deprecated. Deprecated in Java.
 w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/settings/BackupRestoreSettingsFragment.kt:146:41 'fun exportHasSerializedPrefs(zipFile: StoredFileHelper): Boolean' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
@@ -133,52 +121,52 @@ w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe
 w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/us/shandian/giga/ui/fragment/YpDownloadsFragment.kt:877:49 'static field ACTION_MEDIA_SCANNER_SCAN_FILE: String' is deprecated. Deprecated in Java.
 
 == tail ==
+> Task :core:designsystem:syncAndroidMainLibJars
+> Task :core:designsystem:bundleAndroidMainLocalLintAar
+> Task :feature:channel:extractAndroidMainAnnotations
+> Task :feature:channel:mergeAndroidMainJavaResource
+> Task :feature:channel:syncAndroidMainLibJars
+> Task :feature:channel:bundleAndroidMainLocalLintAar
+> Task :feature:downloads:extractAndroidMainAnnotations
+> Task :feature:downloads:mergeAndroidMainJavaResource
+> Task :feature:downloads:syncAndroidMainLibJars
+> Task :feature:downloads:bundleAndroidMainLocalLintAar
+> Task :feature:home:extractAndroidMainAnnotations
+> Task :feature:home:mergeAndroidMainJavaResource
+> Task :feature:home:syncAndroidMainLibJars
+> Task :feature:home:bundleAndroidMainLocalLintAar
+> Task :feature:library:extractAndroidMainAnnotations
+> Task :feature:library:mergeAndroidMainJavaResource
+> Task :feature:library:syncAndroidMainLibJars
+> Task :feature:library:bundleAndroidMainLocalLintAar
+> Task :feature:playlist:extractAndroidMainAnnotations
 > Task :feature:playlist:mergeAndroidMainJavaResource
-> Task :feature:search:checkAndroidMainAarMetadata
 > Task :feature:playlist:syncAndroidMainLibJars
 > Task :feature:playlist:bundleAndroidMainLocalLintAar
 > Task :feature:search:extractAndroidMainAnnotations
 > Task :feature:search:mergeAndroidMainJavaResource
-> Task :feature:settings:checkAndroidMainAarMetadata
+> Task :feature:search:syncAndroidMainLibJars
+> Task :feature:search:bundleAndroidMainLocalLintAar
 > Task :feature:settings:extractAndroidMainAnnotations
 > Task :feature:settings:mergeAndroidMainJavaResource
 > Task :feature:settings:syncAndroidMainLibJars
-> Task :feature:search:syncAndroidMainLibJars
 > Task :feature:settings:bundleAndroidMainLocalLintAar
-> Task :feature:search:bundleAndroidMainLocalLintAar
-> Task :feature:subscriptions:checkAndroidMainAarMetadata
 > Task :feature:subscriptions:extractAndroidMainAnnotations
-> Task :app:preDebugAndroidTestBuild SKIPPED
 > Task :feature:subscriptions:mergeAndroidMainJavaResource
-> Task :app:generateDebugAndroidTestResValues
-> Task :shared:createFullJarAndroidMain
-> Task :shared:prepareLintJarForPublish
 > Task :feature:subscriptions:syncAndroidMainLibJars
-> Task :core:designsystem:createFullJarAndroidMain
-> Task :core:designsystem:prepareLintJarForPublish
 > Task :feature:subscriptions:bundleAndroidMainLocalLintAar
+> Task :core:designsystem:createFullJarAndroidMain
 > Task :feature:channel:createFullJarAndroidMain
-> Task :feature:channel:prepareLintJarForPublish
 > Task :feature:downloads:createFullJarAndroidMain
-> Task :feature:downloads:prepareLintJarForPublish
 > Task :feature:home:createFullJarAndroidMain
-> Task :feature:home:prepareLintJarForPublish
 > Task :feature:library:createFullJarAndroidMain
-> Task :feature:library:prepareLintJarForPublish
-> Task :feature:playlist:prepareLintJarForPublish
 > Task :feature:playlist:createFullJarAndroidMain
-> Task :feature:search:prepareLintJarForPublish
 > Task :feature:search:createFullJarAndroidMain
 > Task :feature:settings:createFullJarAndroidMain
-> Task :feature:settings:prepareLintJarForPublish
 > Task :feature:subscriptions:createFullJarAndroidMain
-> Task :feature:subscriptions:prepareLintJarForPublish
-> Task :app:preDebugUnitTestBuild UP-TO-DATE
-> Task :shared:preAndroidHostTestBuild UP-TO-DATE
-> Task :app:extractProguardFiles
 > Task :app:mergeLibDexDebug
-> Task :shared:generateAndroidHostTestLintModel
 > Task :shared:lintAnalyzeAndroidHostTest
+
 > Task :app:kspDebugKotlin
 w: [ksp] /home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/database/feed/dao/FeedDAO.kt:178: The DAO function return type (kotlin.collections.List<java.time.OffsetDateTime?>) with the nullable type argument is meaningless because for now Room will never put a null value in a result.
 w: [ksp] /home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/database/feed/dao/FeedDAO.kt:181: The DAO function return type (kotlin.collections.List<java.time.OffsetDateTime?>) with the nullable type argument is meaningless because for now Room will never put a null value in a result.
@@ -262,25 +250,25 @@ w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe
 w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/PopupPlayerUi.kt:339:13 'class SubtitleView : FrameLayout' is deprecated. Deprecated in Java.
 w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/PopupPlayerUi.kt:409:59 'static field SOFT_INPUT_ADJUST_RESIZE: Int' is deprecated. Deprecated in Java.
 w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/PopupPlayerUi.kt:487:44 'static field SOFT_INPUT_ADJUST_RESIZE: Int' is deprecated. Deprecated in Java.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:351:81 'interface Player : Any' is deprecated. Deprecated in Java.
 w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:353:81 'interface Player : Any' is deprecated. Deprecated in Java.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:658:73 'interface Player : Any' is deprecated. Deprecated in Java.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:659:73 'interface Player : Any' is deprecated. Deprecated in Java.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:674:66 'class PlaybackParameters : Any, Bundleable' is deprecated. Deprecated in Java.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:784:79 'field resolution: String!' is deprecated. Deprecated in Java.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:787:27 'field resolution: String!' is deprecated. Deprecated in Java.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:830:53 'field resolution: String!' is deprecated. Deprecated in Java.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:864:80 'field resolution: String!' is deprecated. Deprecated in Java.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:876:53 'class Tracks : Any, Bundleable' is deprecated. Deprecated in Java.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:879:66 'class C : Any' is deprecated. Deprecated in Java.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:880:43 'class C : Any' is deprecated. Deprecated in Java.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:888:41 'class C : Any' is deprecated. Deprecated in Java.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:923:56 'class C : Any' is deprecated. Deprecated in Java.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:940:34 Unnecessary safe call on a non-null receiver of type 'Format'.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:973:48 'class C : Any' is deprecated. Deprecated in Java.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:983:36 'class Cue : Any, Bundleable' is deprecated. Deprecated in Java.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:993:62 'class CaptionStyleCompat : Any' is deprecated. Deprecated in Java.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:1090:48 'class VideoSize : Any, Bundleable' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:355:81 'interface Player : Any' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:660:73 'interface Player : Any' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:661:73 'interface Player : Any' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:676:66 'class PlaybackParameters : Any, Bundleable' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:786:79 'field resolution: String!' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:789:27 'field resolution: String!' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:832:53 'field resolution: String!' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:866:80 'field resolution: String!' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:878:53 'class Tracks : Any, Bundleable' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:881:66 'class C : Any' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:882:43 'class C : Any' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:890:41 'class C : Any' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:925:56 'class C : Any' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:942:34 Unnecessary safe call on a non-null receiver of type 'Format'.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:975:48 'class C : Any' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:985:36 'class Cue : Any, Bundleable' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:995:62 'class CaptionStyleCompat : Any' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/VideoPlayerUi.kt:1092:48 'class VideoSize : Any, Bundleable' is deprecated. Deprecated in Java.
 w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/YpPlayerViews.kt:49:23 'class SubtitleView : FrameLayout' is deprecated. Deprecated in Java.
 w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/player/ui/YpPlayerViews.kt:49:38 'constructor(p0: Context): SubtitleView' is deprecated. Deprecated in Java.
 w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/settings/BackupRestoreSettingsFragment.kt:146:41 'fun exportHasSerializedPrefs(zipFile: StoredFileHelper): Boolean' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
@@ -300,21 +288,21 @@ Note: Recompile with -Xlint:unchecked for details.
 > Task :app:copyRoomSchemas NO-SOURCE
 > Task :app:processDebugJavaRes
 > Task :app:bundleDebugClassesToCompileJar
-> Task :app:generateDebugAndroidTestLintModel
 > Task :app:generateDebugLintReportModel
 > Task :app:generateDebugUnitTestLintModel
+> Task :app:generateDebugAndroidTestLintModel
 > Task :app:mergeDebugJavaResource
 
 > Task :app:lintAnalyzeDebug
 com.evernote.android.state.lint.registry.StateIssueRegistry in /home/runner/.gradle/caches/9.8.2/transforms/1aa791ce42fad7b1e90df8c2a87260f4/transformed/android-state-1.4.1/jars/lint.jar does not specify a vendor; see IssueRegistry#vendor
 
 > Task :app:dexBuilderDebug
-> Task :app:lintAnalyzeDebugAndroidTest
 > Task :app:mergeProjectDexDebug
-> Task :app:lintAnalyzeDebugUnitTest
 > Task :app:packageDebug
-> Task :app:assembleDebug
 > Task :app:createDebugApkListingFileRedirect
+> Task :app:assembleDebug
+> Task :app:lintAnalyzeDebugAndroidTest
+> Task :app:lintAnalyzeDebugUnitTest
 
 > Task :app:lintReportDebug
 Wrote HTML report to file:///home/runner/work/Yewplay/Yewplay/app/build/reports/lint-results-debug.html
@@ -330,6 +318,6 @@ You can use '--warning-mode all' to show the individual deprecation warnings and
 
 For more on this, please refer to https://docs.gradle.org/9.8.2/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
 
-BUILD SUCCESSFUL in 10m 40s
+BUILD SUCCESSFUL in 5m 2s
 257 actionable tasks: 257 executed
 Configuration cache entry stored.
