@@ -173,8 +173,8 @@ public class MediaSessionPlayerUi extends PlayerUi
         }
 
         @Override
-        public void onPrepare(final boolean playWhenReady) {
-            playbackPreparer.onPrepare(playWhenReady);
+        public void onPrepare() {
+            playbackPreparer.onPrepare(false);
         }
 
         @Override
