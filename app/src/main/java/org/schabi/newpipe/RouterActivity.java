@@ -955,7 +955,8 @@ public class RouterActivity extends AppCompatActivity {
 
             switch (choice.linkType) {
                 case STREAM:
-                    single = EngineExtractorBridge.getStreamInfo(choice.serviceId, choice.url, false);
+                    single = EngineExtractorBridge.getStreamInfo(choice.serviceId, choice.url,
+                            false);
                     userAction = UserAction.REQUESTED_STREAM;
                     break;
                 case CHANNEL:
