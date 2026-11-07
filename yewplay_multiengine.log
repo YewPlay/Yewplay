@@ -1,7 +1,7 @@
 branch: yewplay/multiengine
-sha: d9cfc28cfd19f2066e2f5346e9c1f1432f2f10d6
+sha: acd01055496aa31b52fbd6f59eb5a8dccd7277ee
 outcome: success
-run: https://github.com/YewPlay/Yewplay/actions/runs/42337790190
+run: https://github.com/YewPlay/Yewplay/actions/runs/42355626325
 
 == errors ==
 
@@ -36,7 +36,7 @@ w: file:///home/runner/work/Yewplay/Yewplay/engine/flow/src/main/java/io/github/
 w: [ksp] /home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/database/feed/dao/FeedDAO.kt:178: The DAO function return type (kotlin.collections.List<java.time.OffsetDateTime?>) with the nullable type argument is meaningless because for now Room will never put a null value in a result.
 w: [ksp] /home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/database/feed/dao/FeedDAO.kt:181: The DAO function return type (kotlin.collections.List<java.time.OffsetDateTime?>) with the nullable type argument is meaningless because for now Room will never put a null value in a result.
 warning: The following options were not recognized by any processor: '[room.internal.schemaInput, room.internal.schemaOutput, kapt.kotlin.generated]'
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/App.kt:222:21 Only safe (?.) or non-null asserted (!!.) calls are allowed on a nullable receiver of type 'Thread.UncaughtExceptionHandler?'.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/App.kt:228:21 Only safe (?.) or non-null asserted (!!.) calls are allowed on a nullable receiver of type 'Thread.UncaughtExceptionHandler?'.
 w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/MainActivity.kt:430:19 'fun onBackPressed(): Unit' is deprecated. This method has been deprecated in favor of using the
 w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/MainActivity.kt:760:39 'fun getSerializableExtra(p0: String!): Serializable?' is deprecated. Deprecated in Java.
 w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/MainActivity.kt:833:20 'fun getSerializableExtra(p0: String!): Serializable?' is deprecated. Deprecated in Java.
@@ -78,7 +78,7 @@ w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe
 w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/detail/YpVideoDetailFragment.kt:2166:63 'static field FLAG_FULLSCREEN: Int' is deprecated. Deprecated in Java.
 w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/list/comments/CommentRepliesFragment.kt:60:21 'fun bundleOf(vararg pairs: Pair<String, Any?>): Bundle' is deprecated. This method does not provide type safety at compile time. Use the platform `Bundle` class directly instead.
 w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/list/comments/CommentsFragment.kt:110:25 'fun bundleOf(vararg pairs: Pair<String, Any?>): Bundle' is deprecated. This method does not provide type safety at compile time. Use the platform `Bundle` class directly instead.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/list/search/YpSearchViewModel.kt:532:35 Unnecessary safe call on a non-null receiver of type 'String'.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/list/search/YpSearchViewModel.kt:538:35 Unnecessary safe call on a non-null receiver of type 'String'.
 w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/list/videos/RelatedItemsFragment.kt:185:25 'fun bundleOf(vararg pairs: Pair<String, Any?>): Bundle' is deprecated. This method does not provide type safety at compile time. Use the platform `Bundle` class directly instead.
 w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/local/feed/service/FeedLoadManager.kt:243:33 Unnecessary non-null assertion (!!) on a non-null receiver of type 'Info'.
 w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/local/subscription/dialog/FeedGroupDialog.kt:434:25 'fun bundleOf(vararg pairs: Pair<String, Any?>): Bundle' is deprecated. This method does not provide type safety at compile time. Use the platform `Bundle` class directly instead.
@@ -104,9 +104,9 @@ w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe
 w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/settings/export/ImportExportManager.kt:109:65 'val FILE_NAME_SERIALIZED_PREFS: String' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
 w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/settings/export/ImportExportManager.kt:143:63 'val FILE_NAME_SERIALIZED_PREFS: String' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
 w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/us/shandian/giga/ui/fragment/YpDownloadsFragment.kt:877:49 'static field ACTION_MEDIA_SCANNER_SCAN_FILE: String' is deprecated. Deprecated in Java.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/engine/EngineManagerTest.kt:152:9 Expression is unused.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/engine/EngineManagerTest.kt:188:9 Expression is unused.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/engine/EngineManagerTest.kt:207:9 Expression is unused.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/engine/EngineManagerTest.kt:156:9 Expression is unused.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/engine/EngineManagerTest.kt:192:9 Expression is unused.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/engine/EngineManagerTest.kt:248:9 Expression is unused.
 w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/settings/ImportAllCombinationsTest.kt:86:68 'fun exportHasSerializedPrefs(zipFile: StoredFileHelper): Boolean' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
 w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/settings/ImportAllCombinationsTest.kt:87:50 'fun loadSerializedPrefs(zipFile: StoredFileHelper, preferences: SharedPreferences): Unit' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
 w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/settings/ImportAllCombinationsTest.kt:100:68 'fun exportHasSerializedPrefs(zipFile: StoredFileHelper): Boolean' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
@@ -120,7 +120,6 @@ w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe
 OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
 
 == tail ==
-> Task :engine:flow:generateDebugUnitTestStubRFile
 > Task :engine:flow:compileDebugUnitTestKotlin NO-SOURCE
 > Task :engine:flow:javaPreCompileDebugUnitTest
 > Task :engine:flow:compileDebugUnitTestJavaWithJavac NO-SOURCE
@@ -144,6 +143,11 @@ OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader clas
 > Task :engine:newtube:youtubeapi:compileDebugUnitTestJavaWithJavac NO-SOURCE
 > Task :engine:newtube:youtubeapi:processDebugUnitTestJavaRes NO-SOURCE
 > Task :engine:newtube:youtubeapi:testDebugUnitTest NO-SOURCE
+> Task :engine:newtube:sharedutils:lintAnalyzeDebug
+
+> Task :app:kspDebugKotlin
+w: [ksp] /home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/database/feed/dao/FeedDAO.kt:178: The DAO function return type (kotlin.collections.List<java.time.OffsetDateTime?>) with the nullable type argument is meaningless because for now Room will never put a null value in a result.
+w: [ksp] /home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/database/feed/dao/FeedDAO.kt:181: The DAO function return type (kotlin.collections.List<java.time.OffsetDateTime?>) with the nullable type argument is meaningless because for now Room will never put a null value in a result.
 
 > Task :engine:newtube:sharedutils:lintReportDebug
 Wrote HTML report to file:///home/runner/work/Yewplay/Yewplay/engine/newtube/sharedutils/build/reports/lint-results-debug.html
@@ -157,32 +161,22 @@ Wrote HTML report to file:///home/runner/work/Yewplay/Yewplay/engine/newtube/med
 Wrote SARIF report to file:///home/runner/work/Yewplay/Yewplay/engine/newtube/mediaserviceinterfaces/build/reports/lint-results-debug.sarif
 
 > Task :engine:newtube:mediaserviceinterfaces:lintDebug
-
-> Task :app:kspDebugKotlin
-w: [ksp] /home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/database/feed/dao/FeedDAO.kt:178: The DAO function return type (kotlin.collections.List<java.time.OffsetDateTime?>) with the nullable type argument is meaningless because for now Room will never put a null value in a result.
-w: [ksp] /home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/database/feed/dao/FeedDAO.kt:181: The DAO function return type (kotlin.collections.List<java.time.OffsetDateTime?>) with the nullable type argument is meaningless because for now Room will never put a null value in a result.
-
-> Task :engine:newtube:youtubeapi:lintAnalyzeDebug
 > Task :app:kaptGenerateStubsDebugKotlin
+> Task :engine:newtube:youtubeapi:lintAnalyzeDebug
 
 > Task :app:kaptDebugKotlin
 warning: The following options were not recognized by any processor: '[room.internal.schemaInput, room.internal.schemaOutput, kapt.kotlin.generated]'
+
+> Task :app:compileDebugKotlin
 
 > Task :engine:flow:lintReportDebug
 Wrote HTML report to file:///home/runner/work/Yewplay/Yewplay/engine/flow/build/reports/lint-results-debug.html
 Wrote SARIF report to file:///home/runner/work/Yewplay/Yewplay/engine/flow/build/reports/lint-results-debug.sarif
 
 > Task :engine:flow:lintDebug
-> Task :app:compileDebugKotlin
-
-> Task :engine:newtube:youtubeapi:lintReportDebug
-Wrote HTML report to file:///home/runner/work/Yewplay/Yewplay/engine/newtube/youtubeapi/build/reports/lint-results-debug.html
-Wrote SARIF report to file:///home/runner/work/Yewplay/Yewplay/engine/newtube/youtubeapi/build/reports/lint-results-debug.sarif
-
-> Task :engine:newtube:youtubeapi:lintDebug
 
 > Task :app:compileDebugKotlin
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/App.kt:222:21 Only safe (?.) or non-null asserted (!!.) calls are allowed on a nullable receiver of type 'Thread.UncaughtExceptionHandler?'.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/App.kt:228:21 Only safe (?.) or non-null asserted (!!.) calls are allowed on a nullable receiver of type 'Thread.UncaughtExceptionHandler?'.
 w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/MainActivity.kt:430:19 'fun onBackPressed(): Unit' is deprecated. This method has been deprecated in favor of using the
       {@link OnBackPressedDispatcher} via {@link #getOnBackPressedDispatcher()}.
       The OnBackPressedDispatcher controls how back button events are dispatched
@@ -227,7 +221,7 @@ w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe
 w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/detail/YpVideoDetailFragment.kt:2166:63 'static field FLAG_FULLSCREEN: Int' is deprecated. Deprecated in Java.
 w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/list/comments/CommentRepliesFragment.kt:60:21 'fun bundleOf(vararg pairs: Pair<String, Any?>): Bundle' is deprecated. This method does not provide type safety at compile time. Use the platform `Bundle` class directly instead.
 w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/list/comments/CommentsFragment.kt:110:25 'fun bundleOf(vararg pairs: Pair<String, Any?>): Bundle' is deprecated. This method does not provide type safety at compile time. Use the platform `Bundle` class directly instead.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/list/search/YpSearchViewModel.kt:532:35 Unnecessary safe call on a non-null receiver of type 'String'.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/list/search/YpSearchViewModel.kt:538:35 Unnecessary safe call on a non-null receiver of type 'String'.
 w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/list/videos/RelatedItemsFragment.kt:185:25 'fun bundleOf(vararg pairs: Pair<String, Any?>): Bundle' is deprecated. This method does not provide type safety at compile time. Use the platform `Bundle` class directly instead.
 w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/local/feed/service/FeedLoadManager.kt:243:33 Unnecessary non-null assertion (!!) on a non-null receiver of type 'Info'.
 w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/local/subscription/dialog/FeedGroupDialog.kt:434:25 'fun bundleOf(vararg pairs: Pair<String, Any?>): Bundle' is deprecated. This method does not provide type safety at compile time. Use the platform `Bundle` class directly instead.
@@ -254,6 +248,12 @@ w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe
 w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/settings/export/ImportExportManager.kt:143:63 'val FILE_NAME_SERIALIZED_PREFS: String' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
 w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/us/shandian/giga/ui/fragment/YpDownloadsFragment.kt:877:49 'static field ACTION_MEDIA_SCANNER_SCAN_FILE: String' is deprecated. Deprecated in Java.
 
+> Task :engine:newtube:youtubeapi:lintReportDebug
+Wrote HTML report to file:///home/runner/work/Yewplay/Yewplay/engine/newtube/youtubeapi/build/reports/lint-results-debug.html
+Wrote SARIF report to file:///home/runner/work/Yewplay/Yewplay/engine/newtube/youtubeapi/build/reports/lint-results-debug.sarif
+
+> Task :engine:newtube:youtubeapi:lintDebug
+
 > Task :app:compileDebugJavaWithJavac
 Note: Some input files use or override a deprecated API.
 Note: Recompile with -Xlint:deprecation for details.
@@ -261,12 +261,12 @@ Note: Some input files use unchecked or unsafe operations.
 Note: Recompile with -Xlint:unchecked for details.
 
 > Task :app:processDebugJavaRes
-> Task :app:generateDebugLintReportModel
 > Task :app:bundleDebugClassesToCompileJar
-> Task :app:kspDebugUnitTestKotlin
-> Task :app:mergeDebugJavaResource
+> Task :app:generateDebugLintReportModel
 > Task :app:generateDebugAndroidTestLintModel
 > Task :app:generateDebugUnitTestLintModel
+> Task :app:kspDebugUnitTestKotlin
+> Task :app:mergeDebugJavaResource
 > Task :app:kaptGenerateStubsDebugUnitTestKotlin
 > Task :app:kaptDebugUnitTestKotlin SKIPPED
 
@@ -276,9 +276,9 @@ com.evernote.android.state.lint.registry.StateIssueRegistry in /home/runner/.gra
 > Task :app:lintAnalyzeDebugAndroidTest
 
 > Task :app:compileDebugUnitTestKotlin
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/engine/EngineManagerTest.kt:152:9 Expression is unused.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/engine/EngineManagerTest.kt:188:9 Expression is unused.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/engine/EngineManagerTest.kt:207:9 Expression is unused.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/engine/EngineManagerTest.kt:156:9 Expression is unused.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/engine/EngineManagerTest.kt:192:9 Expression is unused.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/engine/EngineManagerTest.kt:248:9 Expression is unused.
 w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/settings/ImportAllCombinationsTest.kt:86:68 'fun exportHasSerializedPrefs(zipFile: StoredFileHelper): Boolean' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
 w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/settings/ImportAllCombinationsTest.kt:87:50 'fun loadSerializedPrefs(zipFile: StoredFileHelper, preferences: SharedPreferences): Unit' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
 w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/settings/ImportAllCombinationsTest.kt:100:68 'fun exportHasSerializedPrefs(zipFile: StoredFileHelper): Boolean' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
@@ -294,9 +294,9 @@ w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe
 > Task :app:copyRoomSchemas NO-SOURCE
 > Task :app:bundleDebugClassesToRuntimeJar
 > Task :app:processDebugUnitTestJavaRes
+> Task :app:lintAnalyzeDebugUnitTest
 OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
 > Task :app:dexBuilderDebug
-> Task :app:lintAnalyzeDebugUnitTest
 > Task :app:mergeProjectDexDebug
 > Task :app:testDebugUnitTest
 > Task :app:packageDebug
@@ -317,6 +317,6 @@ You can use '--warning-mode all' to show the individual deprecation warnings and
 
 For more on this, please refer to https://docs.gradle.org/9.8.2/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
 
-BUILD SUCCESSFUL in 8m 28s
+BUILD SUCCESSFUL in 7m 23s
 451 actionable tasks: 451 executed
 Configuration cache entry stored.
