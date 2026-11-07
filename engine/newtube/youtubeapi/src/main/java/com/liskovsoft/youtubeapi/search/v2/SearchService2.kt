@@ -8,10 +8,12 @@ import com.liskovsoft.youtubeapi.app.AppService
 import com.liskovsoft.youtubeapi.common.models.impl.mediagroup.SearchContinuationMediaGroup
 import com.liskovsoft.youtubeapi.common.models.impl.mediagroup.SearchSectionMediaGroup
 import com.liskovsoft.youtubeapi.next.v2.gen.WatchNextResultContinuation
+import com.liskovsoft.youtubeapi.next.v2.gen.isEmpty
 import com.liskovsoft.youtubeapi.search.SearchApiHelper
 import com.liskovsoft.youtubeapi.search.v2.gen.SearchResult
 import com.liskovsoft.youtubeapi.search.v2.gen.SearchTags
 import com.liskovsoft.youtubeapi.search.v2.gen.getSections
+import com.liskovsoft.youtubeapi.search.v2.gen.toSearchSection
 import retrofit2.Call
 
 private val TAG = SearchService2::class.simpleName
@@ -31,8 +33,17 @@ internal open class SearchService2 {
         // NOTE: a Call is single-shot. Retrofit's OkHttpCall.execute() sets executed=true before
         // dispatching, so reusing the same instance makes the anonymous retry throw
         // IllegalStateException("Already executed.") instead of falling back. clone() gives a fresh one.
-        val searchResult = RetrofitHelper.get(wrapper) ?: RetrofitHelper.get(wrapper.clone(), false)
+        var searchResult = RetrofitHelper.get(wrapper) ?: RetrofitHelper.get(wrapper.clone(), false)
 
+        // NEWTUBE(web-search): YouTube broke the TV client search (upstream issue #6410): the
+        // request succeeds but the response has no sections or only empty shelves. Fall back to
+        // the WEB client, which still returns results.
+        if (searchResult.isEffectivelyEmpty()) {
+            Log.e(TAG, "Empty TV search result for text %s, retrying with the WEB client", searchText)
+            val webWrapper: Call<SearchResult?> =
+                mSearchApi.getSearchResult(SearchApiHelper.getSearchQueryWeb(searchText, options), mAppService.visitorData)
+            RetrofitHelper.get(webWrapper)?.let { searchResult = it }
+        }
 
         if (searchResult == null) {
             Log.e(TAG, "Empty search result for text %s", searchText)
@@ -54,6 +65,16 @@ internal open class SearchService2 {
         val wrapper: Call<WatchNextResultContinuation?>? =
             mSearchApi.continueSearchResult(SearchApiHelper.getContinuationQuery(nextSearchPageKey))
         val searchResult = RetrofitHelper.get(wrapper)
+
+        // NEWTUBE(web-search): the TV continuation broke together with the first page (issue
+        // #6410). When it yields no items, retry against the WEB client.
+        if (searchResult == null || searchResult.isEmpty()) {
+            Log.e(TAG, "Empty TV next search page for key %s, retrying with the WEB client", nextSearchPageKey)
+            val webResult = RetrofitHelper.get(
+                mSearchApi.continueSearchResultWeb(SearchApiHelper.getContinuationQueryWeb(nextSearchPageKey))
+            )
+            webResult?.toSearchSection()?.let { return SearchSectionMediaGroup(it) }
+        }
 
         if (searchResult == null) {
             Log.e(TAG, "Empty next search page result for key %s", nextSearchPageKey)
@@ -103,4 +124,11 @@ internal open class SearchService2 {
     open fun removeTag(tag: String?) {
         // NOP
     }
+}
+
+// NEWTUBE(web-search): a search result that has no sections, or only sections without
+// any item, is treated as empty so the caller can retry with another client.
+private fun SearchResult?.isEffectivelyEmpty(): Boolean {
+    val sections = this?.getSections()
+    return sections == null || sections.all { it?.itemWrappers.isNullOrEmpty() }
 }

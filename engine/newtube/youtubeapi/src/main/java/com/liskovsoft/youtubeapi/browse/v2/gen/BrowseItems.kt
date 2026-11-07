@@ -239,19 +239,36 @@ internal data class GridRenderer(
 
 internal data class Content(
     val horizontalListRenderer: HorizontalListRenderer?,
-    val sectionListRenderer: SectionListRenderer?
+    val sectionListRenderer: SectionListRenderer?,
+    // NEWTUBE(web-search): the WEB client nests the search sections one level deeper
+    val twoColumnSearchResultsRenderer: TwoColumnSearchResultsRenderer? = null
 ) {
     data class HorizontalListRenderer(
         val items: List<ItemWrapper?>?,
         val continuations: List<ContinuationItem?>?
     )
 
+    data class TwoColumnSearchResultsRenderer(
+        val primaryContents: PrimaryContents?
+    ) {
+        data class PrimaryContents(
+            val sectionListRenderer: SectionListRenderer?
+        )
+    }
+
     data class SectionListRenderer(
         val contents: List<Shelf?>?
     ) {
         data class Shelf(
-            val shelfRenderer: ShelfRenderer?
-        )
+            val shelfRenderer: ShelfRenderer?,
+            // NEWTUBE(web-search): WEB search results are item sections, not shelves
+            val itemSectionRenderer: ItemSection? = null
+        ) {
+            data class ItemSection(
+                val contents: List<ItemWrapper?>?,
+                val continuations: List<ContinuationItem?>?
+            )
+        }
     }
 }
 

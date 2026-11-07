@@ -242,6 +242,8 @@ internal data class ItemWrapper(
     val continuationItemRenderer: ContinuationItemRenderer? = null, // ChannelPlaylist
     val shortsLockupViewModel: ShortsItem? = null, // Shorts v2
     val lockupViewModel: LockupItem? = null, // Home video items v2
+    // NEWTUBE(web-search): WEB search returns channels as channelRenderer
+    val channelRenderer: ChannelItem? = null
 )
 
 internal data class TileItem(

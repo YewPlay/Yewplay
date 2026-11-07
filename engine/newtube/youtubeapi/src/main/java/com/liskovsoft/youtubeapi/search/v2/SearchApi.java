@@ -3,6 +3,7 @@ package com.liskovsoft.youtubeapi.search.v2;
 import com.liskovsoft.googlecommon.common.converters.gson.WithGson;
 import com.liskovsoft.youtubeapi.next.v2.gen.WatchNextResultContinuation;
 import com.liskovsoft.youtubeapi.search.v2.gen.SearchResult;
+import com.liskovsoft.youtubeapi.search.v2.gen.SearchResultContinuation;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -25,4 +26,12 @@ public interface SearchApi {
     @Headers("Content-Type: application/json")
     @POST(SEARCH_URL)
     Call<WatchNextResultContinuation> continueSearchResult(@Body String searchQuery);
+
+    /**
+     * NEWTUBE(web-search): WEB continuation pages come back as appended continuation
+     * items, which WatchNextResultContinuation cannot represent (upstream issue #6410).
+     */
+    @Headers("Content-Type: application/json")
+    @POST(SEARCH_URL)
+    Call<SearchResultContinuation> continueSearchResultWeb(@Body String searchQuery);
 }

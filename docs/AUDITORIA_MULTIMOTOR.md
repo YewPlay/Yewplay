@@ -436,3 +436,61 @@ Mudanças:
 
 Sem mudança de comportamento nos motores, na ponte ou no NewPipeExtractor; nenhuma exceção
 é suprimida — o probe novo apenas expõe as falhas com precisão.
+
+---
+
+## Adendo 2026-11-07 — NewTube: busca vazia (0 itens) e fallback para cliente WEB
+
+### Sintoma
+O diagnóstico de caminho de app (adendo anterior) mostrou: NewPipe 20 itens, FlowTube 20 itens,
+**NewTube 0 itens** — porém com status OK, porque a sonda só falhava em exceções e a busca do
+NewTube retorna sucesso HTTP com resposta sem seções.
+
+### Causa raiz (upstream)
+O `SearchService2` vendored posta em `youtubei/v1/search` com o cliente TV (TVHTML5
+7.20260707.07.00, UA Cobalt, `PostDataHelper.createQueryTV`). O YouTube quebrou a busca do
+cliente TV por volta de 2026-11-05/06: a requisição é aceita, mas a resposta vem sem
+`sectionListRenderer` populado. Código vendored é byte-idêntico ao upstream
+yuliskov/MediaServiceCore master; issue upstream **#6410** (2026-11-06) reporta o mesmo
+sintoma na Beta 32.70, sem correção até 2026-11-07. A busca via cliente WEB continua saudável
+(prova: a engine FlowTube, que usa cliente WEB, retorna 20 itens pelo mesmo caminho de app).
+
+### Correção (camada de integração do motor vendored, marcadores NEWTUBE(web-search))
+Estratégia: **TV primeiro, WEB como fallback** — comportamento upstream preservado enquanto o
+cliente TV funcionar; o fallback só dispara quando a resposta TV é nula ou todas as seções vêm
+sem itens.
+
+- `search/v2/SearchService2.kt` — `getSearch()`: se o resultado TV é nulo/efetivamente vazio,
+  repete a busca com `SearchApiHelper.getSearchQueryWeb()` (cliente WEB). `continueSearch()`:
+  se a continuação TV é nula/sem itens, tenta `continueSearchResultWeb()` e converte via
+  `toSearchSection()`. Novo helper privado `SearchResult?.isEffectivelyEmpty()`.
+- `search/v2/SearchApi.java` — novo endpoint `continueSearchResultWeb()` retornando
+  `Call<SearchResultContinuation>`.
+- `search/SearchApiHelper.java` — `getSearchQueryWeb()` e `getContinuationQueryWeb()`
+  (mesmos templates de query, serializados com `PostDataHelper.createQueryWeb`).
+- `browse/v2/gen/BrowseItems.kt` — `Content.twoColumnSearchResultsRenderer` (o cliente WEB
+  aninha as seções um nível abaixo) e `Shelf.itemSectionRenderer` (WEB usa item sections, não
+  shelves). Ambos com default `null`: shape TV inalterado.
+- `search/v2/gen/SearchResult.kt` — novo modelo `SearchResultContinuation`
+  (`onResponseReceivedActions` → `appendContinuationItemsAction`), pois a continuação WEB vem
+  como appended continuation items. `WatchNextResultContinuation` **não** foi tocado (evita
+  efeitos colaterais em comentários etc.).
+- `search/v2/gen/SearchResultHelper.kt` — `getContents()` aceita os dois shapes;
+  `getSections()` mapeia `shelfRenderer` (TV) ou `itemSectionRenderer` (WEB);
+  `toSearchSection()` converte uma página de continuação WEB.
+- `common/models/gen/CommonItems.kt` + `CommonHelper.kt` — `ItemWrapper.channelRenderer` e
+  fallback em `getChannelItem()`: a busca WEB retorna canais como `channelRenderer`, shape já
+  compatível com `ChannelItem`.
+
+### Validação
+- Sandbox sem acesso ao YouTube (todos os hosts 000): impossível replay ao vivo. Correção
+  fundamentada no issue upstream + na prova interna de que a busca WEB funciona (FlowTube).
+- ktlint: arquivos novos/trechos novos limpos; violações remanescentes são pré-existentes do
+  código upstream vendored (árvore fora da enforcement).
+- Validação final no aparelho: rodar "Full diagnostics (app path, all engines)" — NewTube deve
+  reportar search com > 0 itens, ui mapping OK e getStreamInfo OK.
+
+### Follow-up
+Quando o upstream yuliskov/MediaServiceCore publicar a correção oficial da busca, reavaliar o
+re-vendor para permanecer próximo do upstream (o fallback pode permanecer como rede de
+segurança, pois é inócuo quando a busca TV funciona).
