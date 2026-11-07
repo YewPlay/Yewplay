@@ -964,7 +964,8 @@ class YpVideoDetailFragment :
 
     private fun runWorker(forceLoad: Boolean, addToBackStack: Boolean) {
         val prefs = PreferenceManager.getDefaultSharedPreferences(activity)
-        currentWorker = EngineExtractorBridge.getStreamInfo(serviceId, url, forceLoad)
+        // url is always set when the worker runs; null would crash inside the old Java path too
+        currentWorker = EngineExtractorBridge.getStreamInfo(serviceId, url!!, forceLoad)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ result ->

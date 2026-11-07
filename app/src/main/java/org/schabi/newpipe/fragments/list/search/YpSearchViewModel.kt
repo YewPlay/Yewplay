@@ -342,8 +342,9 @@ class YpSearchViewModel(application: Application) : AndroidViewModel(application
         }
         _state.update { it.copy(isLoadingMore = true) }
         searchDisposable?.dispose()
+        // page is non-null here: the Page.isValid guard above returned early otherwise
         searchDisposable = EngineExtractorBridge
-            .getMoreSearchItems(serviceId, searchString, contentFilter, sortFilter, page)
+            .getMoreSearchItems(serviceId, searchString, contentFilter, sortFilter, page!!)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
