@@ -1,7 +1,7 @@
 branch: yewplay/multiengine
-sha: 94163258e8782f41bf52ec32fb80981d6715e98e
+sha: bdab9b436d8bf2e65e9e2a82873cec1eedcbe27c
 outcome: success
-run: https://github.com/YewPlay/Yewplay/actions/runs/42306996490
+run: https://github.com/YewPlay/Yewplay/actions/runs/42315047985
 
 == errors ==
 
@@ -16,10 +16,10 @@ w: ⚠️ Unused Kotlin Source Sets
 w: ⚠️ Unused Kotlin Source Sets
 w: ⚠️ Unused Kotlin Source Sets
 w: Koin compiler plugin: Kotlin 2.4.21 is newer than the newest verified version (2.4.20) — proceeding with the 2.4.20 adapter. If compilation fails, check for a koin-compiler-plugin update. Verified versions: 2.3.20, 2.4.0, 2.4.10, 2.4.20.
-w: file:///home/runner/work/Yewplay/Yewplay/engine/newtube/youtubeapi/src/main/java/com/liskovsoft/googlecommon/common/helpers/RetrofitOkHttpHelper.kt:611:30 Unnecessary safe call on a non-null receiver of type 'HttpUrl.Builder'.
-w: file:///home/runner/work/Yewplay/Yewplay/engine/newtube/youtubeapi/src/main/java/com/liskovsoft/youtubeapi/app/potokennp2/generators/PoTokenV8.kt:107:13 Expression is unused.
 w: file:///home/runner/work/Yewplay/Yewplay/feature/channel/src/commonMain/kotlin/io/github/yewplay/feature/channel/ChannelScreen.kt:403:42 Unnecessary safe call on a non-null receiver of type 'ChannelHeader'.
 w: file:///home/runner/work/Yewplay/Yewplay/feature/channel/src/commonMain/kotlin/io/github/yewplay/feature/channel/ChannelScreen.kt:431:38 Unnecessary safe call on a non-null receiver of type 'ChannelHeader'.
+w: file:///home/runner/work/Yewplay/Yewplay/engine/newtube/youtubeapi/src/main/java/com/liskovsoft/googlecommon/common/helpers/RetrofitOkHttpHelper.kt:611:30 Unnecessary safe call on a non-null receiver of type 'HttpUrl.Builder'.
+w: file:///home/runner/work/Yewplay/Yewplay/engine/newtube/youtubeapi/src/main/java/com/liskovsoft/youtubeapi/app/potokennp2/generators/PoTokenV8.kt:107:13 Expression is unused.
 w: file:///home/runner/work/Yewplay/Yewplay/engine/flow/src/main/java/io/github/aedev/flow/innertube/YouTube.kt:352:17 Redundant creation of Json format. Creating instances for each use can be slow.
 w: file:///home/runner/work/Yewplay/Yewplay/engine/flow/src/main/java/io/github/aedev/flow/innertube/YouTube.kt:363:17 Redundant creation of Json format. Creating instances for each use can be slow.
 w: file:///home/runner/work/Yewplay/Yewplay/engine/flow/src/main/java/io/github/aedev/flow/innertube/YouTube.kt:388:21 Expression is unused.
@@ -78,7 +78,7 @@ w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe
 w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/detail/YpVideoDetailFragment.kt:2164:63 'static field FLAG_FULLSCREEN: Int' is deprecated. Deprecated in Java.
 w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/list/comments/CommentRepliesFragment.kt:60:21 'fun bundleOf(vararg pairs: Pair<String, Any?>): Bundle' is deprecated. This method does not provide type safety at compile time. Use the platform `Bundle` class directly instead.
 w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/list/comments/CommentsFragment.kt:110:25 'fun bundleOf(vararg pairs: Pair<String, Any?>): Bundle' is deprecated. This method does not provide type safety at compile time. Use the platform `Bundle` class directly instead.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/list/search/YpSearchViewModel.kt:522:35 Unnecessary safe call on a non-null receiver of type 'String'.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/list/search/YpSearchViewModel.kt:531:35 Unnecessary safe call on a non-null receiver of type 'String'.
 w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/list/videos/RelatedItemsFragment.kt:185:25 'fun bundleOf(vararg pairs: Pair<String, Any?>): Bundle' is deprecated. This method does not provide type safety at compile time. Use the platform `Bundle` class directly instead.
 w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/local/feed/service/FeedLoadManager.kt:243:33 Unnecessary non-null assertion (!!) on a non-null receiver of type 'Info'.
 w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/local/subscription/dialog/FeedGroupDialog.kt:434:25 'fun bundleOf(vararg pairs: Pair<String, Any?>): Bundle' is deprecated. This method does not provide type safety at compile time. Use the platform `Bundle` class directly instead.
@@ -119,7 +119,6 @@ w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe
 OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
 
 == tail ==
-> Task :engine:newtube:youtubeapi:generateDebugLintReportModel
 > Task :engine:flow:generateDebugUnitTestStubRFile
 > Task :engine:flow:compileDebugUnitTestKotlin NO-SOURCE
 > Task :engine:flow:javaPreCompileDebugUnitTest
@@ -144,19 +143,17 @@ OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader clas
 > Task :engine:newtube:youtubeapi:compileDebugUnitTestJavaWithJavac NO-SOURCE
 > Task :engine:newtube:youtubeapi:processDebugUnitTestJavaRes NO-SOURCE
 > Task :engine:newtube:youtubeapi:testDebugUnitTest NO-SOURCE
-> Task :engine:flow:lintAnalyzeDebug
 > Task :engine:newtube:sharedutils:lintAnalyzeDebug
+
+> Task :app:kspDebugKotlin
+w: [ksp] /home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/database/feed/dao/FeedDAO.kt:178: The DAO function return type (kotlin.collections.List<java.time.OffsetDateTime?>) with the nullable type argument is meaningless because for now Room will never put a null value in a result.
+w: [ksp] /home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/database/feed/dao/FeedDAO.kt:181: The DAO function return type (kotlin.collections.List<java.time.OffsetDateTime?>) with the nullable type argument is meaningless because for now Room will never put a null value in a result.
 
 > Task :engine:newtube:sharedutils:lintReportDebug
 Wrote HTML report to file:///home/runner/work/Yewplay/Yewplay/engine/newtube/sharedutils/build/reports/lint-results-debug.html
 Wrote SARIF report to file:///home/runner/work/Yewplay/Yewplay/engine/newtube/sharedutils/build/reports/lint-results-debug.sarif
 
 > Task :engine:newtube:sharedutils:lintDebug
-
-> Task :app:kspDebugKotlin
-w: [ksp] /home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/database/feed/dao/FeedDAO.kt:178: The DAO function return type (kotlin.collections.List<java.time.OffsetDateTime?>) with the nullable type argument is meaningless because for now Room will never put a null value in a result.
-w: [ksp] /home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/database/feed/dao/FeedDAO.kt:181: The DAO function return type (kotlin.collections.List<java.time.OffsetDateTime?>) with the nullable type argument is meaningless because for now Room will never put a null value in a result.
-
 > Task :engine:newtube:mediaserviceinterfaces:lintAnalyzeDebug
 
 > Task :engine:newtube:mediaserviceinterfaces:lintReportDebug
@@ -164,6 +161,7 @@ Wrote HTML report to file:///home/runner/work/Yewplay/Yewplay/engine/newtube/med
 Wrote SARIF report to file:///home/runner/work/Yewplay/Yewplay/engine/newtube/mediaserviceinterfaces/build/reports/lint-results-debug.sarif
 
 > Task :engine:newtube:mediaserviceinterfaces:lintDebug
+> Task :engine:flow:lintAnalyzeDebug
 > Task :engine:newtube:youtubeapi:lintAnalyzeDebug
 > Task :app:kaptGenerateStubsDebugKotlin
 
@@ -175,12 +173,14 @@ Wrote HTML report to file:///home/runner/work/Yewplay/Yewplay/engine/flow/build/
 Wrote SARIF report to file:///home/runner/work/Yewplay/Yewplay/engine/flow/build/reports/lint-results-debug.sarif
 
 > Task :engine:flow:lintDebug
+> Task :app:compileDebugKotlin
 
 > Task :engine:newtube:youtubeapi:lintReportDebug
 Wrote HTML report to file:///home/runner/work/Yewplay/Yewplay/engine/newtube/youtubeapi/build/reports/lint-results-debug.html
 Wrote SARIF report to file:///home/runner/work/Yewplay/Yewplay/engine/newtube/youtubeapi/build/reports/lint-results-debug.sarif
 
 > Task :engine:newtube:youtubeapi:lintDebug
+
 > Task :app:compileDebugKotlin
 w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/App.kt:222:21 Only safe (?.) or non-null asserted (!!.) calls are allowed on a nullable receiver of type 'Thread.UncaughtExceptionHandler?'.
 w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/MainActivity.kt:430:19 'fun onBackPressed(): Unit' is deprecated. This method has been deprecated in favor of using the
@@ -227,7 +227,7 @@ w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe
 w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/detail/YpVideoDetailFragment.kt:2164:63 'static field FLAG_FULLSCREEN: Int' is deprecated. Deprecated in Java.
 w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/list/comments/CommentRepliesFragment.kt:60:21 'fun bundleOf(vararg pairs: Pair<String, Any?>): Bundle' is deprecated. This method does not provide type safety at compile time. Use the platform `Bundle` class directly instead.
 w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/list/comments/CommentsFragment.kt:110:25 'fun bundleOf(vararg pairs: Pair<String, Any?>): Bundle' is deprecated. This method does not provide type safety at compile time. Use the platform `Bundle` class directly instead.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/list/search/YpSearchViewModel.kt:522:35 Unnecessary safe call on a non-null receiver of type 'String'.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/list/search/YpSearchViewModel.kt:531:35 Unnecessary safe call on a non-null receiver of type 'String'.
 w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/fragments/list/videos/RelatedItemsFragment.kt:185:25 'fun bundleOf(vararg pairs: Pair<String, Any?>): Bundle' is deprecated. This method does not provide type safety at compile time. Use the platform `Bundle` class directly instead.
 w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/local/feed/service/FeedLoadManager.kt:243:33 Unnecessary non-null assertion (!!) on a non-null receiver of type 'Info'.
 w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/local/subscription/dialog/FeedGroupDialog.kt:434:25 'fun bundleOf(vararg pairs: Pair<String, Any?>): Bundle' is deprecated. This method does not provide type safety at compile time. Use the platform `Bundle` class directly instead.
@@ -266,13 +266,13 @@ Note: Recompile with -Xlint:unchecked for details.
 > Task :app:generateDebugAndroidTestLintModel
 > Task :app:generateDebugUnitTestLintModel
 > Task :app:kspDebugUnitTestKotlin
-> Task :app:mergeDebugJavaResource
-> Task :app:kaptGenerateStubsDebugUnitTestKotlin
-> Task :app:kaptDebugUnitTestKotlin SKIPPED
 
 > Task :app:lintAnalyzeDebug
 com.evernote.android.state.lint.registry.StateIssueRegistry in /home/runner/.gradle/caches/9.8.2/transforms/96095e752b50ab1dcd8f4a0a18e542cf/transformed/android-state-1.4.1/jars/lint.jar does not specify a vendor; see IssueRegistry#vendor
 
+> Task :app:mergeDebugJavaResource
+> Task :app:kaptGenerateStubsDebugUnitTestKotlin
+> Task :app:kaptDebugUnitTestKotlin SKIPPED
 > Task :app:lintAnalyzeDebugAndroidTest
 
 > Task :app:compileDebugUnitTestKotlin
@@ -294,8 +294,8 @@ w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe
 > Task :app:bundleDebugClassesToRuntimeJar
 > Task :app:processDebugUnitTestJavaRes
 OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
-> Task :app:lintAnalyzeDebugUnitTest
 > Task :app:dexBuilderDebug
+> Task :app:lintAnalyzeDebugUnitTest
 > Task :app:mergeProjectDexDebug
 > Task :app:testDebugUnitTest
 > Task :app:packageDebug
@@ -316,6 +316,6 @@ You can use '--warning-mode all' to show the individual deprecation warnings and
 
 For more on this, please refer to https://docs.gradle.org/9.8.2/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
 
-BUILD SUCCESSFUL in 6m 54s
+BUILD SUCCESSFUL in 5m 24s
 451 actionable tasks: 451 executed
 Configuration cache entry stored.
