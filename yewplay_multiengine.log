@@ -1,7 +1,7 @@
 branch: yewplay/multiengine
-sha: 9783bcd07b43c85af37183d911e143954bab5b61
+sha: d9cfc28cfd19f2066e2f5346e9c1f1432f2f10d6
 outcome: success
-run: https://github.com/YewPlay/Yewplay/actions/runs/42332660113
+run: https://github.com/YewPlay/Yewplay/actions/runs/42337790190
 
 == errors ==
 
@@ -16,10 +16,10 @@ w: ⚠️ Unused Kotlin Source Sets
 w: ⚠️ Unused Kotlin Source Sets
 w: ⚠️ Unused Kotlin Source Sets
 w: Koin compiler plugin: Kotlin 2.4.21 is newer than the newest verified version (2.4.20) — proceeding with the 2.4.20 adapter. If compilation fails, check for a koin-compiler-plugin update. Verified versions: 2.3.20, 2.4.0, 2.4.10, 2.4.20.
-w: file:///home/runner/work/Yewplay/Yewplay/feature/channel/src/commonMain/kotlin/io/github/yewplay/feature/channel/ChannelScreen.kt:403:42 Unnecessary safe call on a non-null receiver of type 'ChannelHeader'.
-w: file:///home/runner/work/Yewplay/Yewplay/feature/channel/src/commonMain/kotlin/io/github/yewplay/feature/channel/ChannelScreen.kt:431:38 Unnecessary safe call on a non-null receiver of type 'ChannelHeader'.
 w: file:///home/runner/work/Yewplay/Yewplay/engine/newtube/youtubeapi/src/main/java/com/liskovsoft/googlecommon/common/helpers/RetrofitOkHttpHelper.kt:611:30 Unnecessary safe call on a non-null receiver of type 'HttpUrl.Builder'.
 w: file:///home/runner/work/Yewplay/Yewplay/engine/newtube/youtubeapi/src/main/java/com/liskovsoft/youtubeapi/app/potokennp2/generators/PoTokenV8.kt:107:13 Expression is unused.
+w: file:///home/runner/work/Yewplay/Yewplay/feature/channel/src/commonMain/kotlin/io/github/yewplay/feature/channel/ChannelScreen.kt:403:42 Unnecessary safe call on a non-null receiver of type 'ChannelHeader'.
+w: file:///home/runner/work/Yewplay/Yewplay/feature/channel/src/commonMain/kotlin/io/github/yewplay/feature/channel/ChannelScreen.kt:431:38 Unnecessary safe call on a non-null receiver of type 'ChannelHeader'.
 w: file:///home/runner/work/Yewplay/Yewplay/engine/flow/src/main/java/io/github/aedev/flow/innertube/YouTube.kt:352:17 Redundant creation of Json format. Creating instances for each use can be slow.
 w: file:///home/runner/work/Yewplay/Yewplay/engine/flow/src/main/java/io/github/aedev/flow/innertube/YouTube.kt:363:17 Redundant creation of Json format. Creating instances for each use can be slow.
 w: file:///home/runner/work/Yewplay/Yewplay/engine/flow/src/main/java/io/github/aedev/flow/innertube/YouTube.kt:388:21 Expression is unused.
@@ -104,8 +104,9 @@ w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe
 w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/settings/export/ImportExportManager.kt:109:65 'val FILE_NAME_SERIALIZED_PREFS: String' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
 w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/settings/export/ImportExportManager.kt:143:63 'val FILE_NAME_SERIALIZED_PREFS: String' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
 w: file:///home/runner/work/Yewplay/Yewplay/app/src/main/java/us/shandian/giga/ui/fragment/YpDownloadsFragment.kt:877:49 'static field ACTION_MEDIA_SCANNER_SCAN_FILE: String' is deprecated. Deprecated in Java.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/engine/EngineManagerTest.kt:151:9 Expression is unused.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/engine/EngineManagerTest.kt:190:9 Expression is unused.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/engine/EngineManagerTest.kt:152:9 Expression is unused.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/engine/EngineManagerTest.kt:188:9 Expression is unused.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/engine/EngineManagerTest.kt:207:9 Expression is unused.
 w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/settings/ImportAllCombinationsTest.kt:86:68 'fun exportHasSerializedPrefs(zipFile: StoredFileHelper): Boolean' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
 w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/settings/ImportAllCombinationsTest.kt:87:50 'fun loadSerializedPrefs(zipFile: StoredFileHelper, preferences: SharedPreferences): Unit' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
 w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/settings/ImportAllCombinationsTest.kt:100:68 'fun exportHasSerializedPrefs(zipFile: StoredFileHelper): Boolean' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
@@ -119,6 +120,7 @@ w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe
 OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
 
 == tail ==
+> Task :engine:flow:generateDebugUnitTestStubRFile
 > Task :engine:flow:compileDebugUnitTestKotlin NO-SOURCE
 > Task :engine:flow:javaPreCompileDebugUnitTest
 > Task :engine:flow:compileDebugUnitTestJavaWithJavac NO-SOURCE
@@ -143,13 +145,6 @@ OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader clas
 > Task :engine:newtube:youtubeapi:processDebugUnitTestJavaRes NO-SOURCE
 > Task :engine:newtube:youtubeapi:testDebugUnitTest NO-SOURCE
 
-> Task :app:kspDebugKotlin
-w: [ksp] /home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/database/feed/dao/FeedDAO.kt:178: The DAO function return type (kotlin.collections.List<java.time.OffsetDateTime?>) with the nullable type argument is meaningless because for now Room will never put a null value in a result.
-w: [ksp] /home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/database/feed/dao/FeedDAO.kt:181: The DAO function return type (kotlin.collections.List<java.time.OffsetDateTime?>) with the nullable type argument is meaningless because for now Room will never put a null value in a result.
-
-> Task :engine:flow:lintAnalyzeDebug
-> Task :engine:newtube:sharedutils:lintAnalyzeDebug
-
 > Task :engine:newtube:sharedutils:lintReportDebug
 Wrote HTML report to file:///home/runner/work/Yewplay/Yewplay/engine/newtube/sharedutils/build/reports/lint-results-debug.html
 Wrote SARIF report to file:///home/runner/work/Yewplay/Yewplay/engine/newtube/sharedutils/build/reports/lint-results-debug.sarif
@@ -162,6 +157,11 @@ Wrote HTML report to file:///home/runner/work/Yewplay/Yewplay/engine/newtube/med
 Wrote SARIF report to file:///home/runner/work/Yewplay/Yewplay/engine/newtube/mediaserviceinterfaces/build/reports/lint-results-debug.sarif
 
 > Task :engine:newtube:mediaserviceinterfaces:lintDebug
+
+> Task :app:kspDebugKotlin
+w: [ksp] /home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/database/feed/dao/FeedDAO.kt:178: The DAO function return type (kotlin.collections.List<java.time.OffsetDateTime?>) with the nullable type argument is meaningless because for now Room will never put a null value in a result.
+w: [ksp] /home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/database/feed/dao/FeedDAO.kt:181: The DAO function return type (kotlin.collections.List<java.time.OffsetDateTime?>) with the nullable type argument is meaningless because for now Room will never put a null value in a result.
+
 > Task :engine:newtube:youtubeapi:lintAnalyzeDebug
 > Task :app:kaptGenerateStubsDebugKotlin
 
@@ -276,8 +276,9 @@ com.evernote.android.state.lint.registry.StateIssueRegistry in /home/runner/.gra
 > Task :app:lintAnalyzeDebugAndroidTest
 
 > Task :app:compileDebugUnitTestKotlin
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/engine/EngineManagerTest.kt:151:9 Expression is unused.
-w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/engine/EngineManagerTest.kt:190:9 Expression is unused.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/engine/EngineManagerTest.kt:152:9 Expression is unused.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/engine/EngineManagerTest.kt:188:9 Expression is unused.
+w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/engine/EngineManagerTest.kt:207:9 Expression is unused.
 w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/settings/ImportAllCombinationsTest.kt:86:68 'fun exportHasSerializedPrefs(zipFile: StoredFileHelper): Boolean' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
 w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/settings/ImportAllCombinationsTest.kt:87:50 'fun loadSerializedPrefs(zipFile: StoredFileHelper, preferences: SharedPreferences): Unit' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
 w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe/settings/ImportAllCombinationsTest.kt:100:68 'fun exportHasSerializedPrefs(zipFile: StoredFileHelper): Boolean' is deprecated. Serializing preferences with Java's ObjectOutputStream is vulnerable to injections.
@@ -293,9 +294,9 @@ w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe
 > Task :app:copyRoomSchemas NO-SOURCE
 > Task :app:bundleDebugClassesToRuntimeJar
 > Task :app:processDebugUnitTestJavaRes
-> Task :app:lintAnalyzeDebugUnitTest
 OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
 > Task :app:dexBuilderDebug
+> Task :app:lintAnalyzeDebugUnitTest
 > Task :app:mergeProjectDexDebug
 > Task :app:testDebugUnitTest
 > Task :app:packageDebug
@@ -316,6 +317,6 @@ You can use '--warning-mode all' to show the individual deprecation warnings and
 
 For more on this, please refer to https://docs.gradle.org/9.8.2/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
 
-BUILD SUCCESSFUL in 5m 57s
+BUILD SUCCESSFUL in 8m 28s
 451 actionable tasks: 451 executed
 Configuration cache entry stored.
