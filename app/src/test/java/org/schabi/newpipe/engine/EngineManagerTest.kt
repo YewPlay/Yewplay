@@ -5,6 +5,8 @@
 package org.schabi.newpipe.engine
 
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -39,7 +41,8 @@ class EngineManagerTest {
         id: String,
         capabilities: Set<EngineCapability> = setOf(EngineCapability.SEARCH_VIDEOS),
         private val availability: EngineState = EngineState.AVAILABLE,
-        private val failWith: EngineException? = null
+        private val failWith: EngineException? = null,
+        private val failWithUnexpected: Throwable? = null
     ) : ExtractionEngine {
         override val descriptor =
             EngineDescriptor(id, id.uppercase(), "fake", "1.0", capabilities)
@@ -54,6 +57,7 @@ class EngineManagerTest {
             pageKey: String?
         ): YpSearchPage {
             failWith?.let { throw it }
+            failWithUnexpected?.let { throw it }
             return YpSearchPage(emptyList(), emptyList(), emptyList(), nextPageKey = null)
         }
 
@@ -186,6 +190,43 @@ class EngineManagerTest {
             }
         }
         Unit
+    }
+
+    @Test
+    fun `execute wraps unexpected failure in EngineException when fallback disabled`() = runBlocking {
+        val failing = FakeEngine(
+            EngineManager.NEWPIPE_ID,
+            failWithUnexpected = RuntimeException("boom")
+        )
+        manager.register(failing)
+
+        try {
+            manager.execute(EngineCapability.SEARCH_VIDEOS) { engine ->
+                engine.search("q", SearchFilter.ALL, null)
+            }
+            org.junit.Assert.fail("expected EngineException")
+        } catch (e: EngineException) {
+            // Real failures keep being reported: wrapped with the serving engine id and cause.
+            assertEquals(EngineManager.NEWPIPE_ID, e.engineId)
+            assertTrue(e.cause is RuntimeException)
+        }
+    }
+
+    @Test
+    fun `execute serves concurrent operations from the active engine`() = runBlocking {
+        val newpipe = FakeEngine(EngineManager.NEWPIPE_ID)
+        manager.register(newpipe)
+
+        val results = (1..32).map { index ->
+            async(kotlinx.coroutines.Dispatchers.Default) {
+                manager.execute(EngineCapability.SEARCH_VIDEOS) { engine ->
+                    engine.search("q$index", SearchFilter.ALL, null)
+                }
+            }
+        }.awaitAll()
+
+        assertEquals(32, results.size)
+        assertTrue(results.all { !it.fallbackUsed && it.servedBy.id == EngineManager.NEWPIPE_ID })
     }
 
     @Test(expected = EngineException::class)

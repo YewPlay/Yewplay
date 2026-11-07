@@ -24,6 +24,7 @@ import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.functions.BiFunction
 import io.reactivex.rxjava3.schedulers.Schedulers
 import io.reactivex.rxjava3.subjects.PublishSubject
+import java.util.concurrent.CancellationException
 import java.util.concurrent.TimeUnit
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -45,6 +46,7 @@ import org.schabi.newpipe.extractor.channel.ChannelInfoItem
 import org.schabi.newpipe.extractor.search.SearchExtractor
 import org.schabi.newpipe.extractor.search.SearchInfo
 import org.schabi.newpipe.extractor.stream.StreamInfoItem
+import org.schabi.newpipe.ktx.hasAssignableCause
 import org.schabi.newpipe.ktx.isInterruptedCaused
 import org.schabi.newpipe.local.history.HistoryRecordManager
 import org.schabi.newpipe.local.subscription.SubscriptionManager
@@ -223,7 +225,11 @@ class YpSearchViewModel(application: Application) : AndroidViewModel(application
                     val error = notification.error
                     if (value != null) {
                         _state.update { it.copy(suggestions = value) }
-                    } else if (error != null && !error.isInterruptedCaused) {
+                    } else if (error != null && !error.isInterruptedCaused &&
+                        !error.hasAssignableCause(CancellationException::class.java)
+                    ) {
+                        // Cancelled in-flight suggestions (e.g. a newer query superseded them)
+                        // are not failures: never surface them to the user.
                         emitError(
                             ErrorInfo(error, UserAction.GET_SUGGESTIONS, searchString, serviceId)
                         )

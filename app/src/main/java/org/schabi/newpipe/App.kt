@@ -199,7 +199,13 @@ open class App :
                             IOException::class.java,
                             SocketException::class.java, // blocking code disposed
                             InterruptedException::class.java,
-                            InterruptedIOException::class.java
+                            InterruptedIOException::class.java,
+                            // coroutine disposal racing an undeliverable Rx signal (engine bridge):
+                            // kotlinx.coroutines.CancellationException is a typealias of this class,
+                            // so the assignable check also covers JobCancellationException. A
+                            // cancellation never carries a real engine failure, so it must not be
+                            // classified as critical (IllegalStateException) and crash/report.
+                            java.util.concurrent.CancellationException::class.java
                         )
                 }
 

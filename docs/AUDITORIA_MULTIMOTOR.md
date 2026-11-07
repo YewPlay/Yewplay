@@ -386,3 +386,24 @@ de motor. Com fallback automático ligado, um cancelamento ainda dispararia um s
 motor. Correção: `catch (CancellationException) { throw e }` antes dos demais — cancelamento
 propaga intacto, sem embrulho e sem fallback. Regressão coberta por teste
 (`execute propagates cancellation unwrapped and never falls back`).
+
+### Endurecimento complementar (mesma causa raiz, dois caminhos restantes)
+
+1. **`App.configureRxJavaErrorHandler`**: sinais RxJava undeliverable (ex.: `onError` emitido
+   após o dispose da subscription, corrida legítima entre cancelamento de coroutine e fim do
+   bloco de rede bloqueante do motor) caem no handler global. `JobCancellationException` herda
+   de `IllegalStateException`, que o handler classifica como CRÍTICO → `uncaughtException` →
+   ACRA/crash. Correção: `java.util.concurrent.CancellationException` (superclasse, typealias
+   do kotlinx) entrou na lista de ignorados — o mesmo raciocínio dos `InterruptedException` já
+   existentes ("blocking code disposed"). Falhas reais seguem reportadas (listas intactas).
+2. **`YpSearchViewModel` (sugestões materializadas)**: notificações de erro vindas de
+   cancelamento eram exibidas como erro de sugestões; adicionado filtro
+   `hasAssignableCause(CancellationException::class.java)` ao lado de `isInterruptedCaused`.
+   Erros reais de sugestão continuam visíveis.
+
+Testes novos em `EngineManagerTest`: falha inesperada real continua embrulhada em
+`EngineException` (com `engineId` e causa) quando o fallback está desligado; 32 `execute`
+concorrentes são servidos pelo motor ativo sem fallback indevido. O teste de cancelamento
+(propagação sem embrulho e sem fallback) já cobre o caminho principal. Disposal Rx↔coroutines
+em si é comportamento da biblioteca kotlinx-coroutines-rx3, não testável aqui sem o extractor
+inicializado.
