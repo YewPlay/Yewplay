@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -20,8 +21,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
@@ -33,10 +36,13 @@ import io.github.yewplay.core.designsystem.YpCheckRow
 import io.github.yewplay.core.designsystem.YpPreferenceCategory
 import io.github.yewplay.core.designsystem.YpRadioRow
 import io.github.yewplay.core.designsystem.YpTheme
+import kotlinx.coroutines.launch
 import org.schabi.newpipe.R
 import org.schabi.newpipe.engine.EngineManager
 import org.schabi.newpipe.engine.EngineState
 import org.schabi.newpipe.engine.EngineSwitchResult
+import org.schabi.newpipe.engine.ExtractionEngine
+import org.schabi.newpipe.engine.SearchFilter
 import org.schabi.newpipe.local.yewplay.YpThemePrefs
 import org.schabi.newpipe.util.ThemeHelper
 
@@ -90,6 +96,9 @@ class EngineSettingsFragment : Fragment() {
     private fun EngineSettingsContent(onSwitchResult: (EngineSwitchResult) -> Unit) {
         val manager = EngineManager.get()
         val state by manager.state.collectAsState()
+        val scope = rememberCoroutineScope()
+        // engineId -> diagnostic output; a null-yet-present key means "running"
+        val probeResults = remember { mutableStateMapOf<String, String>() }
 
         LazyColumn(
             modifier = Modifier.fillMaxSize(),
@@ -123,6 +132,37 @@ class EngineSettingsFragment : Fragment() {
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         modifier = Modifier.padding(start = 56.dp, end = 24.dp, bottom = 4.dp)
                     )
+                    val probe = probeResults[engine.id]
+                    val probing = probe == RUNNING
+                    Text(
+                        text = if (probing) {
+                            stringResource(R.string.yp_engine_testing)
+                        } else {
+                            stringResource(R.string.yp_engine_test)
+                        },
+                        style = MaterialTheme.typography.labelLarge,
+                        color = if (probing) {
+                            MaterialTheme.colorScheme.onSurfaceVariant
+                        } else {
+                            MaterialTheme.colorScheme.primary
+                        },
+                        modifier = Modifier
+                            .padding(start = 56.dp, end = 24.dp, bottom = 4.dp)
+                            .clickable(enabled = !probing) {
+                                probeResults[engine.id] = RUNNING
+                                scope.launch {
+                                    probeResults[engine.id] = probeEngine(engine)
+                                }
+                            }
+                    )
+                    if (probe != null && probe != RUNNING) {
+                        Text(
+                            text = probe,
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            modifier = Modifier.padding(start = 56.dp, end = 24.dp, bottom = 8.dp)
+                        )
+                    }
                 }
             }
             item {
@@ -144,5 +184,46 @@ class EngineSettingsFragment : Fragment() {
                 )
             }
         }
+    }
+
+    /**
+     * End-to-end probe of a single engine (no fallback): suggestions, search and a video
+     * info fetch against a stable test video. The first failing step aborts the probe and
+     * reports the exact exception, so engine failures can be diagnosed from a screenshot.
+     */
+    private suspend fun probeEngine(engine: ExtractionEngine): String {
+        val out = StringBuilder()
+        try {
+            val suggestions = engine.suggestions("music")
+            out.append("suggestions: OK (").append(suggestions.size).append(")\n")
+        } catch (e: Exception) {
+            return out.append("suggestions: FAIL — ").append(describe(e)).toString()
+        }
+        try {
+            val page = engine.search("yewplay", SearchFilter.ALL, null)
+            out.append("search: OK (").append(page.items.size).append(" videos)\n")
+        } catch (e: Exception) {
+            return out.append("search: FAIL — ").append(describe(e)).toString()
+        }
+        try {
+            // Big Buck Bunny on the official YouTube Movies channel: stable, no age gate.
+            val info = engine.getVideoInfo("https://www.youtube.com/watch?v=aqz-KE-bpKQ")
+            out.append("videoInfo: OK (").append(info.formats.size).append(" formats)")
+        } catch (e: Exception) {
+            return out.append("videoInfo: FAIL — ").append(describe(e)).toString()
+        }
+        return out.toString()
+    }
+
+    private fun describe(e: Throwable): String = buildString {
+        append(e.javaClass.simpleName).append(": ").append(e.message ?: "no message")
+        val cause = e.cause
+        if (cause != null) {
+            append(" ← ").append(cause.javaClass.simpleName).append(": ").append(cause.message ?: "")
+        }
+    }
+
+    private companion object {
+        const val RUNNING = "…"
     }
 }
