@@ -200,6 +200,7 @@ class MainPlayerUi(player: Player, views: YpPlayerViews) :
                 showShare = true,
                 showOpenInBrowser = true,
                 showMute = true,
+                fullscreen = isFullscreen,
                 metadataVisible = isFullscreen,
                 closeVisible = !isFullscreen
             )
@@ -746,6 +747,7 @@ class MainPlayerUi(player: Player, views: YpPlayerViews) :
 
         chromeState.update {
             it.copy(
+                fullscreen = isFullscreen,
                 metadataVisible = isFullscreen,
                 closeVisible = !isFullscreen
             )

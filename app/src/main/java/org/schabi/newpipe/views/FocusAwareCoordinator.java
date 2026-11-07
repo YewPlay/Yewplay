@@ -29,8 +29,6 @@ import androidx.annotation.Nullable;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.view.WindowInsetsCompat;
 
-import org.schabi.newpipe.R;
-
 public final class FocusAwareCoordinator extends CoordinatorLayout {
     private final Rect childFocus = new Rect();
 
@@ -87,19 +85,8 @@ public final class FocusAwareCoordinator extends CoordinatorLayout {
         return consumed ? WindowInsetsCompat.CONSUMED.toWindowInsets() : insets;
     }
 
-    /**
-     * Adjusts player's controls manually because onApplyWindowInsets doesn't work when multiple
-     * receivers adjust its bounds. So when two listeners are present (like in profile page)
-     * the player's controls will not receive insets. This method fixes it
-     */
-    @Override
-    public WindowInsets onApplyWindowInsets(final WindowInsets windowInsets) {
-        final var windowInsetsCompat = WindowInsetsCompat.toWindowInsetsCompat(windowInsets, this);
-        final var insets = windowInsetsCompat.getInsets(WindowInsetsCompat.Type.systemBars());
-        final ViewGroup controls = findViewById(R.id.playbackControlRoot);
-        if (controls != null) {
-            controls.setPadding(insets.left, insets.top, insets.right, insets.bottom);
-        }
-        return super.onApplyWindowInsets(windowInsets);
-    }
+    // NOTE (YewPlay): the legacy hook that padded playbackControlRoot with system bar insets
+    // was removed: the player chrome is Compose now and applies the insets itself (only in
+    // fullscreen). Padding the controls view here double-counted the insets and broke the
+    // chrome layout in landscape.
 }

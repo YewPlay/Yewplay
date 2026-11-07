@@ -299,3 +299,25 @@ efeito re-disparava com o valor obsoleto e reabria o teclado com a tela coberta.
 não é mais reaberto automaticamente após a recriação (o campo mantém o texto; um toque o
 reabre). Aceito como efeito menor para eliminar o defeito grave; o estado de foco anterior não
 é rastreável de forma confiável sem reintroduzir o bug.
+
+### Adendo B — hotfix de layout do player em paisagem (insets)
+
+**Sintomas reportados**: em paisagem (fullscreen), a barra inferior de controles (posição,
+seekbar, duração, botão de rotação/saída) sumia; a superfície de vídeo aparecia deslocada
+(faixas pretas assimétricas); a sobreposição de contraste não cobria a largura da tela.
+
+**Causa raiz**: três mecanismos de insets competiam no player: `YpPlayerViews.root` com
+`fitsSystemWindows = true` (padding de View sobre toda a raiz, deslocando a SurfaceView e o
+chrome), `FocusAwareCoordinator.onApplyWindowInsets` aplicando `setPadding(systemBars)` ao
+`playbackControlRoot` (gancho legado do chrome em Views), e `systemBarsPadding()` do Compose
+nas barras superior/inferior — aplicado inclusive com o player embutido. A soma variava
+conforme a ordem de dispatch, produzindo layouts inválidos (chrome mais alto que a tela, com a
+barra inferior fora da área visível).
+
+**Correção (camada de integração, UI própria do YewPlay)**: fonte única de insets —
+a raiz do player passa a ser full-bleed (sem `fitsSystemWindows`); o gancho legado do
+`FocusAwareCoordinator` foi removido; o chrome Compose aplica `systemBarsPadding()` apenas
+quando `YpChromeState.fullscreen` (novo campo, espelhado de `isFullscreen` no `MainPlayerUi`).
+Comportamento resultante: fullscreen paisagem → barras do chrome respeitam as barras do
+sistema e a barra inferior volta a ser visível; player embutido (retrato) → chrome rente às
+bordas do player, sem padding extra.

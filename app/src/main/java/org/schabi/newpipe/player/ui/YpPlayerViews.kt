@@ -24,7 +24,9 @@ class YpPlayerViews(context: Context) {
         layoutParams = RelativeLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT)
         setBackgroundColor(Color.BLACK)
         gravity = android.view.Gravity.CENTER
-        fitsSystemWindows = true
+        // full-bleed: the player surface is always centered on the real bounds and the
+        // Compose chrome is the single place that applies system bar insets (fullscreen only);
+        // padding this root with insets double-counted them and shifted the surface/chrome
         visibility = View.GONE
     }
 

@@ -140,6 +140,8 @@ data class YpChromeState(
     val repeatOff: Boolean = true,
     val repeatOne: Boolean = false,
     // main player chrome
+    /** Fullscreen main player: only then the chrome applies system bar insets. */
+    val fullscreen: Boolean = false,
     val metadataVisible: Boolean = false,
     val closeVisible: Boolean = true,
     val secondaryVisible: Boolean = false,
@@ -435,7 +437,7 @@ private fun YpTopControls(
     Column(
         Modifier
             .fillMaxWidth()
-            .systemBarsPadding()
+            .then(if (state.fullscreen) Modifier.systemBarsPadding() else Modifier)
             .padding(horizontal = 8.dp)
     ) {
         Row(
@@ -713,7 +715,7 @@ private fun YpBottomControls(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .fillMaxWidth()
-            .systemBarsPadding()
+            .then(if (state.fullscreen) Modifier.systemBarsPadding() else Modifier)
             .padding(horizontal = 12.dp)
             .height(40.dp)
     ) {
