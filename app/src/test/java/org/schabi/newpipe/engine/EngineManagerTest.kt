@@ -4,6 +4,7 @@
 
 package org.schabi.newpipe.engine
 
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -169,6 +170,22 @@ class EngineManagerTest {
         assertTrue(result.fallbackUsed)
         assertEquals("backup", result.servedBy.id)
         assertFalse(prefs.strings.containsKey(EngineManager.KEY_ENGINE))
+    }
+
+    @Test(expected = CancellationException::class)
+    fun `execute propagates cancellation unwrapped and never falls back`(): Unit = runBlocking {
+        val slow = FakeEngine(EngineManager.NEWPIPE_ID)
+        val backup = FakeEngine("backup")
+        manager.register(slow)
+        manager.register(backup)
+        manager.setAutoFallbackEnabled(true)
+
+        runBlocking {
+            manager.execute(EngineCapability.SEARCH_VIDEOS) {
+                throw CancellationException("scope cancelled")
+            }
+        }
+        Unit
     }
 
     @Test(expected = EngineException::class)

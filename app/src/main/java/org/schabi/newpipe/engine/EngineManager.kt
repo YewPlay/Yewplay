@@ -5,6 +5,7 @@
 package org.schabi.newpipe.engine
 
 import android.util.Log
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -111,6 +112,10 @@ class EngineManager private constructor(
         val primary = active()
         try {
             return FallbackResult(operation(primary), primary.descriptor, fallbackUsed = false)
+        } catch (e: CancellationException) {
+            // Coroutine cancellation is not an engine failure: never wrap it in an
+            // EngineException (it would surface as a bogus UI error) and never fall back.
+            throw e
         } catch (e: EngineException) {
             Log.w(TAG, "engine ${primary.descriptor.id} failed: ${e.message}")
             if (!e.recoverable || !isAutoFallbackEnabled()) throw e

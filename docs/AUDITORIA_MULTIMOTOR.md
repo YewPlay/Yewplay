@@ -374,3 +374,15 @@ canal/playlist seguem no `ExtractorHelper`), `HistoryRecordManager` e `YpSearchV
 3. A conversão depende de `NewPipe.getService()` (id derivado da URL, handler de busca),
    então não é testável em JUnit puro; a cobertura unitária do roteamento/fallback está em
    `EngineManagerTest` e a conversão é validada end-to-end no APK de debug.
+
+## Adendo — hotfix de cancelamento no EngineManager (ACRA)
+
+Relatório ACRA ("ui error"): `EngineException: RxSingleCoroutine was cancelled` vinda de
+`EngineManager.execute`. Causa raiz: o `catch (e: Exception)` genérico capturava
+`JobCancellationException` — o cancelamento normal da coroutine quando a UI descarta a
+subscription (digitação contínua na busca, saída do detalhe) — e o embrulhava em
+`EngineException`, que era então entregue ao consumidor de erro da UI como se fosse falha
+de motor. Com fallback automático ligado, um cancelamento ainda dispararia um segundo
+motor. Correção: `catch (CancellationException) { throw e }` antes dos demais — cancelamento
+propaga intacto, sem embrulho e sem fallback. Regressão coberta por teste
+(`execute propagates cancellation unwrapped and never falls back`).
