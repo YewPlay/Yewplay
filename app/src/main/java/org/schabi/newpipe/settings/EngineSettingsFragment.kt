@@ -149,9 +149,10 @@ class EngineSettingsFragment : Fragment() {
                         modifier = Modifier
                             .padding(start = 56.dp, end = 24.dp, bottom = 4.dp)
                             .clickable(enabled = !probing) {
+                                val target = manager.engineOf(engine.id) ?: return@clickable
                                 probeResults[engine.id] = RUNNING
                                 scope.launch {
-                                    probeResults[engine.id] = probeEngine(engine)
+                                    probeResults[engine.id] = probeEngine(target)
                                 }
                             }
                     )

@@ -64,6 +64,9 @@ class EngineManager private constructor(
 
     fun descriptorOf(id: String): EngineDescriptor? = synchronized(engines) { engines[id]?.descriptor }
 
+    /** Direct engine access for diagnostics; normal callers must go through [execute]. */
+    fun engineOf(id: String): ExtractionEngine? = synchronized(engines) { engines[id] }
+
     fun stateOf(id: String): EngineState = synchronized(engines) {
         engines[id]?.checkAvailability() ?: EngineState.UNAVAILABLE
     }
