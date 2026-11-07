@@ -1,7 +1,7 @@
 branch: yewplay/multiengine
-sha: a784576fa41af6a6331be254ca347f538bbcad66
+sha: 8bd860d2c007541c8ca8832a854db536cc293df9
 outcome: success
-run: https://github.com/YewPlay/Yewplay/actions/runs/42360091858
+run: https://github.com/YewPlay/Yewplay/actions/runs/42366857377
 
 == errors ==
 
@@ -143,10 +143,7 @@ OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader clas
 > Task :engine:newtube:youtubeapi:compileDebugUnitTestJavaWithJavac NO-SOURCE
 > Task :engine:newtube:youtubeapi:processDebugUnitTestJavaRes NO-SOURCE
 > Task :engine:newtube:youtubeapi:testDebugUnitTest NO-SOURCE
-
-> Task :app:kspDebugKotlin
-w: [ksp] /home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/database/feed/dao/FeedDAO.kt:178: The DAO function return type (kotlin.collections.List<java.time.OffsetDateTime?>) with the nullable type argument is meaningless because for now Room will never put a null value in a result.
-w: [ksp] /home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/database/feed/dao/FeedDAO.kt:181: The DAO function return type (kotlin.collections.List<java.time.OffsetDateTime?>) with the nullable type argument is meaningless because for now Room will never put a null value in a result.
+> Task :engine:newtube:sharedutils:lintAnalyzeDebug
 
 > Task :engine:newtube:sharedutils:lintReportDebug
 Wrote HTML report to file:///home/runner/work/Yewplay/Yewplay/engine/newtube/sharedutils/build/reports/lint-results-debug.html
@@ -160,6 +157,11 @@ Wrote HTML report to file:///home/runner/work/Yewplay/Yewplay/engine/newtube/med
 Wrote SARIF report to file:///home/runner/work/Yewplay/Yewplay/engine/newtube/mediaserviceinterfaces/build/reports/lint-results-debug.sarif
 
 > Task :engine:newtube:mediaserviceinterfaces:lintDebug
+
+> Task :app:kspDebugKotlin
+w: [ksp] /home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/database/feed/dao/FeedDAO.kt:178: The DAO function return type (kotlin.collections.List<java.time.OffsetDateTime?>) with the nullable type argument is meaningless because for now Room will never put a null value in a result.
+w: [ksp] /home/runner/work/Yewplay/Yewplay/app/src/main/java/org/schabi/newpipe/database/feed/dao/FeedDAO.kt:181: The DAO function return type (kotlin.collections.List<java.time.OffsetDateTime?>) with the nullable type argument is meaningless because for now Room will never put a null value in a result.
+
 > Task :engine:newtube:youtubeapi:lintAnalyzeDebug
 > Task :app:kaptGenerateStubsDebugKotlin
 
@@ -259,18 +261,18 @@ Note: Some input files use unchecked or unsafe operations.
 Note: Recompile with -Xlint:unchecked for details.
 
 > Task :app:processDebugJavaRes
-> Task :app:generateDebugLintReportModel
 > Task :app:bundleDebugClassesToCompileJar
-> Task :app:kspDebugUnitTestKotlin
-> Task :app:mergeDebugJavaResource
+> Task :app:generateDebugLintReportModel
 > Task :app:generateDebugAndroidTestLintModel
+> Task :app:kspDebugUnitTestKotlin
 > Task :app:generateDebugUnitTestLintModel
-> Task :app:kaptGenerateStubsDebugUnitTestKotlin
-> Task :app:kaptDebugUnitTestKotlin SKIPPED
 
 > Task :app:lintAnalyzeDebug
 com.evernote.android.state.lint.registry.StateIssueRegistry in /home/runner/.gradle/caches/9.8.2/transforms/96095e752b50ab1dcd8f4a0a18e542cf/transformed/android-state-1.4.1/jars/lint.jar does not specify a vendor; see IssueRegistry#vendor
 
+> Task :app:kaptGenerateStubsDebugUnitTestKotlin
+> Task :app:kaptDebugUnitTestKotlin SKIPPED
+> Task :app:mergeDebugJavaResource
 > Task :app:lintAnalyzeDebugAndroidTest
 
 > Task :app:compileDebugUnitTestKotlin
@@ -292,13 +294,11 @@ w: file:///home/runner/work/Yewplay/Yewplay/app/src/test/java/org/schabi/newpipe
 > Task :app:copyRoomSchemas NO-SOURCE
 > Task :app:bundleDebugClassesToRuntimeJar
 > Task :app:processDebugUnitTestJavaRes
-> Task :app:lintAnalyzeDebugUnitTest
-> Task :app:dexBuilderDebug
-
 OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
-
-> Task :app:mergeProjectDexDebug
+> Task :app:dexBuilderDebug
+> Task :app:lintAnalyzeDebugUnitTest
 > Task :app:testDebugUnitTest
+> Task :app:mergeProjectDexDebug
 > Task :app:packageDebug
 > Task :app:assembleDebug
 > Task :app:createDebugApkListingFileRedirect
@@ -317,6 +317,6 @@ You can use '--warning-mode all' to show the individual deprecation warnings and
 
 For more on this, please refer to https://docs.gradle.org/9.8.2/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
 
-BUILD SUCCESSFUL in 8m 22s
+BUILD SUCCESSFUL in 8m 8s
 451 actionable tasks: 451 executed
 Configuration cache entry stored.
