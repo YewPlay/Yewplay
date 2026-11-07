@@ -60,7 +60,9 @@ data class YpVideoInfo(
     val uploadDate: String?,
     val formats: List<YpMediaFormat>,
     val subtitles: List<YpSubtitleTrack>,
-    val likeCount: Long = -1
+    val likeCount: Long = -1,
+    /** True for live broadcasts (ongoing or upcoming), false for regular VOD. */
+    val isLive: Boolean = false
 )
 
 data class YpChannelInfo(

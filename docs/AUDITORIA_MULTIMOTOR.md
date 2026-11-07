@@ -321,3 +321,56 @@ quando `YpChromeState.fullscreen` (novo campo, espelhado de `isFullscreen` no `M
 Comportamento resultante: fullscreen paisagem → barras do chrome respeitam as barras do
 sistema e a barra inferior volta a ser visível; player embutido (retrato) → chrome rente às
 bordas do player, sem padding extra.
+
+## Adendo — FASE 12 (ponte motores × modelo extractor): EngineExtractorBridge
+
+**Objetivo.** Permitir que os call sites clássicos do NewPipe (que falam tipos do
+NewPipeExtractor: `StreamInfo`, `SearchInfo`, `InfoItemsPage`) sejam servidos por qualquer
+motor registrado no `EngineManager`, sem tocar nos internals de extração e sem alterar o
+comportamento do caminho NewPipe.
+
+**Componente novo:** `app/.../engine/bridge/EngineExtractorBridge.kt` (objeto Kotlin com
+`@JvmStatic`, consumível de Java e Kotlin). API espelha o `ExtractorHelper`:
+
+- `getStreamInfo(serviceId, url, forceLoad): Single<StreamInfo>`
+- `searchFor(serviceId, query, contentFilter, sortFilter): Single<SearchInfo>`
+- `getMoreSearchItems(serviceId, query, contentFilter, sortFilter, page): Single<InfoItemsPage<InfoItem>>`
+- `suggestionsFor(serviceId, query): Single<List<String>>`
+
+**Regra de roteamento:** se `serviceId != YouTube` ou o motor ativo é o `newpipe` (ou o
+`EngineManager` ainda não foi inicializado), delega ao `ExtractorHelper` — caminho NewPipe
+bit a bit idêntico ao upstream. Caso contrário executa via `EngineManager.execute()` (logo,
+com o fallback limitado e opt-in já implementado na FASE 5) e converte os modelos padronizados
+(`YpVideoInfo`, `YpSearchPage`…) para os modelos do extractor.
+
+**Conversão (engine → extractor):**
+- `YpVideoInfo` → `StreamInfo` (construtor público + setters): formatos muxados →
+  `videoStreams`; separados de vídeo → `videoOnlyStreams`; áudio → `audioStreams`
+  (builders `VideoStream.Builder`/`AudioStream.Builder`, `DeliveryMethod.PROGRESSIVE_HTTP`,
+  `Stream.ID_UNKNOWN`); entradas de manifesto (mime `dash+xml`/`x-mpegURL`) → `dashMpdUrl`/
+  `hlsUrl`; legendas → `SubtitlesStream` (YouTube serve TTML); `YpVideoInfo.isLive` (novo
+  campo, preenchido pelos três motores) → `StreamType.LIVE_STREAM`.
+- `YpSearchPage` → `SearchInfo` (handler construído pela `searchQHFactory` do serviço
+  YouTube do extractor — uso de camada de integração, apenas metadados de filtro) +
+  `InfoItemsPage` com `Page(nextPageKey)` opaco de ida e volta.
+- Cache: `StreamInfo` produzido por motor entra no mesmo `InfoCache` do `ExtractorHelper`,
+  com a mesma semântica de `checkCache` (forceLoad evita e invalida; senão cache-first).
+  `ExtractorHelper.isCached` e consumidores downstream (fila, player) funcionam uniformes.
+
+**Call sites conectados (9 arquivos):** `YpVideoDetailFragment` (detalhe/player),
+`PlayQueueItem`, `Player` (TimestampChange), `SparseItemUtil`,
+`MediaBrowserPlaybackPreparer` (InfoType.STREAM), `RouterActivity` (3 sites de stream;
+canal/playlist seguem no `ExtractorHelper`), `HistoryRecordManager` e `YpSearchViewModel`
+(busca, paginação e sugestões).
+
+**Limitações conhecidas (documentadas, não simuladas):**
+1. `ChannelInfo`/`PlaylistInfo` têm construtor fechado no extractor — a ponte de canal e
+   playlist completa fica para fase posterior; por ora essas telas usam o extractor
+   (funcionam, pois o serviço YouTube do NewPipeExtractor permanece disponível).
+2. `StreamInfo.relatedItems` sai vazio para motores não-NewPipe (o contrato
+   `YpVideoInfo` ainda não carrega relacionados) — a seção de relacionados do detalhe
+   fica vazia com motor alternativo até a FASE 13 (extensão de contrato + UI por
+   capacidade).
+3. A conversão depende de `NewPipe.getService()` (id derivado da URL, handler de busca),
+   então não é testável em JUnit puro; a cobertura unitária do roteamento/fallback está em
+   `EngineManagerTest` e a conversão é validada end-to-end no APK de debug.

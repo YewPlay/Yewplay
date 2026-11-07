@@ -75,6 +75,7 @@ import org.schabi.newpipe.database.stream.model.StreamEntity
 import org.schabi.newpipe.database.subscription.SubscriptionEntity
 import org.schabi.newpipe.databinding.FragmentVideoDetailBinding
 import org.schabi.newpipe.download.DownloadDialog
+import org.schabi.newpipe.engine.bridge.EngineExtractorBridge
 import org.schabi.newpipe.error.ErrorInfo
 import org.schabi.newpipe.error.ErrorUtil
 import org.schabi.newpipe.error.ReCaptchaActivity
@@ -963,7 +964,7 @@ class YpVideoDetailFragment :
 
     private fun runWorker(forceLoad: Boolean, addToBackStack: Boolean) {
         val prefs = PreferenceManager.getDefaultSharedPreferences(activity)
-        currentWorker = ExtractorHelper.getStreamInfo(serviceId, url, forceLoad)
+        currentWorker = EngineExtractorBridge.getStreamInfo(serviceId, url, forceLoad)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ result ->

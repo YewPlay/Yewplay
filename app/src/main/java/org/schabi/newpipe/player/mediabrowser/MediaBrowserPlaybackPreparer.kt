@@ -16,6 +16,7 @@ import java.util.function.Consumer
 import org.schabi.newpipe.MainActivity
 import org.schabi.newpipe.NewPipeDatabase
 import org.schabi.newpipe.R
+import org.schabi.newpipe.engine.bridge.EngineExtractorBridge
 import org.schabi.newpipe.error.ErrorInfo
 import org.schabi.newpipe.extractor.InfoItem.InfoType
 import org.schabi.newpipe.extractor.exceptions.ContentNotAvailableException
@@ -225,7 +226,7 @@ class MediaBrowserPlaybackPreparer(
 
         val serviceId = path[1].toInt()
         return when (infoItemTypeFromString(path[0])) {
-            InfoType.STREAM -> ExtractorHelper.getStreamInfo(serviceId, url, false)
+            InfoType.STREAM -> EngineExtractorBridge.getStreamInfo(serviceId, url, false)
                 .map { SinglePlayQueue(it) }
 
             InfoType.PLAYLIST -> ExtractorHelper.getPlaylistInfo(serviceId, url, false)

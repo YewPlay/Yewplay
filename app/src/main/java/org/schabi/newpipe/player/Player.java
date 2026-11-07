@@ -117,7 +117,7 @@ import org.schabi.newpipe.player.ui.PopupPlayerUi;
 import org.schabi.newpipe.player.ui.VideoPlayerUi;
 import org.schabi.newpipe.player.ui.YpPlayerViews;
 import org.schabi.newpipe.util.DependentPreferenceHelper;
-import org.schabi.newpipe.util.ExtractorHelper;
+import org.schabi.newpipe.engine.bridge.EngineExtractorBridge;
 import org.schabi.newpipe.util.ListHelper;
 import org.schabi.newpipe.util.NavigationHelper;
 import org.schabi.newpipe.util.SerializedCache;
@@ -399,7 +399,8 @@ public final class Player implements PlaybackListener, Listener {
                 final var data = Objects.requireNonNull(IntentCompat.getParcelableExtra(intent,
                         PLAYER_INTENT_DATA, TimestampChangeData.class));
                 final Single<StreamInfo> single =
-                        ExtractorHelper.getStreamInfo(data.getServiceId(), data.getUrl(), false);
+                        EngineExtractorBridge.getStreamInfo(data.getServiceId(), data.getUrl(),
+                                false);
                 streamItemDisposable.add(single.subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(info -> {

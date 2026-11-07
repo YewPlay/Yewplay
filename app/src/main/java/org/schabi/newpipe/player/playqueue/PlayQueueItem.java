@@ -7,7 +7,7 @@ import org.schabi.newpipe.extractor.Image;
 import org.schabi.newpipe.extractor.stream.StreamInfo;
 import org.schabi.newpipe.extractor.stream.StreamInfoItem;
 import org.schabi.newpipe.extractor.stream.StreamType;
-import org.schabi.newpipe.util.ExtractorHelper;
+import org.schabi.newpipe.engine.bridge.EngineExtractorBridge;
 
 import java.io.Serializable;
 import java.util.List;
@@ -139,7 +139,7 @@ public class PlayQueueItem implements Serializable {
 
     @NonNull
     public Single<StreamInfo> getStream() {
-        return ExtractorHelper.getStreamInfo(this.serviceId, this.url, false)
+        return EngineExtractorBridge.getStreamInfo(this.serviceId, this.url, false)
                 .subscribeOn(Schedulers.io())
                 .doOnError(throwable -> error = throwable);
     }

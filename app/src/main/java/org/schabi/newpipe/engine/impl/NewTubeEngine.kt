@@ -134,7 +134,8 @@ class NewTubeEngine(
                             it.type.equals("asr", ignoreCase = true)
                     )
                 } ?: emptyList(),
-                likeCount = metadata?.likeCount?.toLongOrNull() ?: -1
+                likeCount = metadata?.likeCount?.toLongOrNull() ?: -1,
+                isLive = formats.isLive || formats.isLiveContent
             )
         } catch (e: EngineException) {
             throw e

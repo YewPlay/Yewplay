@@ -32,6 +32,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import org.schabi.newpipe.R
+import org.schabi.newpipe.engine.bridge.EngineExtractorBridge
 import org.schabi.newpipe.error.ErrorInfo
 import org.schabi.newpipe.error.UserAction
 import org.schabi.newpipe.extractor.InfoItem
@@ -49,7 +50,6 @@ import org.schabi.newpipe.local.history.HistoryRecordManager
 import org.schabi.newpipe.local.subscription.SubscriptionManager
 import org.schabi.newpipe.local.yewplay.YpItems
 import org.schabi.newpipe.settings.NewPipeSettings
-import org.schabi.newpipe.util.ExtractorHelper
 import org.schabi.newpipe.util.NavigationHelper
 import org.schabi.newpipe.util.ServiceHelper
 
@@ -259,7 +259,7 @@ class YpSearchViewModel(application: Application) : AndroidViewModel(application
         .toObservable()
         .map { entries -> entries.map { SearchSuggestion(it, fromHistory = true) } }
 
-    private fun remoteSuggestions(query: String): Observable<List<SearchSuggestion>> = ExtractorHelper.suggestionsFor(serviceId, query)
+    private fun remoteSuggestions(query: String): Observable<List<SearchSuggestion>> = EngineExtractorBridge.suggestionsFor(serviceId, query)
         .toObservable()
         .map { entries -> entries.map { SearchSuggestion(it, fromHistory = false) } }
 
@@ -322,7 +322,7 @@ class YpSearchViewModel(application: Application) : AndroidViewModel(application
         suggestionPublisher.onNext(trimmed)
 
         searchDisposable?.dispose()
-        searchDisposable = ExtractorHelper.searchFor(serviceId, trimmed, contentFilter, sortFilter)
+        searchDisposable = EngineExtractorBridge.searchFor(serviceId, trimmed, contentFilter, sortFilter)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(::handleResult, ::handleSearchError)
@@ -342,7 +342,7 @@ class YpSearchViewModel(application: Application) : AndroidViewModel(application
         }
         _state.update { it.copy(isLoadingMore = true) }
         searchDisposable?.dispose()
-        searchDisposable = ExtractorHelper
+        searchDisposable = EngineExtractorBridge
             .getMoreSearchItems(serviceId, searchString, contentFilter, sortFilter, page)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

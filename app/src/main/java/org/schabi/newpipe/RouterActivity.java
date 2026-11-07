@@ -73,6 +73,7 @@ import org.schabi.newpipe.player.playqueue.SinglePlayQueue;
 import org.schabi.newpipe.util.ChannelTabHelper;
 import org.schabi.newpipe.util.Constants;
 import org.schabi.newpipe.util.DeviceUtils;
+import org.schabi.newpipe.engine.bridge.EngineExtractorBridge;
 import org.schabi.newpipe.util.ExtractorHelper;
 import org.schabi.newpipe.util.NavigationHelper;
 import org.schabi.newpipe.util.PermissionHelper;
@@ -801,7 +802,7 @@ public class RouterActivity extends AppCompatActivity {
             inFlight(true);
             final LoadingDialog loadingDialog = new LoadingDialog(R.string.loading_metadata_title);
             loadingDialog.show(getParentFragmentManager(), "loadingDialog");
-            disposables.add(ExtractorHelper.getStreamInfo(currentServiceId, currentUrl, true)
+            disposables.add(EngineExtractorBridge.getStreamInfo(currentServiceId, currentUrl, true)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .compose(this::pleaseWait)
@@ -821,7 +822,7 @@ public class RouterActivity extends AppCompatActivity {
 
         private void openAddToPlaylistDialog(final int currentServiceId, final String currentUrl) {
             inFlight(true);
-            disposables.add(ExtractorHelper.getStreamInfo(currentServiceId, currentUrl, false)
+            disposables.add(EngineExtractorBridge.getStreamInfo(currentServiceId, currentUrl, false)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .compose(this::pleaseWait)
@@ -954,7 +955,7 @@ public class RouterActivity extends AppCompatActivity {
 
             switch (choice.linkType) {
                 case STREAM:
-                    single = ExtractorHelper.getStreamInfo(choice.serviceId, choice.url, false);
+                    single = EngineExtractorBridge.getStreamInfo(choice.serviceId, choice.url, false);
                     userAction = UserAction.REQUESTED_STREAM;
                     break;
                 case CHANNEL:

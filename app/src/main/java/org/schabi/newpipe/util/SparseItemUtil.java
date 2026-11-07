@@ -13,6 +13,7 @@ import org.schabi.newpipe.R;
 import org.schabi.newpipe.database.stream.model.StreamEntity;
 import org.schabi.newpipe.error.ErrorInfo;
 import org.schabi.newpipe.error.ErrorUtil;
+import org.schabi.newpipe.engine.bridge.EngineExtractorBridge;
 import org.schabi.newpipe.error.UserAction;
 import org.schabi.newpipe.extractor.stream.StreamInfo;
 import org.schabi.newpipe.extractor.stream.StreamInfoItem;
@@ -102,7 +103,7 @@ public final class SparseItemUtil {
                                                         @NonNull final String url,
                                                         final Consumer<StreamInfo> callback) {
         Toast.makeText(context, R.string.loading_stream_details, Toast.LENGTH_SHORT).show();
-        ExtractorHelper.getStreamInfo(serviceId, url, false)
+        EngineExtractorBridge.getStreamInfo(serviceId, url, false)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(result -> {

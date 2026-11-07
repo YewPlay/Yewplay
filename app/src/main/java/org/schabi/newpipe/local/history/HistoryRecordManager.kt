@@ -32,12 +32,12 @@ import org.schabi.newpipe.database.playlist.model.PlaylistStreamEntity
 import org.schabi.newpipe.database.stream.StreamStatisticsEntry
 import org.schabi.newpipe.database.stream.model.StreamEntity
 import org.schabi.newpipe.database.stream.model.StreamStateEntity
+import org.schabi.newpipe.engine.bridge.EngineExtractorBridge
 import org.schabi.newpipe.extractor.InfoItem
 import org.schabi.newpipe.extractor.stream.StreamInfo
 import org.schabi.newpipe.extractor.stream.StreamInfoItem
 import org.schabi.newpipe.local.feed.FeedViewModel
 import org.schabi.newpipe.player.playqueue.PlayQueueItem
-import org.schabi.newpipe.util.ExtractorHelper
 
 class HistoryRecordManager(context: Context) {
 
@@ -84,7 +84,7 @@ class HistoryRecordManager(context: Context) {
                 // Duration will not exist if the item was loaded with fast mode, so fetch it
                 // if empty
                 if (info.duration < 0) {
-                    val completeInfo = ExtractorHelper.getStreamInfo(
+                    val completeInfo = EngineExtractorBridge.getStreamInfo(
                         info.serviceId,
                         info.url,
                         false
