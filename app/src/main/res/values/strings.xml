@@ -928,6 +928,8 @@
     <string name="yp_engine_auto_fallback_summary">Temporarily use another engine when the selected one fails (your preference is kept)</string>
     <string name="yp_engine_test">Run diagnostics</string>
     <string name="yp_engine_testing">Testing…</string>
+    <string name="yp_engine_test_bridge">Full diagnostics (app path, all engines)</string>
+    <string name="yp_engine_section_diagnostics">App-path diagnostics</string>
     <string name="yp_engine_state_available">Available</string>
     <string name="yp_engine_state_unavailable">Unavailable</string>
     <string name="yp_engine_state_error">Error</string>

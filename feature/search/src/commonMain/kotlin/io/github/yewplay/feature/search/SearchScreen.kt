@@ -138,6 +138,8 @@ data class SearchActions(
     val onCancel: () -> Unit,
     val onClear: () -> Unit,
     val onFieldFocused: () -> Unit,
+    /** The field lost the focus (e.g. after a submit): typing state no longer shows suggestions. */
+    val onFieldUnfocused: () -> Unit,
     /** Marks the pending focus request as consumed, so it is not re-applied on recreation. */
     val onFocusRequestHandled: () -> Unit,
     val onSuggestionClick: (SearchSuggestion) -> Unit,
@@ -272,7 +274,9 @@ private fun SearchField(
                     modifier = Modifier
                         .fillMaxWidth()
                         .focusRequester(focusRequester)
-                        .onFocusChanged { if (it.isFocused) actions.onFieldFocused() },
+                        .onFocusChanged {
+                            if (it.isFocused) actions.onFieldFocused() else actions.onFieldUnfocused()
+                        },
                     value = value,
                     onValueChange = {
                         value = it

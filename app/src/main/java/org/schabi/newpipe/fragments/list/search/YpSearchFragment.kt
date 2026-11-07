@@ -124,6 +124,7 @@ class YpSearchFragment : BaseFragment(), BackPressable {
         onCancel = { requireActivity().onBackPressedDispatcher.onBackPressed() },
         onClear = viewModel::onClear,
         onFieldFocused = viewModel::onFieldFocused,
+        onFieldUnfocused = viewModel::onFieldUnfocused,
         onFocusRequestHandled = viewModel::onFocusRequestHandled,
         onSuggestionClick = { viewModel.search(it.query) },
         onSuggestionInsert = { viewModel.editQuery(it.query) },

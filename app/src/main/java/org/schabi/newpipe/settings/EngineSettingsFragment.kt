@@ -4,6 +4,7 @@
 
 package org.schabi.newpipe.settings
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -28,6 +29,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -36,13 +38,20 @@ import io.github.yewplay.core.designsystem.YpCheckRow
 import io.github.yewplay.core.designsystem.YpPreferenceCategory
 import io.github.yewplay.core.designsystem.YpRadioRow
 import io.github.yewplay.core.designsystem.YpTheme
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.schabi.newpipe.R
 import org.schabi.newpipe.engine.EngineManager
 import org.schabi.newpipe.engine.EngineState
 import org.schabi.newpipe.engine.EngineSwitchResult
 import org.schabi.newpipe.engine.ExtractionEngine
 import org.schabi.newpipe.engine.SearchFilter
+import org.schabi.newpipe.engine.bridge.EngineExtractorBridge
+import org.schabi.newpipe.extractor.Page
+import org.schabi.newpipe.extractor.ServiceList
+import org.schabi.newpipe.local.yewplay.YpItems
 import org.schabi.newpipe.local.yewplay.YpThemePrefs
 import org.schabi.newpipe.util.ThemeHelper
 
@@ -184,6 +193,40 @@ class EngineSettingsFragment : Fragment() {
                     modifier = Modifier.padding(start = 56.dp, end = 24.dp)
                 )
             }
+            item {
+                val context = LocalContext.current
+                var bridgeProbe by remember { mutableStateOf<String?>(null) }
+                val probing = bridgeProbe == RUNNING
+                val probeText = bridgeProbe
+                YpPreferenceCategory(stringResource(R.string.yp_engine_section_diagnostics))
+                Text(
+                    text = if (probing) {
+                        stringResource(R.string.yp_engine_testing)
+                    } else {
+                        stringResource(R.string.yp_engine_test_bridge)
+                    },
+                    style = MaterialTheme.typography.labelLarge,
+                    color = if (probing) {
+                        MaterialTheme.colorScheme.onSurfaceVariant
+                    } else {
+                        MaterialTheme.colorScheme.primary
+                    },
+                    modifier = Modifier
+                        .padding(start = 56.dp, end = 24.dp, bottom = 4.dp)
+                        .clickable(enabled = !probing) {
+                            bridgeProbe = RUNNING
+                            scope.launch { bridgeProbe = probeBridgePath(context) }
+                        }
+                )
+                if (probeText != null && probeText != RUNNING) {
+                    Text(
+                        text = probeText,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier.padding(start = 56.dp, end = 24.dp, bottom = 8.dp)
+                    )
+                }
+            }
         }
     }
 
@@ -214,6 +257,101 @@ class EngineSettingsFragment : Fragment() {
             return out.append("videoInfo: FAIL — ").append(describe(e)).toString()
         }
         return out.toString()
+    }
+
+    /**
+     * Full app-path probe: every engine is exercised through [EngineExtractorBridge] — the exact
+     * code path the search screen and the player use — including [EngineManager.execute], the
+     * conversion into extractor models and the Compose item mapping. The per-engine probe above
+     * cannot see failures in those layers, because it calls the engine directly.
+     *
+     * The active engine is switched temporarily for each probe (engine shutdowns are no-ops)
+     * and the user's selection is always restored afterwards.
+     */
+    private suspend fun probeBridgePath(context: Context): String = withContext(Dispatchers.IO) {
+        val manager = EngineManager.get()
+        val serviceId = ServiceList.YouTube.serviceId
+        val original = manager.active().descriptor.id
+        val out = StringBuilder()
+        try {
+            for (engine in manager.descriptors()) {
+                out.append("── ").append(engine.displayName).append(" ──\n")
+                when (val sw = manager.switchTo(engine.id)) {
+                    is EngineSwitchResult.Failure -> {
+                        out.append("switch: FAIL — ").append(sw.reason).append('\n')
+                        continue
+                    }
+
+                    is EngineSwitchResult.Success -> Unit
+                }
+                probeBridgeSteps(context, serviceId, out)
+                out.append('\n')
+            }
+        } finally {
+            manager.switchTo(original)
+        }
+        out.append("active engine restored: ").append(original)
+        out.toString()
+    }
+
+    private fun probeBridgeSteps(context: Context, serviceId: Int, out: StringBuilder) {
+        try {
+            val suggestions = EngineExtractorBridge.suggestionsFor(serviceId, "music").blockingGet()
+            out.append("suggestions: OK (").append(suggestions.size).append(")\n")
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            out.append("suggestions: FAIL — ").append(describe(e)).append('\n')
+            return
+        }
+        val info = try {
+            EngineExtractorBridge.searchFor(serviceId, "yewplay", emptyList(), "").blockingGet()
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            out.append("search: FAIL — ").append(describe(e)).append('\n')
+            return
+        }
+        out.append("search: OK (").append(info.relatedItems.size).append(" items, errors: ")
+            .append(info.errors.size)
+            .append(if (Page.isValid(info.nextPage)) ", next page" else ", no next page")
+            .append(")\n")
+        var mapped = 0
+        var mappingFailure: String? = null
+        for ((index, item) in info.relatedItems.withIndex()) {
+            try {
+                YpItems.toUi(context, item)
+                mapped++
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                mappingFailure = "item #$index (${item.javaClass.simpleName}, url=${item.url}): " +
+                    describe(e)
+                break
+            }
+        }
+        if (mappingFailure != null) {
+            out.append("ui mapping: FAIL — ").append(mappingFailure).append('\n')
+            return
+        }
+        out.append("ui mapping: OK (").append(mapped).append('/')
+            .append(info.relatedItems.size).append(")\n")
+        try {
+            // Big Buck Bunny on the official YouTube Movies channel: stable, no age gate.
+            val si = EngineExtractorBridge
+                .getStreamInfo(serviceId, "https://www.youtube.com/watch?v=aqz-KE-bpKQ", true)
+                .blockingGet()
+            out.append("video: OK (video: ").append(si.videoStreams.size)
+                .append(", video-only: ").append(si.videoOnlyStreams.size)
+                .append(", audio: ").append(si.audioStreams.size)
+                .append(", HLS: ").append(if (si.hlsUrl.isNullOrBlank()) "no" else "yes")
+                .append(", DASH: ").append(if (si.dashMpdUrl.isNullOrBlank()) "no" else "yes")
+                .append(")\n")
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            out.append("video: FAIL — ").append(describe(e)).append('\n')
+        }
     }
 
     private fun describe(e: Throwable): String = buildString {

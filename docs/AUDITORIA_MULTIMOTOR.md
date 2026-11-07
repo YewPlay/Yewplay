@@ -407,3 +407,32 @@ concorrentes são servidos pelo motor ativo sem fallback indevido. O teste de ca
 (propagação sem embrulho e sem fallback) já cobre o caminho principal. Disposal Rx↔coroutines
 em si é comportamento da biblioteca kotlinx-coroutines-rx3, não testável aqui sem o extractor
 inicializado.
+
+## Adendo — Diagnóstico do caminho do app (ponte) e proteção de foco na busca (2026-11-07)
+
+Sintoma relatado: diagnósticos por motor OK, app não fecha mais ao trocar de motor, mas a
+busca não funcionava em nenhum motor. A análise estática mostrou o caminho NewPipe
+delegado intacto e a conversão da ponte null-safe; o probe por motor chamava os motores
+diretamente e **não cobria** `EngineManager.execute` → ponte → conversão → mapeamento de UI.
+
+Mudanças:
+
+1. **`EngineSettingsFragment` — "Full diagnostics (app path, all engines)"**: probe novo que
+   executa, para cada motor (trocando o ativo temporariamente e restaurando a seleção do
+   usuário ao final), o caminho exato do app via `EngineExtractorBridge`:
+   sugestões → busca (itens, erros, próxima página) → mapeamento `YpItems.toUi` item a item
+   (reporta índice/classe/url do item que falhar) → `getStreamInfo` (contagem de streams
+   progressivos, vídeo-only, áudio, HLS, DASH). Cada etapa reporta a exceção exata
+   (classe, mensagem, causa). Se o probe direto passa e este falha, a falha está na
+   ponte/conversão; se ambos passam, resta a camada de UI da busca.
+2. **`YpSearchViewModel` — proteção contra corrida de foco**: commit tardio do IME (alguns
+   teclados cometem texto ao acionar a ação de busca) chamava `onQueryChange` e reabria a
+   lista de sugestões sobre os resultados. Agora `onQueryChange` só exibe sugestões com o
+   campo focado (`onFieldFocused`/`onFieldUnfocused` novos; `fieldFocused` inicia `true`
+   para degradar ao comportamento anterior em dispositivos sem eventos de foco).
+   A submissão em si não é afetada.
+3. **Logs de diagnóstico** (`YpSearchVM`): início/resultado/erro da busca, capturados pelo
+   logcat do ACRA.
+
+Sem mudança de comportamento nos motores, na ponte ou no NewPipeExtractor; nenhuma exceção
+é suprimida — o probe novo apenas expõe as falhas com precisão.

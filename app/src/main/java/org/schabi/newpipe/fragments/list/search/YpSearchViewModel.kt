@@ -6,6 +6,7 @@ package org.schabi.newpipe.fragments.list.search
 
 import android.app.Application
 import android.content.Intent
+import android.util.Log
 import androidx.core.text.HtmlCompat
 import androidx.lifecycle.AndroidViewModel
 import androidx.preference.PreferenceManager
@@ -104,6 +105,13 @@ class YpSearchViewModel(application: Application) : AndroidViewModel(application
     private var showLocalSuggestions = true
     private var showRemoteSuggestions = true
 
+    /**
+     * Whether the search field currently has the focus (drives suggestion visibility).
+     * Starts true: if a device never delivers focus events, behavior degrades to the
+     * previous logic instead of hiding the suggestions forever.
+     */
+    private var fieldFocused = true
+
     /** Starts the screen once; later calls (e.g. after a rotation) do nothing. */
     fun init(serviceId: Int, query: String, filter: String?) {
         if (initialized) {
@@ -141,14 +149,22 @@ class YpSearchViewModel(application: Application) : AndroidViewModel(application
     /* ---------------------------------------------------------------------------------------- */
 
     fun onQueryChange(text: String) {
-        _state.update { it.copy(query = text, showSuggestions = suggestionsEnabled()) }
+        // Suggestions belong to the focused field only: a late IME text commit racing the
+        // submit must not reopen the suggestion list over the results.
+        _state.update { it.copy(query = text, showSuggestions = suggestionsEnabled() && fieldFocused) }
         suggestionPublisher.onNext(text.trim())
     }
 
     fun onFieldFocused() {
+        fieldFocused = true
         if (suggestionsEnabled() && !_state.value.showSuggestions) {
             _state.update { it.copy(showSuggestions = true) }
         }
+    }
+
+    /** The field lost the focus (e.g. after a submit cleared it). */
+    fun onFieldUnfocused() {
+        fieldFocused = false
     }
 
     fun onClear() {
@@ -328,6 +344,7 @@ class YpSearchViewModel(application: Application) : AndroidViewModel(application
         suggestionPublisher.onNext(trimmed)
 
         searchDisposable?.dispose()
+        Log.d(TAG, "search start: \"$trimmed\" service=$serviceId filter=$contentFilter")
         searchDisposable = EngineExtractorBridge.searchFor(serviceId, trimmed, contentFilter, sortFilter)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -416,6 +433,7 @@ class YpSearchViewModel(application: Application) : AndroidViewModel(application
     }
 
     private fun handleResult(result: SearchInfo) {
+        Log.d(TAG, "search result: ${result.relatedItems.size} items, errors=${result.errors.size}")
         val errors = result.errors
         if (errors.isNotEmpty() &&
             !(errors.size == 1 && errors[0] is SearchExtractor.NothingFoundException)
@@ -467,6 +485,7 @@ class YpSearchViewModel(application: Application) : AndroidViewModel(application
     }
 
     private fun handleSearchError(error: Throwable) {
+        Log.w(TAG, "search error: ${error.javaClass.simpleName}: ${error.message}", error)
         if (error is SearchExtractor.NothingFoundException) {
             _state.update { it.copy(isLoading = false, isEmpty = true) }
             return
@@ -572,6 +591,8 @@ class YpSearchViewModel(application: Application) : AndroidViewModel(application
     }
 
     private companion object {
+        const val TAG = "YpSearchVM"
+
         /** Remote suggestions are only fetched for queries at least this long. */
         const val THRESHOLD_NETWORK_SUGGESTION = 1
 
